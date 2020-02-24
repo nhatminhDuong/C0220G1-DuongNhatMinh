@@ -1,0 +1,7 @@
+Mô tả lại cú pháp và ý nghĩa của câu lệnh clone:
+
+CÚ PHÁP:	
+	git clone URL
+
+Ý NGHĨA:	
+	Lệnh clone dùng để sao chép một Remote Repository từ Git về máy tính.
