@@ -2,9 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Hiển thị đầu ra</title>
 </head>
 <body>
-$END$
+<div id="messageDiv"> </div>
+<button type="button" onclick="alert('This message is shown by alert function!');"> Button 1 (alert) </button>
+<button type="button" onclick="showMessage1();"> Button 2 (HTML tag)</button>
+<button type="button" onclick="showMessage2();"> Button 3 (document.write function) </button>
+<button type="button" onclick="showMessage3();"> Button 4 (console.log) </button>
+<script>
+function showMessage1() {
+    document.getElementById("messageDiv").innerHTML = "This message is shown by HTML tag.";
+}
+</script>
+<script>
+function showMessage2() {
+    document.write("This message is shown by document.write function.");
+}
+</script>
+<script>
+function showMessage3() {
+    console.log("Xin chào!");
+}
+</script>
 </body>
 </html>
