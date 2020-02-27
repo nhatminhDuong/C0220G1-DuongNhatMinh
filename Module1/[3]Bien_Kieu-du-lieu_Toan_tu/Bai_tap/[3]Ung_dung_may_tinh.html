@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <style>
+         td {
+            border: 1px solid grey;
+            border-color: white;
+        }
+        .inputKey{
+            width: 47px;
+            height: 35px;
+            background-color: lightgrey;
+            font-size: larger;
+        }
+         .inputNumKey {
+             width: 47px;
+             height: 35px;
+             background-color: #f2f2f2;
+             font-size: larger;
+         }
+    </style>
+</head>
+<body>
+<label for="resultDisplay">Calculator</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</strong></span>
+<button type="button" id="toggle" onclick="toggle();">Expand</button>
+<div id="simplify">
+<label for="number1">First number</label>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<label for="number2">Second number</label>
+<br>
+<input type="number" style="width: 179px;" id="number1">
+<input type="number" style="width:181px;" id="number2">
+<br><br>
+<button type="button" id="Addition" onclick="addition();">Addition(+)</button>
+<button type="button" id="Subtraction" onclick="subtraction();">Subtraction(-)</button>
+<button type="button" id="Multiplication" onclick="multiplication();">Multiplication(x)</button>
+<button type="button" id="Division" onclick="division();">Division(/)</button>
+<br><br>
+Result:&emsp;
+<span id="result"></span>
+</div>
+
+<div id="expand" style="display: none">
+    <br>
+<input type="number" style="width: 368px; height: 35px;" id="resultDisplay" disabled> <!-- space 3px-->
+    <table>
+        <tr>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">Rad</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">Deg</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">x!</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">(</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">)</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">%</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">AC</button> </td>
+        </tr>
+        <tr>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">Inv</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">sin</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">ln</button> </td>
+            <td><button type="button" class="inputNumKey" onfocus="changeColor(this);" onblur="changeNumBack(this);">7</button> </td>
+            <td><button type="button" class="inputNumKey" onfocus="changeColor(this);" onblur="changeNumBack(this);">8</button> </td>
+            <td><button type="button" class="inputNumKey" onfocus="changeColor(this);" onblur="changeNumBack(this);">9</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">&divide;</button> </td>
+        </tr>
+        <tr>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">&pi;</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">cos</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">log</button> </td>
+            <td><button type="button" class="inputNumKey" onfocus="changeColor(this);" onblur="changeNumBack(this);">4</button> </td>
+            <td><button type="button" class="inputNumKey" onfocus="changeColor(this);" onblur="changeNumBack(this);">5</button> </td>
+            <td><button type="button" class="inputNumKey" onfocus="changeColor(this);" onblur="changeNumBack(this);">6</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">x</button> </td>
+        </tr>
+        <tr>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">e</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">tan</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">&radic;</button> </td>
+            <td><button type="button" class="inputNumKey" onfocus="changeColor(this);" onblur="changeNumBack(this);">1</button> </td>
+            <td><button type="button" class="inputNumKey" onfocus="changeColor(this);" onblur="changeNumBack(this);">2</button> </td>
+            <td><button type="button" class="inputNumKey" onfocus="changeColor(this);" onblur="changeNumBack(this);">3</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">-</button> </td>
+        </tr>
+        <tr>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">Ans</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">EXP</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">x<sup>y</sup></button> </td>
+            <td><button type="button" class="inputNumKey" onfocus="changeColor(this);" onblur="changeNumBack(this);">0</button> </td>
+            <td><button type="button" class="inputNumKey" onfocus="changeColor(this);" onblur="changeNumBack(this);">.</button> </td>
+            <td><button type="button" class="inputNumKey" onfocus="changeColor(this);" onblur="changeNumBack(this);">=</button> </td>
+            <td><button type="button" class="inputKey" onfocus="changeColor(this);" onblur="changeBack(this);">+</button> </td>
+        </tr>
+    </table>
+</div>
+<script src="[3]Ung_dung_may_tinh.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ứng dụng chuyển đổi tiền tệ</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="[2]Ung_dung_chuyen_doi_tien_te.js"></script>
+</head>
+<body onload="setToCur();">
+&emsp;&emsp;&emsp;&emsp;
+<label for="amount"><strong>Amount</strong></label>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<label for="fromCur"><strong>From Currency</strong></label>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<label for="toCur"><strong>To Currency</strong></label> <br>
+<input type="number" id="amount">
+&emsp;&emsp;&emsp;&emsp;&emsp;
+<label for="fromCur"></label>
+<select id="fromCur" onchange="hideToCur();">
+    <option value="0">VND</option>
+    <option value="1">USD</option>
+    <option value="2">Euro</option>
+    <option value="3">Bảng Anh</option>
+    <option value="4">Nhân Dân Tệ</option>
+</select>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<select id="toCur" onchange="hideFromCur();">
+    <option value="0">VND</option>
+    <option value="1">USD</option>>
+    <option value="2">Euro</option>
+    <option value="3">Bảng Anh</option>
+    <option value="4">Nhân Dân Tệ</option>
+</select>
+&emsp;&emsp;&emsp;&emsp;
+<button type="button" class="btn btn-primary" id="convert" onclick="convert();">Convert</button>
+<div>
+    <h3> Kết quả:</h3>
+    <p id="result"></p>
+</div>
+</body>
+</html>

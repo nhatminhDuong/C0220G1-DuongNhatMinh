@@ -6,6 +6,7 @@ function bai1(){
     inputHoa = prompt("Nhập điểm Hóa học:");
     inputSinh = prompt("Nhập điểm Sinh học:");
 
+
     let diemLy = parseInt(inputLy);
     let diemHoa = parseInt(inputHoa);
     let diemSinh = parseInt(inputSinh);
