@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Luyện tập với toán tử</title>
+</head>
+<body>
+<button type="button" onclick="bai1()">Bài 1</button>
+<button type="button" onclick="bai2()">Bài 2</button>
+<script>
+    function bai1() {
+    let a = parseInt(prompt("Nhập a:"));
+    let b = parseInt(prompt("Nhập b:"));
+    (a+b) < 4 ? alert("Below") : alert("Over");
+    }
+    function bai2() {
+    let login = prompt("Login:");
+    let message = (login === 'Employee') ?'Hello' : (login === 'Director') ? 'Greetings' : (login === '') ? 'No login' : '';
+        alert(message);
+    }
+</script>
+</body>
+</html>
