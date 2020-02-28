@@ -2,9 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sự kiện bàn phím</title>
+    <title>Sự kiện chuột</title>
+    <style>
+        #nobita{
+            position: absolute;
+            height: 264px;
+            width: auto;
+            left: 0;
+            top: 0;
+        }
+        #doraemon{
+            position: absolute;
+            height: 500px;
+            width: auto;
+            right: 0;
+            top: 0;
+        }
+    </style>
+    <!--    <script src="https://code.jquery.com/jquery-latest.js"></script>-->
 </head>
-<body>
-<img src="nobita.jpg" id="nobita">
+<body onload="docReady()">
+<img src="nobita.jpg" id="nobita" alt="Error">
+<img src="doraemon.jpg" id="doraemon" alt="Error">
+<script>
+    function docReady() {
+        window.addEventListener("keydown", moveSelection);
+    }
+    function upArrowPressed() {
+        // let element = document.getElementById("nobita");
+        // element.style.top = parseInt(element.style.top) - 20 + 'px';
+        // alert($("#nobita").css("width"));
+        let nobiStyle = document.querySelector("#nobita");
+        let nobi = getComputedStyle(nobiStyle);
+        // (nobi.top).substr(0, nobi.top.length-2);
+        let element = document.getElementById("nobita");
+        element.style.top =  parseInt((nobi.top).substr(0, nobi.top.length-2)) - 20 + 'px';
+    }
+    function downArrowPressed() {
+        let nobiStyle = document.querySelector("#nobita");
+        let nobi = getComputedStyle(nobiStyle);
+        let element = document.getElementById("nobita");
+        element.style.top = parseInt((nobi.top).substr(0, nobi.top.length-2)) + 20 + 'px';
+    }
+    function leftArrowPressed() {
+        let nobiStyle = document.querySelector("#nobita");
+        let nobi = getComputedStyle(nobiStyle);
+        let element = document.getElementById("nobita");
+        element.style.left = parseInt((nobi.left).substr(0, nobi.left.length-2)) - 20 + 'px';
+    }
+    function rightArrowPressed() {
+        let nobiStyle = document.querySelector("#nobita");
+        let nobi = getComputedStyle(nobiStyle);
+        let element = document.getElementById("nobita");
+        element.style.left = parseInt((nobi.left).substr(0, nobi.left.length-2)) + 20 + 'px';
+    }
+    function moveSelection(evt) {
+        switch (evt.keyCode) {
+            case 37:
+                leftArrowPressed();
+                break;
+            case 39:
+                rightArrowPressed();
+                break;
+            case 38:
+                upArrowPressed();
+                break;
+            case 40:
+                downArrowPressed();
+                break;
+        }
+    }
+</script>
 </body>
 </html>

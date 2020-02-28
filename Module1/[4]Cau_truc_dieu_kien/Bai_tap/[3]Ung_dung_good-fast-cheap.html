@@ -2,9 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Ứng dụng Nhanh-Bổ-Rẻ</title>
 </head>
 <body>
-$END$
+<label class="switch"><strong>GOOD</strong>&emsp;&nbsp;
+    <input type="checkbox" id="good" onclick="clickGood()">
+    <span class="slider round"></span>
+</label>
+<br>
+<label class="switch"><strong>CHEAP</strong>&nbsp;&nbsp;&nbsp;
+    <input type="checkbox" id="cheap" onclick="clickCheap()">
+    <span class="slider round"></span>
+</label>
+<br>
+<label class="switch"><strong>FAST</strong>&emsp;&nbsp;&nbsp;&nbsp;
+    <input type="checkbox" id="fast" onclick="clickFast()">
+    <span class="slider round"></span>
+</label>
+<script>
+    let isGood = document.getElementById("good");
+    let isCheap = document.getElementById("cheap");
+    let isFast = document.getElementById("fast");
+    let total = 0;
+    function clickGood() {
+        if (isGood.checked === true) {
+            total++;
+            if (total>2) isFast.checked = false;
+        }
+        else if (total !== 0) total--;
+    }
+    function clickCheap() {
+        if (isCheap.checked === true) {
+            total++;
+            if (total>2) isGood.checked = false;
+        }
+        else if (total !== 0) total--;
+    }
+    function clickFast() {
+        if (isFast.checked === true) {
+            total++;
+            if (total>2) isCheap.checked = false;
+        }
+        else if (total !== 0) total--;
+    }
+</script>
 </body>
 </html>
