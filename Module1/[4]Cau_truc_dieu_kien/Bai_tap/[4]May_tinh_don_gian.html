@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Máy tính đơn giản</title>
+    <style>
+        td{
+            padding: 10px;
+        }
+        #calForm{
+            border: 4px solid black;
+            height: 300px;
+            width: 300px;
+            padding: 5px;
+        }
+        #calTable{
+            height: 260px;
+            width: 300px;
+        }
+        .btn{
+            height: 40px;
+            width: 50px;
+            font-size: x-large;
+            font-weight: bold;
+            font-family: Cambria, sans-serif;
+            color: #1a1aff;
+            border-color: lightgrey;
+        }
+        #result{
+            width: 296px;
+            height: 38px;
+            text-align: right;
+            color: #1a1aff;
+            font-size: x-large;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<form id="calForm">
+    <label for = "result">
+        <input type="text" id = "result" disabled>
+    </label>
+    <table id="calTable">
+        <tr>
+            <td>
+                <button type="button" class="btn" id="num1" value="1" onclick="insert(this.value)">1</button>
+            </td>
+            <td>
+                <button type="button" class="btn" id="num2" value="2" onclick="insert(this.value)">2</button>
+            </td>
+            <td>
+                <button type="button" class="btn" id="num3" value="3" onclick="insert(this.value)">3</button>
+            </td>
+            <td>
+                <button type="button" class="btn" id="operAdd" value="+" onclick="insert(this.value)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="btn" id="num4" value="4" onclick="insert(this.value)">4</button>
+            </td>
+            <td>
+                <button type="button" class="btn" id="num5" value="5" onclick="insert(this.value)">5</button>
+            </td>
+            <td>
+                <button type="button" class="btn" id="num6" value="6" onclick="insert(this.value)">6</button>
+            </td>
+            <td>
+                <button type="button" class="btn" id="operSub" value="-" onclick="insert(this.value)">-</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="btn" id="num7" value="7" onclick="insert(this.value)">7</button>
+            </td>
+            <td>
+                <button type="button" class="btn" id="num8" value="8" onclick="insert(this.value)">8</button>
+            </td>
+            <td>
+                <button type="button" class="btn" id="num9" value="9" onclick="insert(this.value)">9</button>
+            </td>
+            <td>
+                <button type="button" class="btn" id="operMul" value="*" onclick="insert(this.value)">x</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="btn" id="clear" onclick="clearALl()">C</button>
+            </td>
+            <td>
+                <button type="button" class="btn" id="num0" value="0" onclick="insert(this.value)">0</button>
+            </td>
+            <td>
+                <button type="button" class="btn" id="equal" onclick="cal()">=</button>
+            </td>
+            <td>
+                <button type="button" class="btn" id="operDiv" value="/" onclick="insert(this.value)">/</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<script>
+    let resultField = document.getElementById("result");
+    function insert(x) {
+        resultField.value = resultField.value + x;
+    }
+    function cal() {
+        resultField.value = eval(resultField.value);
+    }
+    function clearALl() {
+        resultField.value = null;
+    }
+</script>
+</body>
+</html>

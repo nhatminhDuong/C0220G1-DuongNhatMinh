@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Puzzle game</title>
+    <style>
+        .picture {
+            width: 240px;
+            height: auto;
+        }
+    </style>
+</head>
+<body onload="random()">
+<div style="text-align: center;">
+    <img src="code_part1.jpg" alt="Error" class ="picture" id="pic1" title="1" onclick="swap(this)">
+    <img src="code_part2.jpg" alt="Error" class ="picture" id="pic2" title="2" onclick="swap(this)">
+    <img src="code_part3.jpg" alt="Error" class ="picture" id="pic3" title="3" onclick="swap(this)">
+    <br>
+    <img src="code_part4.jpg" alt="Error" class ="picture" id="pic4" title="4" onclick="swap(this)">
+    <img src="code_part5.jpg" alt="Error" class ="picture" id="pic5" title="5" onclick="swap(this)">
+    <img src="code_part6.jpg" alt="Error" class ="picture" id="pic6" title="6" onclick="swap(this)">
+</div>
+<script>
+    let pictureName = ["code_part","gym_part","codegym_part"];
+    function random() {
+        /* To get a random integer within a specific range, use the following format:
+          parseInt((Math.random() * (max - min + 1)), 10) + min;
+        num = parseInt((Math.random() * (3 - 1 + 1)), 10) + 1;  */
+        let isLucky = true;
+        let lastNum = 0;
+        for (let i = 1; i <= 6; i++){
+            let picId = "pic" + i;
+            let randomNum = parseInt((Math.random() * 3), 10);
+            if (i > 1) {
+                if (randomNum !== lastNum) isLucky = false;
+            }
+            if (isLucky) lastNum = randomNum;
+            let picture = document.getElementById(picId);
+            let find = picture.src.lastIndexOf("/");
+            picture.src = picture.src.substr(0, find + 1) + pictureName[randomNum] + i + ".jpg";
+        }
+        if (isLucky) alert("BINGO!! You had a completed picture at the beginning.");
+    }
+    function swap(x) {
+        if (x.src.indexOf("code_part") !== -1) {
+            let find = x.src.lastIndexOf("/");
+            x.src = x.src.substr(0, find + 1) + "gym_part" + x.title + ".jpg";
+        }
+        else if (x.src.indexOf("codegym_part") !== -1) {
+            let find = x.src.lastIndexOf("/");
+            x.src = x.src.substr(0, find + 1) + "code_part" + x.title + ".jpg";
+        }
+        else {
+            let find = x.src.lastIndexOf("/");
+            x.src = x.src.substr(0, find + 1) + "codegym_part" + x.title + ".jpg";
+        }
+        check();
+    }
+    function check() {
+        let isMatched = false;
+        let string1 = document.getElementById("pic1").src.length-5;
+        let string2 = document.getElementById("pic2").src.length-5;
+        let string3 = document.getElementById("pic3").src.length-5;
+        let string4 = document.getElementById("pic4").src.length-5;
+        let string5 = document.getElementById("pic5").src.length-5;
+        let string6 = document.getElementById("pic6").src.length-5;
+        if ((string1 === string2) && (string2 === string3) && (string3 === string4) && (string4 === string5) && (string5 === string6)) {
+            isMatched = true;
+        }
+        if (isMatched) alert("You have just completed a picture!");
+    }
+</script>
+</body>
+</html>

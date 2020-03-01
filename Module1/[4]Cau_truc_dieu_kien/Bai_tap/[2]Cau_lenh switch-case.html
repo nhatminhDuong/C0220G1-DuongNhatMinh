@@ -7,10 +7,10 @@
 <body>
 <label for = "inputMonth">Nhập tháng</label>
 <input type = "number" id="inputMonth" width="100">
-<button type="button" id="btn" onclick="cal();">Tính số ngày</button>
+<button type="button" id="btn" onclick="calculate();">Tính số ngày</button>
 <p id ="result"></p>
 <script>
-    function cal() {
+    function calculate() {
         let month = parseInt(document.getElementById("inputMonth").value);
         switch (month) {
             case 1:
