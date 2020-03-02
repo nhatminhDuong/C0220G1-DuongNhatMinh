@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Do you love me?</title>
+    <style>
+        h1 {
+            color: red;
+            position: absolute;
+            left: 27%;
+            top: 30%;
+        }
+        #yes {
+            position: absolute;
+            left: 28%;
+            top: 45%;
+        }
+        #no {
+            position: absolute;
+            left: 38%;
+            top: 45%;
+        }
+    </style>
+</head>
+<body>
+<h1>Do you love me?</h1>
+<button type="button" id="yes" onclick="alert('Love yaa <3')">Yesss</button>
+<button type="button" id="no" onmouseover="neverSayNo()">No</button>
+<script>
+    function neverSayNo() {
+        let x = document.getElementById("no");
+        x.style.left = parseInt((Math.random() * window.innerWidth), 10) + "px";
+        x.style.top = parseInt((Math.random() * window.innerHeight), 10) + "px";
+        x.innerText = "Dare to say NO??";
+    }
+</script>
+</body>
+</html>

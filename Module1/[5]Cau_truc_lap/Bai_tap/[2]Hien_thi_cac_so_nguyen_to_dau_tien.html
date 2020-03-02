@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hiển thị các số nguyên tố đầu tiên</title>
+</head>
+<body>
+<script>
+    let numbers = parseInt(prompt("Nhập lượng số nguyên tố đầu tiên sẽ hiển thị:"));
+    let count = 0;
+    let num = 2;
+    let primeNumbers = [];
+    let outputNumbers = "";
+    while(count <= numbers) {
+        if (checkPrimeNumber(num)) {
+            primeNumbers[count] = num;
+            count++;
+        }
+        num++;
+    }
+    for (let j = 0; j <= numbers; j++) {
+        outputNumbers += primeNumbers[j] + " ";
+    }
+    alert(numbers + " số nguyên tố đầu tiên là:\n" + outputNumbers);
+    function checkPrimeNumber(x) {
+        if (x < 2) return false;
+        let isPrimeNumber = true;
+        for (let i = 2; i <= Math.sqrt(x); i++){
+            if (x % i === 0) isPrimeNumber = false;
+        }
+        return isPrimeNumber;
+    }
+</script>
+</body>
+</html>
