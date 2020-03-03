@@ -58,16 +58,20 @@
     }
     function check() {
         let isMatched = false;
-        let string1 = document.getElementById("pic1").src.length-5;
-        let string2 = document.getElementById("pic2").src.length-5;
-        let string3 = document.getElementById("pic3").src.length-5;
-        let string4 = document.getElementById("pic4").src.length-5;
-        let string5 = document.getElementById("pic5").src.length-5;
-        let string6 = document.getElementById("pic6").src.length-5;
+        let string1 = document.getElementById("pic1").src.length;
+        let string2 = document.getElementById("pic2").src.length;
+        let string3 = document.getElementById("pic3").src.length;
+        let string4 = document.getElementById("pic4").src.length;
+        let string5 = document.getElementById("pic5").src.length;
+        let string6 = document.getElementById("pic6").src.length;
         if ((string1 === string2) && (string2 === string3) && (string3 === string4) && (string4 === string5) && (string5 === string6)) {
             isMatched = true;
         }
-        if (isMatched) alert("You have just completed a picture!");
+        if (isMatched) {
+            setTimeout(function () {
+                alert("You have just completed a picture!");
+            }, 100);
+        }
     }
 </script>
 </body>
