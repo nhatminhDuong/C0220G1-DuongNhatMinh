@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Đảo ngược các phần tử trong mảng</title>
+</head>
+<body>
+<script>
+    let inputArray = [];
+    let inputElement;
+    let index = 0;
+    do {
+        inputElement = prompt('Nhập phần tử thứ ' + index + ' của mảng. Nhập "q" để kết thúc.');
+        if (inputElement === "q") break;
+        inputArray[index] = inputElement;
+        index++;
+    } while (1);
+    document.write("Mảng đã nhập: " + inputArray + "<br>");
+    for (let first = 0, last = inputArray.length - 1; first < last; first++, last--) {
+        let temp = inputArray[first];
+        inputArray[first] = inputArray[last];
+        inputArray[last] = temp;
+    }
+    document.write("Mảng đảo ngược: " + inputArray + " // dùng for" + "<br>");
+    document.write("Mảng đảo ngược lại: " + inputArray.reverse() + " // dùnng reverse().");
+</script>
+</body>
+</html>

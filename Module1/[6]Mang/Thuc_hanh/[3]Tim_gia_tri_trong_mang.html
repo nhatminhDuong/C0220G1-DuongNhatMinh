@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tìm giá trị trong mảng</title>
+</head>
+<body>
+<script>
+    let inputValue = prompt("Nhập số từ 1-15:");
+    let arrayNumbers = [2, 5, 7, 8, 11, 14, 15];
+    let isFound = false;
+    for (let i = 0; i < arrayNumbers.length; i++) {
+        if (inputValue == arrayNumbers[i]) {
+            alert("Tìm thấy " + inputValue + " ở vị trí " + i + " của mảng.");
+            isFound = true;
+            break;
+        }
+    }
+    document.write("Mảng đã cho: " + arrayNumbers);
+    if (!isFound) alert("Số vừa nhập không có trong mảng.");
+</script>
+</body>
+</html>

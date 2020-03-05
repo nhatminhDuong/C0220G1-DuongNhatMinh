@@ -12,7 +12,6 @@
     let email = "abc@abc.com";
     let address = "Đà Nẵng";
     let memberType = "Diamond";
-    let discount = 10;
     let amount = 5;
     let rentDays = 3;
     let serviceType = "Villa";
@@ -24,178 +23,182 @@
     let discountByRentingTime = 0;
     let discountByMemberType = 0;
     let discountTotal = 0;
-    switch (serviceType) {
-        case "Villa":{
-            price = 500;
-            break;
-        }
-        case "House":{
-            price = 300;
-            break;
-        }
-        case "Room":{
-            price = 100;
-            break;
-        }
-    }
-    switch (address) {
-        case "Đà Nẵng": {
-            discountByAddress = 20;
-            break;
-        }
-        case "Huế": {
-            discountByAddress = 10;
-            break;
-        }
-        case "Quảng Nam": {
-            discountByAddress = 5;
-            break;
-        }
-        default: {
-            discountByAddress = 0;
-        }
-    }
-    switch (true) {
-        case (rentDays >= 7): {
-            discountByRentingTime = 30;
-            break;
-        }
-        case (rentDays >= 5): {
-            discountByRentingTime = 20;
-            break;
-        }
-        case (rentDays >= 2): {
-            discountByRentingTime = 10;
-            break;
-        }
-    }
-    switch (memberType) {
-        case "Diamond": {
-            discountByMemberType = 15;
-            break;
-        }
-        case "Platium": {
-            discountByMemberType = 10;
-            break;
-        }
-        case "Gold": {
-            discountByMemberType = 5;
-            break;
-        }
-        case "Silver": {
-            discountByMemberType = 2;
-            break;
-        }
-        case "Member":
-        default:
-            discountByMemberType = 0;
-    }
-    discountTotal = discountByAddress + discountByRentingTime + discountByMemberType;
-    paidAmount = price * rentDays - discountTotal;
-    let chooseOption = prompt("Nhập số để chọn mục tương ứng:" + "\n" +
-        "1. Hiển thị thông tin khách hàng >>" + "\n" +
-        "2. Chỉnh sửa thông tin khách hàng >>" + "\n" +
-        "3. Hiển thị giá sau khi được giảm giá >>");
-    switch (chooseOption) {
-        case "1": {
-            alert("THÔNG TIN KHÁCH HÀNG" + "\n" +
-                "1.  Tên: " + customerName + "\n" +
-                "2.  Số CMND: " + idNumber + "\n" +
-                "3.  Ngày sinh: " + dateOfBirth + "\n" +
-                "4.  Email: " + email + "\n" +
-                "5.  Địa chỉ: " + address + "\n" +
-                "6.  Loại thành viên: " + memberType + "\n" +
-                "7.  Giảm giá(%): " + discount + "\n" +
-                "8.  Số lượng đi kèm: " + amount + "\n" +
-                "9.  Số ngày thuê: " + rentDays + "\n" +
-                "10. Loại dịch vụ: " + serviceType + "\n" +
-                "11. Loại phòng: " + roomType + "\n");
-            break;
-        }
-        case "2": {
-            let chooseEdit = prompt("CHỈNH SỬA THÔNG TIN" + "\n" +
-                "Nhập số để chọn mục tương ứng:" + "\n" +
-                "1.  Tên: " + customerName + "\n" +
-                "2.  Số CMND: " + idNumber + "\n" +
-                "3.  Ngày sinh: " + dateOfBirth + "\n" +
-                "4.  Email: " + email + "\n" +
-                "5.  Địa chỉ: " + address + "\n" +
-                "6.  Loại thành viên: " + memberType + "\n" +
-                "7.  Giảm giá(%): " + discount + "\n" +
-                "8.  Số lượng đi kèm: " + amount + "\n" +
-                "9.  Số ngày thuê: " + rentDays + "\n" +
-                "10. Loại dịch vụ: " + serviceType + "\n" +
-                "11. Loại phòng: " + roomType + "\n");
-            switch (chooseEdit) {
-                case "1": {
-                    customerName = prompt("Nhập lại tên:");
-                    break;
-                }
-                case "2": {
-                    idNumber = prompt("Nhập lại số CMND:");
-                    break;
-                }
-                case "3": {
-                    dateOfBirth = prompt("Nhập lại ngày sinh:");
-                    break;
-                }
-                case "4": {
-                    email = prompt("Nhập lại email:");
-                    break;
-                }
-                case "5": {
-                    address = prompt("Nhập lại địa chỉ:");
-                    break;
-                }
-                case "6": {
-                    memberType = prompt("Nhập lại loại thành viên:");
-                    break;
-                }
-                case "7": {
-                    discount = prompt("Nhập lại giảm giá:");
-                    break;
-                }
-                case "8": {
-                    amount = prompt("Nhập lại số lượng đi kèm:");
-                    break;
-                }
-                case "9": {
-                    rentDays = prompt("Nhập lại số ngày thuê:");
-                    break;
-                }
-                case "10": {
-                    serviceType = prompt("Nhập lại loại dịch vụ:");
-                    break;
-                }
-                case "11": {
-                    roomType = prompt("Nhập lại loại phòng:");
-                    break;
-                }
-                default: {
-                    alert("Failed!");
-                }
+
+    while (1) {
+        switch (serviceType) {
+            case "Villa": {
+                price = 500;
+                break;
             }
-            alert("THÔNG TIN HIỆN TẠI" + "\n" +
-                "Nhập số để chọn mục tương ứng:" + "\n" +
-                "1.  Tên: " + customerName + "\n" +
-                "2.  Số CMND: " + idNumber + "\n" +
-                "3.  Ngày sinh: " + dateOfBirth + "\n" +
-                "4.  Email: " + email + "\n" +
-                "5.  Địa chỉ: " + address + "\n" +
-                "6.  Loại thành viên: " + memberType + "\n" +
-                "7.  Giảm giá(%): " + discount + "\n" +
-                "8.  Số lượng đi kèm: " + amount + "\n" +
-                "9.  Số ngày thuê: " + rentDays + "\n" +
-                "10. Loại dịch vụ: " + serviceType + "\n" +
-                "11. Loại phòng: " + roomType + "\n");
-            break;
+            case "House": {
+                price = 300;
+                break;
+            }
+            case "Room": {
+                price = 100;
+                break;
+            }
         }
-        case "3": {
-            alert("Giá tổng cộng: " + paidAmount);
-            break;
+        switch (address) {
+            case "Đà Nẵng": {
+                discountByAddress = 20;
+                break;
+            }
+            case "Huế": {
+                discountByAddress = 10;
+                break;
+            }
+            case "Quảng Nam": {
+                discountByAddress = 5;
+                break;
+            }
+            default: {
+                discountByAddress = 0;
+            }
         }
-        default: {
-            alert("Vui lòng nhập số thứ tự có trong trình đơn!");
+        switch (true) {
+            case (rentDays >= 7): {
+                discountByRentingTime = 30;
+                break;
+            }
+            case (rentDays >= 5): {
+                discountByRentingTime = 20;
+                break;
+            }
+            case (rentDays >= 2): {
+                discountByRentingTime = 10;
+                break;
+            }
+        }
+        switch (memberType) {
+            case "Diamond": {
+                discountByMemberType = 15;
+                break;
+            }
+            case "Platium": {
+                discountByMemberType = 10;
+                break;
+            }
+            case "Gold": {
+                discountByMemberType = 5;
+                break;
+            }
+            case "Silver": {
+                discountByMemberType = 2;
+                break;
+            }
+            case "Member":
+            default:
+                discountByMemberType = 0;
+        }
+        discountTotal = discountByAddress + discountByRentingTime + discountByMemberType;
+        paidAmount = price * rentDays - discountTotal;
+        let chooseOption = prompt("Nhập số để chọn mục tương ứng:" + "\n" +
+            "1. Hiển thị thông tin khách hàng >>" + "\n" +
+            "2. Chỉnh sửa thông tin khách hàng >>" + "\n" +
+            "3. Hiển thị giá sau khi được giảm giá >>");
+
+        switch (chooseOption) {
+            case "1": {
+                alert("THÔNG TIN KHÁCH HÀNG" + "\n" +
+                    "1.  Tên: " + customerName + "\n" +
+                    "2.  Số CMND: " + idNumber + "\n" +
+                    "3.  Ngày sinh: " + dateOfBirth + "\n" +
+                    "4.  Email: " + email + "\n" +
+                    "5.  Địa chỉ: " + address + "\n" +
+                    "6.  Loại thành viên: " + memberType + "\n" +
+                    "7.  Giảm giá(%): " + discountTotal + "\n" +
+                    "8.  Số lượng đi kèm: " + amount + "\n" +
+                    "9.  Số ngày thuê: " + rentDays + "\n" +
+                    "10. Loại dịch vụ: " + serviceType + "\n" +
+                    "11. Loại phòng: " + roomType + "\n");
+                break;
+            }
+            case "2": {
+                let chooseEdit = prompt("CHỈNH SỬA THÔNG TIN" + "\n" +
+                    "Nhập số để chọn mục tương ứng:" + "\n" +
+                    "1.  Tên: " + customerName + "\n" +
+                    "2.  Số CMND: " + idNumber + "\n" +
+                    "3.  Ngày sinh: " + dateOfBirth + "\n" +
+                    "4.  Email: " + email + "\n" +
+                    "5.  Địa chỉ: " + address + "\n" +
+                    "6.  Loại thành viên: " + memberType + "\n" +
+                    "7.  Giảm giá(%): " + discountTotal + "\n" +
+                    "8.  Số lượng đi kèm: " + amount + "\n" +
+                    "9.  Số ngày thuê: " + rentDays + "\n" +
+                    "10. Loại dịch vụ: " + serviceType + "\n" +
+                    "11. Loại phòng: " + roomType + "\n");
+                switch (chooseEdit) {
+                    case "1": {
+                        customerName = prompt("Nhập lại tên:");
+                        break;
+                    }
+                    case "2": {
+                        idNumber = prompt("Nhập lại số CMND:");
+                        break;
+                    }
+                    case "3": {
+                        dateOfBirth = prompt("Nhập lại ngày sinh:");
+                        break;
+                    }
+                    case "4": {
+                        email = prompt("Nhập lại email:");
+                        break;
+                    }
+                    case "5": {
+                        address = prompt("Nhập lại địa chỉ:");
+                        break;
+                    }
+                    case "6": {
+                        memberType = prompt("Nhập lại loại thành viên:");
+                        break;
+                    }
+                    case "7": {
+                        discount = prompt("Nhập lại giảm giá:");
+                        break;
+                    }
+                    case "8": {
+                        amount = prompt("Nhập lại số lượng đi kèm:");
+                        break;
+                    }
+                    case "9": {
+                        rentDays = prompt("Nhập lại số ngày thuê:");
+                        break;
+                    }
+                    case "10": {
+                        serviceType = prompt("Nhập lại loại dịch vụ:");
+                        break;
+                    }
+                    case "11": {
+                        roomType = prompt("Nhập lại loại phòng:");
+                        break;
+                    }
+                    default: {
+                        alert("Failed!");
+                    }
+                }
+                alert("THÔNG TIN HIỆN TẠI" + "\n" +
+                    "Nhập số để chọn mục tương ứng:" + "\n" +
+                    "1.  Tên: " + customerName + "\n" +
+                    "2.  Số CMND: " + idNumber + "\n" +
+                    "3.  Ngày sinh: " + dateOfBirth + "\n" +
+                    "4.  Email: " + email + "\n" +
+                    "5.  Địa chỉ: " + address + "\n" +
+                    "6.  Loại thành viên: " + memberType + "\n" +
+                    "7.  Giảm giá(%): " + discountTotal + "\n" +
+                    "8.  Số lượng đi kèm: " + amount + "\n" +
+                    "9.  Số ngày thuê: " + rentDays + "\n" +
+                    "10. Loại dịch vụ: " + serviceType + "\n" +
+                    "11. Loại phòng: " + roomType + "\n");
+                break;
+            }
+            case "3": {
+                alert("Giá tổng cộng: " + paidAmount);
+                break;
+            }
+            default: {
+                alert("Vui lòng nhập số thứ tự có trong trình đơn!");
+            }
         }
     }
 </script>

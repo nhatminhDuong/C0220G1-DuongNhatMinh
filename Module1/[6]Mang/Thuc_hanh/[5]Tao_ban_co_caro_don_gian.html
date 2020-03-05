@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo bàn cờ caro đơn giản</title>
+    <style>
+
+    </style>
+</head>
+<body style="padding: 10%; text-align: center;">
+<div id="caro">
+    <div id="board"></div>
+    <button type="button" id="change" onclick="changeValue()">Change Value</button>
+</div>
+<script>
+    let board = [];
+    for (let i = 0; i <= 5; i++) {
+        if (i === 0) board[i] = [" ", "1", "2", "3", "4", "5"];
+        else board[i] = [i, "O", "O", "O", "O", "O"];
+    }
+    for (let i = 0; i <= 5; i++) {
+        for (let j = 0; j <= 5; j++) {
+            if (i === 0) document.getElementById("board").innerHTML += board[i][j] + "&emsp;";
+            else if (j === 0) document.getElementById("board").innerHTML += board[i][j] + "&nbsp;&nbsp;";
+            else document.getElementById("board").innerHTML += "<b>" + board[i][j] + "</b> &nbsp;&nbsp;";
+        }
+        // document.getElementById("board").innerText += "\n";  Nếu inner "\n" thì vẫn xuống dòng nhưng thẻ <b> ko có tác dụng
+        document.getElementById("board").innerHTML += "<br>";
+    }
+
+    function changeValue() {
+        let x = parseInt(prompt("Nhập hàng: "));
+        let y = parseInt(prompt("Nhập cột: "));
+        board[x][y] = "X";
+        document.getElementById("board").innerHTML = "";
+        for (let i = 0; i <= 5; i++) {
+            for (let j = 0; j <= 5; j++) {
+                if (i === 0) document.getElementById("board").innerHTML += board[i][j] + "&emsp;";
+                else if (j === 0) document.getElementById("board").innerHTML += board[i][j] + "&nbsp;&nbsp;";
+                else document.getElementById("board").innerHTML += "<b>" + board[i][j] + "</b> &nbsp;&nbsp;";
+            }
+            document.getElementById("board").innerHTML += "<br>";
+        }
+    }
+</script>
+</body>
+</html>

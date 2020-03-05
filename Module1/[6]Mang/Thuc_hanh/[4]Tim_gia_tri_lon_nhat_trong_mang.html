@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tìm giá trị lớn nhất trong mảng</title>
+</head>
+<body>
+<script>
+    let inputArray = [];
+    let inputElement;
+    let index = 0;
+    do {
+        inputElement = prompt('Nhập phần tử thứ ' + index + ' của mảng. Nhập "q" để kết thúc.');
+        if (inputElement === "q") break;
+        inputArray[index] = inputElement;
+        index++;
+    } while (1);
+    let max = inputArray[0];
+    let maxIndex = 0;
+    for (let i = 1; i < inputArray.length; i++){
+        if (inputArray[i] > max){
+            max = inputArray[i];
+            maxIndex = i;
+        }
+    }
+    document.write("Mảng đã nhập: " + inputArray + "<br>");
+    document.write("Giá trị lớn nhất của mảng đã nhập là " + inputArray[maxIndex] + " tại vị trí " + maxIndex);
+</script>
+</body>
+</html>

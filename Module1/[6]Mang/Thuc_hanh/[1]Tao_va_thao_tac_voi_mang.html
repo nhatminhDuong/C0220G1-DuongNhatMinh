@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo và thao tác với mảng</title>
+</head>
+<body>
+<label>
+    <input type = text id="input">
+</label>
+    <button type="button" id = "add" onclick="addValue();">Add</button>
+    <button type="button" id = "display" onclick="displayArray()">Display</button>
+    <div id="result"></div>
+    <script>
+        let arrayElement = [];
+        let inputValue;
+        let index = 0;
+        function addValue() {
+            inputValue = document.getElementById("input").value;
+            alert ('Giá trị "' + inputValue + '" vừa được thêm vào mảng tại vị trí ' + index +'.');
+            arrayElement[index] = inputValue;
+            index++;
+            inputValue = "";
+        }
+        function displayArray() {
+            document.getElementById("result").innerText = "Giá trị " + arrayElement.length + " phần tử của mảng là: ";
+            let text = "<hr>";
+            for (let i = 0; i < index; i++){
+                text += "arrayElement[" + i + "]: " + arrayElement[i] + "<br>";
+            }
+            document.getElementById("result").innerHTML = text;
+        }
+    </script>
+</body>
+</html>
