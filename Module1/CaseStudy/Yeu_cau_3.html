@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yêu cầu 3</title>
+</head>
+<body>
+<script>
+    let customerName;
+    let idNumber;
+    let dateOfBirth;
+    let email;
+    let address;
+    let memberType;
+    let discount;
+    let amount;
+    let rentDays;
+    let serviceType;
+    let roomType;
+    let isValid = false;
+    let tempName = "";
+
+    customerName = prompt("Mời nhập tên:");
+    customerName = customerName.trim().toLowerCase();
+    for (let i = 0; i < customerName.length; i++) {
+        if (customerName.charAt(i) === " " && customerName.charAt(i + 1) === " ") {
+            continue
+        }
+        if (i === 0 || customerName.charAt(i - 1) === " ") {
+            tempName += customerName.charAt(i).toUpperCase();
+            continue;
+        }
+        tempName += customerName.charAt(i);
+    }
+    customerName = tempName;
+    alert(customerName);
+    do {
+        idNumber = prompt("Số CMND:");
+        if (!isNaN(idNumber)) {
+            idNumber = Number.parseFloat(idNumber);
+        }
+        if (!Number.isInteger(idNumber)) {
+            alert("CMND không đúng định dạng. Mời nhập lại!");
+            continue;
+        }
+        if (idNumber > 999999999 || idNumber < 100000000) {
+            alert("CMND không đúng định dạng. Mời nhập lại!");
+            continue;
+        }
+        isValid = true;
+    } while (!isValid);
+    isValid = false;
+    do {
+        dateOfBirth = prompt("Ngày tháng năm sinh:");
+        if (dateOfBirth.charAt(2) === "/" && dateOfBirth.charAt(5) === "/") {
+            let day = dateOfBirth.substring(0, 2);
+            let month = dateOfBirth.substring(3, 5);
+            let year = dateOfBirth.substring(6, 10);
+            if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
+                day = Number.parseFloat(day);
+                month = Number.parseFloat(month);
+                year = Number.parseFloat(year);
+                if (Number.isInteger(day) && Number.isInteger(month) && Number.isInteger(year)) {
+                    if (day < 32 && month < 13 && year > 1900 && year < 2021) {
+                        isValid = true;
+                    }
+                }
+            }
+        }
+        if (!isValid) {
+            alert("Ngày sinh không đúng định dạng. Mời nhập lại!");
+        }
+    } while (!isValid);
+    isValid = false;
+    do {
+        email = prompt("Email:");
+        let countAt = 0;
+        let countDot = 0;
+        for (let i = 0; i < email.length; i++) {
+            if (email.charAt(i) === "@") {
+                countAt++;
+                for (let j = i + 1; j < email.length; j++) {
+                    if (email.charAt(j) === ".") {
+                        countDot++;
+                    }
+                }
+            }
+        }
+        if (countAt !== 1 || countDot < 1) {
+            alert("Email bạn nhập không đúng. Mời nhập lại");
+        } else isValid = true;
+    } while (!isValid);
+    isValid = false;
+    address = prompt("Địa chỉ:");
+    memberType = prompt("Loại thành viên (Diamond, Platinum, Gold, Silver, Member):");
+    discount = prompt("Giảm giá:");
+    do {
+        amount = prompt("Số lượng đi kèm");
+        if (!isNaN(amount)) {
+            amount = Number.parseFloat(amount);
+            if (Number.isInteger(amount) && amount > 0) {
+                isValid = true;
+            }
+        }
+        if (!isValid) {
+            alert("Số lượng đi kèm không hợp lệ. Mời nhập lại!");
+        }
+    } while (!isValid);
+    isValid = false;
+    do {
+        rentDays = prompt("Số ngày thuê:");
+        if (!isNaN(rentDays)) {
+            rentDays = Number.parseFloat(rentDays);
+            if (Number.isInteger(rentDays) && rentDays > 0) {
+                isValid = true;
+            }
+        }
+        if (!isValid) {
+            alert("Số ngày thuê không hợp lệ. Mời nhập lại!");
+        }
+    } while (!isValid);
+    isValid = false;
+    serviceType = prompt("Loại dịch vụ (Villa, House, Room):");
+    roomType = prompt("Loại phòng thuê (Vip, Business, Normal)");
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TIC TAC TOE</title>
+    <style>
+        #carogame {
+            position: absolute;
+            left: 38%;
+            top: 10%;
+        }
+
+        #board {
+            position: relative;
+        }
+
+        #announce {
+            position: absolute;
+            left: 20%;
+            top: 10%;
+            font-size: 30px;
+            font-family: Cambria, sans-serif;
+        }
+
+        #turn {
+            position: absolute;
+            left: 70%;
+            top: 10%;
+            font-size: 60px;
+            font-family: Cambria, sans-serif;
+        }
+
+        td {
+            border: 1px solid lightblue;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body style="padding: 5%; text-align: center;" onload="initBoard()">
+<p id="announce"></p>
+<p id="turn"></p>
+<div id="carogame" style="font-size: 80px;">
+    <table id="board">
+        <tr id="row1">
+            <td id="00" onclick="change(this)"></td>
+            <td id="01" onclick="change(this)"></td>
+            <td id="02" onclick="change(this)"></td>
+        </tr>
+        <tr id="row2">
+            <td id="10" onclick="change(this)"></td>
+            <td id="11" onclick="change(this)"></td>
+            <td id="12" onclick="change(this)"></td>
+        </tr>
+        <tr id="row3">
+            <td id="20" onclick="change(this)"></td>
+            <td id="21" onclick="change(this)"></td>
+            <td id="22" onclick="change(this)"></td>
+        </tr>
+    </table>
+</div>
+<script>
+    let board = [["&#8226;", "&#8226;", "&#8226;"], ["&#8226;", "&#8226;", "&#8226;"], ["&#8226;", "&#8226;", "&#8226;"]];
+    let isMarked = [[false, false, false], [false, false, false], [false, false, false]];
+    let isTurnOfX = true;
+
+    function change(x) {
+        let rowIndex = x.id[0];
+        let columnIndex = x.id[1];
+        if (!isMarked[rowIndex][columnIndex]) {
+            if (isTurnOfX) {
+                board[rowIndex][columnIndex] = "X";
+                document.getElementById("turn").innerText = "Lượt 'O' đi!";
+                isTurnOfX = !isTurnOfX;
+            } else {
+                board[rowIndex][columnIndex] = "O";
+                document.getElementById("turn").innerText = "Lượt 'X' đi!";
+                isTurnOfX = !isTurnOfX;
+            }
+            isMarked[rowIndex][columnIndex] = true;
+            loadBoard(x, rowIndex, columnIndex);
+        } else document.getElementById("announce").innerText = "Ô đã được đánh\nTính ăn gian hả?";
+    }
+
+    function initBoard() {
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board.length; j++) {
+                document.getElementById(i.toString() + j).innerHTML = board[i][j];
+            }
+        }
+    }
+
+    function loadBoard(x, i, j) {
+        document.getElementById("announce").innerText = "";
+        x.innerText = board[i][j];
+        check(i, j);
+    }
+
+    function check(i, j) {
+
+    }
+</script>
+</body>
+</html>

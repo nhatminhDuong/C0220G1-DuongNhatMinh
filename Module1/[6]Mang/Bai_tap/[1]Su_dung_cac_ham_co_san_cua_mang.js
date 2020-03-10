@@ -17,5 +17,19 @@ function bai2() {
 }
 
 function bai3() {
+    let inputString = prompt("Nhập chuỗi cần chuyển đổi:");
+    let upper = "ABCDEFGHIJKLMNOPQRSTUVWXZ";
+    let lower = "abcdefghijklmnopqrstuvwxyz";
+    let changedString = [];
+    for (let i = 0; i < inputString.length; i++){
+        if (upper.indexOf(inputString[i]) !== -1){
+            changedString.push(inputString[i].toLowerCase());
+        }
+        else if (lower.indexOf(inputString[i]) !== -1) {
+            changedString.push(inputString[i].toUpperCase());
+        }
+        else changedString.push(inputString[i]);
+    }
+    document.getElementById("result3").innerText = "Chuỗi sau khi chuyển đổi là: " + changedString.join("");
 
 }

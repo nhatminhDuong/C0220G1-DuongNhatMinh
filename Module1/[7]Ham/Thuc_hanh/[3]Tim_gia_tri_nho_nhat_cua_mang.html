@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tìm giá trị nhỏ nhất của mảng</title>
+</head>
+<body>
+<script>
+    inputArray = prompt("Nhập các phần tử của mảng: ").split(",");
+    alert(findMin(inputArray));
+    function findMin(arr) {
+        if (arr.length === 1 && arr[0] === "") return -1;
+        else {
+            let min = arr[0];
+            for (let i = 1; i < arr.length; i++) {
+                if (arr[i] < min) {
+                    min = arr[i];
+                }
+            }
+            return min;
+        }
+    }
+</script>
+</body>
+</html>

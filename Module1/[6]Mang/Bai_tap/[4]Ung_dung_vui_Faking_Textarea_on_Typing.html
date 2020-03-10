@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ứng dụng vui Faking Textarea on Typing</title>
+</head>
+<body style="text-align: center">
+<label for="input"><h3>Type something</h3><br></label>
+<textarea id="input" style="height: 120px; width: 300px; text-align: center;" onkeydown="fakeTyping()"></textarea>
+<script>
+    let arr = ["H","e","r","e"," ","i","s"," ","w","h","a","t"," ","y","o","u"," ","a","r","e"," ","t","y","p","i","n","g","."];
+    let text = "";
+
+    function fakeTyping() {
+        let x = document.getElementById("input");
+        let len = x.value.length;
+        if (len > 0) {
+            for (let i = 0; i < len; i++) {
+                text += arr[i];
+                if (i === arr.length) {
+                    x.value = "";
+                    text = "";
+                }
+            }
+        }
+        x.value = text;
+        text = "";
+        setTimeout("fakeTyping()", 1);
+    }
+</script>
+</body>
+</html>

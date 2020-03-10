@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Từ điển</title>
+</head>
+<body>
+
+<label for="input"><h3>Từ điển Anh-Việt</h3></label>
+<input type="text" id="input" style="width: 150px;">
+<button type="button" id="translate" onclick="trans()">Dịch</button>
+<label>
+    <input type="text" id="result" style="width: 150px; text-align: right;" disabled>
+</label>
+<script>
+    let eng = ["one", "two", "three", "for", "five", "six", "seven", "eight", "nine", "ten", "hello", "goodbye", "thanks", "thank you", "ok"];
+    let vie = ["một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín", "mười", "xin chào", "tạm biệt", "cảm ơn", "cảm ơn bạn", "đồng ý"];
+    function trans() {
+        let x = document.getElementById("input");
+        let y = document.getElementById("result");
+        let index = eng.indexOf(x.value);
+        if (index !== -1) y.value = vie[index];
+        else y.value = "Chưa cập nhật";
+    }
+</script>
+</body>
+</html>
