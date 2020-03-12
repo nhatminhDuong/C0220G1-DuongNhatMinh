@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+</head>
+<body>
+<canvas id="gameArea" width="400" height="200" style ="border: 1.5px solid #d3d3d3;"></canvas>
+<script>
+    let gameBoard = document.getElementById("gameArea");
+    let ctx = gameBoard.getContext("2d");
+    ctx.moveTo(0,0);
+    ctx.lineTo(200,100);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(0,0,80,0,2*Math.PI);
+    ctx.stroke();
+</script>
+<!--<script>-->
+<!--    class Student {-->
+<!--        constructor(name, age, address) {-->
+<!--            this.name = name;-->
+<!--            this.age = age;-->
+<!--            this.address = address;-->
+<!--        }-->
+
+<!--        dispalyStudent() {-->
+<!--            alert(this.name);-->
+<!--        }-->
+<!--    }-->
+
+<!--    class Lecturer extends Student {-->
+<!--        constructor(name, age, address, lophoc) {-->
+<!--            super(name, age, address);-->
+<!--            this.lophoc = lophoc;-->
+<!--        }-->
+<!--    }-->
+
+<!--    let student1 = new Student("Ming", 28, "NSL");-->
+<!--    // student1.dispalyStudent();-->
+<!--</script>-->
+</body>
+</html>
