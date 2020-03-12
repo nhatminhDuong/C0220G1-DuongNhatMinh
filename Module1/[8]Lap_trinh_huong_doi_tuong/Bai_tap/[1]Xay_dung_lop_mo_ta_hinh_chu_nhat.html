@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xây dựng lớp mô tả hình chữ nhật</title>
+</head>
+<body>
+<label for="input1">Thay đổi chiều dọc:</label>
+<input id="input1" type="number" style="width: 50px; text-align: center;" value="200" onchange="changeShape(rect)">
+<label for="input2">Thay đổi chiều ngang:</label>
+<input id="input2" type="number" style="width: 50px; text-align: center;" value="100" onchange="changeShape(rect)">
+<canvas id="myCanvas" width="1366px" height="768px" style="border: 1px solid black;"></canvas>
+<script>
+    class Rectangle {
+        constructor(length, width) {
+            this.length = length;
+            this.width = width;
+        }
+
+        getArea = function () {
+            return this.width * this.length;
+        };
+        getPerimeter = function () {
+            return (this.width + this.length) * 2;
+        };
+        drawCanvas = function (ctx) {
+            let color = getRandomColor();
+            ctx.beginPath();
+            ctx.fillStyle = color;
+            ctx.fillRect(50, 50, this.width, this.length);
+        }
+    }
+
+    function getRandomHex() {
+        return Math.floor(Math.random() * 255);
+    }
+
+    function getRandomColor() {
+        let red = getRandomHex();
+        let green = getRandomHex();
+        let blue = getRandomHex();
+        return "rgb(" + red + "," + green + "," + blue + ")";
+    }
+
+    function changeShape(x) {
+        let length = document.getElementById("input1").value;
+        let width = document.getElementById("input2").value;
+        x.length = length;
+        x.width = width;
+        ctx.clearRect(0, 0, document.getElementById("myCanvas").width, document.getElementById("myCanvas").height);
+        rect.drawCanvas(ctx);
+    }
+
+    let ctx = document.getElementById("myCanvas").getContext("2d");
+    let rect = new Rectangle(200, 100);
+    rect.drawCanvas(ctx);
+</script>
+</body>
+</html>

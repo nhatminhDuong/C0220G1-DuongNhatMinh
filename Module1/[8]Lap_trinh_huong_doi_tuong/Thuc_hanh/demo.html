@@ -12,32 +12,48 @@
     ctx.moveTo(0,0);
     ctx.lineTo(200,100);
     ctx.stroke();
+
     ctx.beginPath();
-    ctx.arc(0,0,80,0,2*Math.PI);
+    ctx.arc(200, 100, 100, 0, 3/2*Math.PI, false); // arc(Tọa độ x, tọa độ y, bán kính, góc bắt đầu, góc kết thúc, true: ngược chiều đồng hồ);
     ctx.stroke();
+
+    ctx.font = "40px Cambria";
+    ctx.fillText("Hello",0,30);
+
+    let grd = ctx.createLinearGradient(0,0,400,0);
+    grd.addColorStop(0,"red");
+    grd.addColorStop(1,"blue");
+    ctx.fillStyle = grd;
+    ctx.fillRect(150,10,200,100);
+
+    let grd2 = ctx.createRadialGradient(75,50,5,90,60,100);
+    grd2.addColorStop(0,"red");
+    grd2.addColorStop(1,"white");
+    ctx.fillStyle = grd2;
+    ctx.fillRect(10,40,150,80);
 </script>
-<!--<script>-->
-<!--    class Student {-->
-<!--        constructor(name, age, address) {-->
-<!--            this.name = name;-->
-<!--            this.age = age;-->
-<!--            this.address = address;-->
-<!--        }-->
+<script>
+    class Student {
+        constructor(name, age, address) {
+            this.name = name;
+            this.age = age;
+            this.address = address;
+        }
 
-<!--        dispalyStudent() {-->
-<!--            alert(this.name);-->
-<!--        }-->
-<!--    }-->
+        displayStudent() {
+            alert(this.name);
+        }
+    }
 
-<!--    class Lecturer extends Student {-->
-<!--        constructor(name, age, address, lophoc) {-->
-<!--            super(name, age, address);-->
-<!--            this.lophoc = lophoc;-->
-<!--        }-->
-<!--    }-->
+    class Lecturer extends Student {
+        constructor(name, age, address, lophoc) {
+            super(name, age, address);
+            this.lophoc = lophoc;
+        }
+    }
 
-<!--    let student1 = new Student("Ming", 28, "NSL");-->
-<!--    // student1.dispalyStudent();-->
-<!--</script>-->
+    let student1 = new Student("Ming", 28, "NSL");
+    // student1.displayStudent();
+</script>
 </body>
 </html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xây dựng lớp mô tả Temperature</title>
+</head>
+<body>
+<script>
+    class Temperature {
+        constructor(temperature) {
+            this.temperature = temperature;
+        }
+        toFahrenheit = function () {
+            return this.temperature * 9 / 5 + 32;
+        };
+        toKelvin = function () {
+            return this.temperature + 273.15;
+        };
+    }
+    let t;
+    do {
+        t = parseInt(prompt("Nhập nhiệt độ"));
+        if (t < -273) alert("Nhiệt độ nhập vào không thể thấp hơn -273\xB0C. Mời nhập lại!");
+        else break;
+    } while (1);
+    let temp = new Temperature(t);
+    document.write("Độ F tương ứng: " + temp.toFahrenheit());
+    document.write("<br>Độ K tương ứng: " + temp.toKelvin());
+</script>
+</body>
+</html>

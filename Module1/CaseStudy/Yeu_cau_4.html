@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yêu cầu 4</title>
+</head>
+<body>
+<script>
+    while(true){
+        let arrayCustomerName = [];
+        let choose = parseInt(prompt("1. Add new Customers" + "\n" + "2. Delete a Customer"));
+        switch (choose) {
+            case 1: {
+                let number = parseInt(prompt("Enter the number of customers you want to add:"));
+                for (let i = 0; i < number; i++){
+                    let customerName = prompt("Enter name of customer:");
+                    arrayCustomerName.push(customerName);
+                }
+                let addedNameList = "";
+                for (let i = 0; i < arrayCustomerName.length; i++) {
+                    addedNameList += (i+1) + ". " + arrayCustomerName[i] + "\n";
+                }
+                alert(addedNameList);
+                break;
+            }
+            case 2: {
+
+            }
+            default: {
+                alert("Failed");
+            }
+        }
+    }
+</script>
+</body>
+</html>
