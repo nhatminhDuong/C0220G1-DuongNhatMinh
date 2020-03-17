@@ -6,8 +6,8 @@
 </head>
 <body>
 <script>
+    let arrayCustomerName = [];
     while(true){
-        let arrayCustomerName = [];
         let choose = parseInt(prompt("1. Add new Customers" + "\n" + "2. Delete a Customer"));
         switch (choose) {
             case 1: {
@@ -16,6 +16,7 @@
                     let customerName = prompt("Enter name of customer:");
                     arrayCustomerName.push(customerName);
                 }
+                arrayCustomerName.sort();
                 let addedNameList = "";
                 for (let i = 0; i < arrayCustomerName.length; i++) {
                     addedNameList += (i+1) + ". " + arrayCustomerName[i] + "\n";
@@ -24,7 +25,23 @@
                 break;
             }
             case 2: {
-
+                let customerName = prompt("Enter the name you want to delete:");
+                let isDeleted = false;
+                for (let i = 0; i < arrayCustomerName.length; i++) {
+                    if (customerName === arrayCustomerName[i]) {
+                        arrayCustomerName.splice(i,1);
+                        isDeleted = true;
+                    }
+                }
+                if (!isDeleted) {
+                    alert("The name you want to delete is not on the list!");
+                }
+                let addedNameList = "";
+                for (let i = 0; i < arrayCustomerName.length; i++) {
+                    addedNameList += (i+1) + ". " + arrayCustomerName[i] + "\n";
+                }
+                alert(addedNameList);
+                break;
             }
             default: {
                 alert("Failed");

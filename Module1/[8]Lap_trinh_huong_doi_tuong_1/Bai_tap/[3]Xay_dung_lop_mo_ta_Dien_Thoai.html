@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xây dựng lớp mô tả Mobile</title>
+</head>
+<body>
+<script>
+    class Mobile {
+        constructor(battery, draftMessages, inboxMessages, sentMessages, status) {
+            this.battery = battery;
+            this.draft = draftMessages;
+            this.inbox = inboxMessages;
+            this.sent = sentMessages;
+            this.status = status;
+        }
+        getStatus = function () {
+            return this.status;
+        };
+        turnOn = function () {
+            this.status = true;
+        };
+        turnOff = function () {
+            this.status = false;
+        };
+        charge = function (percent) {
+            this.battery = percent;
+        };
+        draftMessage = function (message) {
+            this.draft = message;
+        };
+        receiveMessage = function (message) {
+            this.inbox = message;
+        };
+        sendMessage = function (mobile) {
+            mobile.inbox = this.draft;
+            this.draft = "";
+        };
+        showInbox = function () {
+            alert(this.inbox);
+        };
+        showSentMessages = function () {
+            alert(this.sent)
+        };
+    }
+    let nokia = new Mobile(90, "", "", "", true);
+    let iPhone = new Mobile(80, "", "", "", true);
+
+    nokia.draftMessage("Hello Iphone");
+    nokia.sendMessage(iPhone);
+    alert("Tin nhắn từ Nokia đến Iphone: " + iPhone.inbox);
+    
+</script>
+</body>
+</html>

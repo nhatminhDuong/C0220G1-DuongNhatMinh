@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xây dựng lớp mô phỏng sự hoạt động của đèn pin</title>
+</head>
+<body>
+<div style="text-align: center">
+    <img id="flashlight" src="flashlightOff.jpg" alt="Error"> <br>
+    <button type="button" id="onBtn" onclick="lightOn()">ON</button>
+    <button type="button" id="offBtn" onclick="lightOff()">OFF</button>
+    <h2>Flashlight status: <span id="lightStatus"></span></h2>
+    <h2>Battery status: <span id="batteryStatus"></span></h2>
+    <button type="button" id="charge" onclick="charge()">Charge the battery</button>
+    <span id="charging"></span>
+</div>
+<script>
+    class Battery {
+        constructor(energy) {
+            this.energy = energy;
+        }
+
+        getEnergy = function () {
+            return this.energy;
+        };
+        // setEnergy = function (newEnergy) {
+        //     this.energy = newEnergy;
+        // };
+        decreaseEnergy = function () {
+            if (this.energy > 0) {
+                this.energy--;
+            }
+        };
+        chargeEnergy = function () {
+            if (this.energy < 10) {
+                this.energy++;
+            }
+        };
+        getBatteryStatus = function () {
+            return Boolean(this.energy);
+        }
+    }
+
+    class FlashLight {
+        putBattery = function (battery) {
+            this.battery = battery;
+        };
+        getBatteryInfo = function () {
+            return this.battery.getEnergy();
+        };
+        getStatus = function () {
+            return this.status;
+        };
+        turnOn = function () {
+            this.status = true;
+        };
+        turnOff = function () {
+            this.status = false;
+        }
+    }
+
+    let battery = new Battery(5);
+    let flashlight = new FlashLight();
+    flashlight.putBattery(battery);
+
+    let flashlightStatus = document.getElementById("lightStatus");
+    let batteryStatus = document.getElementById("batteryStatus");
+    let flashlightImg = document.getElementById("flashlight");
+    let onBtn = document.getElementById("onBtn");
+    let offBtn = document.getElementById("offBtn");
+    let charging = document.getElementById("charging");
+    setInterval(dropDrain, 1000);
+
+    init();
+
+    function init() {
+        flashlight.turnOff();
+        flashlightStatus.innerText = "Off";
+        offBtn.disabled = true;
+        batteryStatus.innerText = flashlight.getBatteryInfo();
+    }
+
+    function lightOn() {
+        flashlight.turnOn();
+        onBtn.disabled = true;
+        offBtn.disabled = false;
+        if (battery.getBatteryStatus()) {
+            flashlightImg.src = "flashlightOn.jpg";
+            flashlightStatus.innerText = "On";
+        }
+
+    }
+
+    function lightOff() {
+        flashlight.turnOff();
+        flashlightImg.src = "flashlightOff.jpg";
+        offBtn.disabled = true;
+        onBtn.disabled = false;
+        flashlightStatus.innerText = "Off";
+    }
+
+    function dropDrain() {
+        if (flashlight.getStatus()) {
+            battery.decreaseEnergy();
+            batteryStatus.innerText = battery.getEnergy();
+            if (!battery.getBatteryStatus()) {
+                flashlightImg.src = "flashlightOff.jpg";
+                flashlightStatus.innerText = "Off";
+            }
+            if (battery.getEnergy() < 3) {
+                if (battery.getEnergy() !== 0) {
+                    document.getElementById("flashlight").style.opacity = "0.7";
+                    charging.innerText = "Low battery?!";
+                } else {
+                    charging.innerText = "Out of battery!!";
+                }
+            } else {
+                document.getElementById("flashlight").style.opacity = "1";
+            }
+        }
+    }
+
+    function charge() {
+        let id = setInterval(function () {
+            chargingProcess(id);
+        }, 500);
+        if (flashlight.getStatus()) {
+            flashlightImg.src = "flashlightOn.jpg";
+            flashlightStatus.innerText = "On";
+        }
+    }
+
+    function chargingProcess(x) {
+        battery.chargeEnergy();
+        if (flashlight.getStatus()) {
+            flashlightImg.src = "flashlightOn.jpg";
+            flashlightStatus.innerText = "On";
+        }
+        charging.innerText = "Charging: " + battery.getEnergy() * 10 + "%";
+        batteryStatus.innerText = battery.getEnergy();
+        if (battery.getEnergy() === 10) {
+            charging.innerText = "";
+            clearInterval(x);
+        }
+    }
+</script>
+</body>
+</html>
