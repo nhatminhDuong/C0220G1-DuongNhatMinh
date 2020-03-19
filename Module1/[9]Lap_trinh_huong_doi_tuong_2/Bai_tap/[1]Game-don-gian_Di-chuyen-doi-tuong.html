@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game đơn giản: Di chuyển đối tượng</title>
+    <!--    <style>-->
+    <!--        img:hover {-->
+    <!--            -webkit-transform: scaleX(-1);-->
+    <!--            transform: scaleX(-1);-->
+    <!--        }-->
+    <!--    </style>-->
+</head>
+<body onload="docReady()">
+<div id="game"></div>
+<script>
+    class Mario {
+        constructor(image, top, left, size, speed, flip) {
+            this.image = image;
+            this.top = top;
+            this.left = left;
+            this.size = size;
+            this.speed = speed;
+            this.flip = flip;
+        }
+
+        getMarioElement = function () {
+            return '<img width="' + this.size + '"' +
+                ' height="' + this.size + '"' +
+                ' src="' + this.image + '"' +
+                ' style="top: ' + this.top + 'px; left:' + this.left + 'px;position:absolute; transform: scaleX(' + this.flip + ');" />';
+        };
+
+        moveLeft = function () {
+            this.flip = -1;
+            this.left -= this.speed;
+        };
+        moveRight = function () {
+            this.flip = 1;
+            this.left += this.speed;
+        };
+        moveUp = function () {
+            this.top -= 50;
+        };
+        moveDown = function () {
+            this.top += 50;
+        };
+    }
+
+    function docReady() {
+        document.getElementById("game").innerHTML = mario.getMarioElement();
+        window.addEventListener("keydown", moveSelection);
+    }
+
+    function moveSelection(evt) {
+        const {keyCode} = evt; // Object destructuring ES6
+        switch (keyCode) {
+            case 37:
+                leftArrowPressed();
+                break;
+            case 39:
+                rightArrowPressed();
+                break;
+            case 38:
+                upArrowPressed();
+                break;
+            case 40:
+                downArrowPressed();
+                break;
+        }
+    }
+
+    function leftArrowPressed() {
+        if (mario.left > 0) {
+            mario.moveLeft();
+            document.getElementById("game").innerHTML = mario.getMarioElement();
+        } else {
+            mario.speed /= 1.2;
+            alert("Speed \u2198\u2198 \u2192 " + Math.round(mario.speed));
+        }
+    }
+
+    function rightArrowPressed() {
+        if (mario.left < window.innerWidth - mario.size * 1.15) {
+            mario.moveRight();
+            document.getElementById("game").innerHTML = mario.getMarioElement();
+        } else {
+            mario.speed *= 1.15;
+            alert("Speed \u2197\u2197 \u2192 " + Math.round(mario.speed));
+        }
+    }
+
+    function upArrowPressed() {
+        if (mario.top > 0) {
+            mario.moveUp();
+            document.getElementById("game").innerHTML = mario.getMarioElement();
+        }
+    }
+
+    function downArrowPressed() {
+        if (mario.top < window.innerHeight - mario.size * 1.15) {
+            mario.moveDown();
+            document.getElementById("game").innerHTML = mario.getMarioElement();
+        }
+    }
+
+    let mario = new Mario("mario.png", 50, 50, 200, 50, 1);
+</script>
+</body>
+</html>

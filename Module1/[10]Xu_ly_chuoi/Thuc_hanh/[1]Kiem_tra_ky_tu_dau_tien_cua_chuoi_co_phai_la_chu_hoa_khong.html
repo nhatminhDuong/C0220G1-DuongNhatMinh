@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiểm tra ký tự đầu tiên của chuỗi có phải là chữ hoa không</title>
+</head>
+<body>
+<script>
+    let inputString = prompt("Mời nhập chuỗi:");
+    isFirstLetterUpperCase(inputString);
+    function isFirstLetterUpperCase (str) {
+        let pattern = /^[A-Z]/;
+        // let patt = new RegExp("^[A-Z]");
+        if (pattern.test(str)) {
+            alert("Chữ cái đầu tiên của chuỗi là chữ hoa.");
+        }
+        else {
+            alert("Chữ cái đầu tiên của chuỗi không phải là chữ hoa.");
+        }
+    }
+</script>
+</body>
+</html>

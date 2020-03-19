@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiểm tra mã quốc gia nước Mỹ</title>
+</head>
+<body>
+<script>
+    while (1) {
+        let inputString = prompt("Nhập mã (mã đúng có dạng 00000-0000):");
+        is_usZipCode(inputString);
+    }
+    // let inputString2 = "03201-2150";
+    // let inputString3 = "7892";
+    function is_usZipCode(str) {
+        let pattern = /^[0-9]{5}(?:-[0-9]{4})?$/;
+        alert(pattern.test(str));
+    }
+</script>
+</body>
+</html>

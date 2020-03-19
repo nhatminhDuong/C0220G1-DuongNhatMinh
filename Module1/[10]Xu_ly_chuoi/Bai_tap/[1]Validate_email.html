@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validate email</title>
+</head>
+<body>
+<script>
+    while (1) {
+        let inputString = prompt("Nhập email:");
+        isValidEmail(inputString);
+    }
+    function isValidEmail(str) {
+        let pattern = /^[0-9A-za-z]+[0-9A-Za-z]*@[0-9A-Za-z]+(.[0-9A-Za-z]+){1,2}$/;
+        // let patt = /^[a-z][a-z0-9_.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/;
+        if (pattern.test(str)) {
+            alert("Email hợp lệ");
+        }
+        else {
+            alert("Email không hợp lệ");
+        }
+    }
+</script>
+</body>
+</html>

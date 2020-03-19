@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adam & Eva</title>
+</head>
+<body onload="setTimeout(init, 200)">
+<div style="text-align: center;">
+    <img src="adam_eva.jpg" alt="Error"> <br>
+    <h4 id="apple" onclick="pickNewApple()"></h4>
+    <h2 id="adam" style="position: absolute; left: 530px;"></h2>
+    <h2 id="eva" style="position: absolute; left: 780px;"></h2>
+    <button type="button" onclick="eatApple()">Cắn 1 miếng táo</button>
+</div>
+<script>
+    class Apple {
+        constructor(weight) {
+            this.weight = weight;
+        }
+
+        getWeight = function () {
+            return this.weight;
+        };
+        isEmpty = function () {
+            return this.weight <= 0;
+        };
+        decrease = function () {
+            if (this.weight > 0) {
+                this.weight--;
+            }
+        }
+    }
+
+    class Human {
+        constructor(name, gender, weight) {
+            this.name = name;
+            this.gender = gender;
+            this.weight = weight;
+        }
+
+        isMale = function () {
+            return this.gender
+        };
+        checkApple = function (app) {
+            return app.getWeight();
+        };
+        eat = function (app) {
+            if (app.getWeight()) {
+                app.decrease();
+                this.weight += 0.1;
+            } else {
+                alert(this.name + " says:\nĂn hết rồi còn đâu -.-");
+                isZeroApple = true;
+            }
+        };
+        say = function () {
+            alert(this.name + " says:\nXin chào! Tôi là " + this.name + ".\nTôi nặng " + this.weight + " kí.")
+        };
+        sayBigApple = function () {
+            alert(this.name + " says:\nUầyyy. Táo gì bự dữ zậy trời o_o");
+        };
+        getName = function () {
+            return this.name;
+        };
+        setName = function (newName) {
+            this.name = newName;
+        };
+        getWeight = function () {
+            return this.weight;
+        };
+        setWeight = function (newWeight) {
+            this.weight = newWeight;
+        }
+    }
+
+    let apple = new Apple(5);
+    let adam = new Human("Adam", 1, 60);
+    let eva = new Human("Eva", 0, 45);
+    let adamWeight = document.getElementById("adam");
+    let evaWeight = document.getElementById("eva");
+    let appleWeight = document.getElementById("apple");
+    let turn = false;
+    let isZeroApple = false;
+
+    function init() {
+        appleWeight.innerText = apple.getWeight() + " kg";
+        adamWeight.innerText = adam.getWeight() + " kg";
+        evaWeight.innerText = eva.getWeight() + " kg";
+        adam.say();
+        eva.say();
+    }
+
+    function eatApple() {
+        if (turn) {
+            adam.eat(apple);
+            appleWeight.innerText = apple.getWeight() + " kg";
+            adamWeight.innerText = adam.getWeight().toFixed(1) + " kg";
+        } else {
+            eva.eat(apple);
+            appleWeight.innerText = apple.getWeight() + " kg";
+            evaWeight.innerText = eva.getWeight().toFixed(1) + " kg";
+        }
+        turn = !turn;
+        if (apple.isEmpty() && isZeroApple) {
+            appleWeight.innerText = "Click để hái quả khác";
+        }
+    }
+
+    function pickNewApple() {
+        if (isZeroApple) {
+            apple = new Apple(Math.floor(Math.random() * 8 + 3));
+            if (adam.checkApple(apple) > 7) {
+                if (turn) {
+                    adam.sayBigApple();
+                } else {
+                    eva.sayBigApple();
+                }
+            }
+            appleWeight.innerText = apple.getWeight() + " kg";
+            isZeroApple = false;
+        }
+    }
+</script>
+</body>
+</html>

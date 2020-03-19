@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validate số điện thoại</title>
+</head>
+<body>
+<script>
+    while (1) {
+        let inputString = prompt("Số điện thoại hợp lệ có dạng (xx)-(0xxxxxxxxx)\nMời nhập số điện thoại:");
+        isValidPhoneNumber(inputString);
+    }
+
+    function isValidPhoneNumber(str) {
+        let pattern = /^\(\d{2}(\)-\(0)\d{9}\)$/;
+        if (pattern.test(str)) {
+            alert("Số điện thoại hợp lệ.");
+        } else {
+            alert("Số điện thoại không hợp lệ.");
+        }
+    }
+</script>
+</body>
+</html>
