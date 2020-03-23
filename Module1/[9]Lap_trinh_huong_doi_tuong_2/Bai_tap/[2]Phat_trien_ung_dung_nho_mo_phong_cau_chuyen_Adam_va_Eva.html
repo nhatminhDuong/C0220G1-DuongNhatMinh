@@ -10,7 +10,7 @@
     <h4 id="apple" onclick="pickNewApple()"></h4>
     <h2 id="adam" style="position: absolute; left: 530px;"></h2>
     <h2 id="eva" style="position: absolute; left: 780px;"></h2>
-    <button type="button" onclick="eatApple()">Cắn 1 miếng táo</button>
+    <button id="bite" type="button" onclick="eatApple()">Cắn 1 miếng táo</button>
 </div>
 <script>
     class Apple {
@@ -56,8 +56,8 @@
         say = function () {
             alert(this.name + " says:\nXin chào! Tôi là " + this.name + ".\nTôi nặng " + this.weight + " kí.")
         };
-        sayBigApple = function () {
-            alert(this.name + " says:\nUầyyy. Táo gì bự dữ zậy trời o_o");
+        sayBigApple = function (app) {
+            alert(this.name + " says:\nUầyyy. Táo gì bự dữ zậy trời!!\n" + app.getWeight() + " kg luôn O_O");
         };
         getName = function () {
             return this.name;
@@ -79,6 +79,7 @@
     let adamWeight = document.getElementById("adam");
     let evaWeight = document.getElementById("eva");
     let appleWeight = document.getElementById("apple");
+    let bite = document.getElementById("bite");
     let turn = false;
     let isZeroApple = false;
 
@@ -86,6 +87,7 @@
         appleWeight.innerText = apple.getWeight() + " kg";
         adamWeight.innerText = adam.getWeight() + " kg";
         evaWeight.innerText = eva.getWeight() + " kg";
+        bite.innerText = "Eva cắn 1 miếng táo";
         adam.say();
         eva.say();
     }
@@ -95,10 +97,12 @@
             adam.eat(apple);
             appleWeight.innerText = apple.getWeight() + " kg";
             adamWeight.innerText = adam.getWeight().toFixed(1) + " kg";
+            bite.innerText = "Eva cắn 1 miếng táo";
         } else {
             eva.eat(apple);
             appleWeight.innerText = apple.getWeight() + " kg";
             evaWeight.innerText = eva.getWeight().toFixed(1) + " kg";
+            bite.innerText = "Adam cắn 1 miếng táo";
         }
         turn = !turn;
         if (apple.isEmpty() && isZeroApple) {
@@ -111,9 +115,9 @@
             apple = new Apple(Math.floor(Math.random() * 8 + 3));
             if (adam.checkApple(apple) > 7) {
                 if (turn) {
-                    adam.sayBigApple();
+                    adam.sayBigApple(apple);
                 } else {
-                    eva.sayBigApple();
+                    eva.sayBigApple(apple);
                 }
             }
             appleWeight.innerText = apple.getWeight() + " kg";

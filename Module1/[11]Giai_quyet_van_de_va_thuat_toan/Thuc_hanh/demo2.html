@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BinarySearch</title>
+</head>
+<body>
+<script>
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let number = 7;
+    alert(binSearch(arr, 0, arr.length - 1, number));
+    function binSearch(arr, left, right, num) {
+        if (left > right) return -1;
+        let mid = Math.floor((left + right) / 2);
+        if (arr[mid] === num) return mid;
+        if (arr[mid] > num) return binSearch(arr, left, mid - 1, num);
+        if (arr[mid] < num) return binSearch(arr, mid + 1, right, num)
+    }
+</script>
+</body>
+</html>

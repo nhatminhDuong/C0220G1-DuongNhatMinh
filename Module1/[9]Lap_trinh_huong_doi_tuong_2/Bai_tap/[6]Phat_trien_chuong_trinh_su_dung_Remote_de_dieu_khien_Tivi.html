@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Remote điều khiển Tivi</title>
+</head>
+<body>
+<h4 style="position: absolute; left: 450px; top: 102px; z-index: 1; color: red">CodegymTVC <span id="channel">1</span></h4>
+<img src="tivi.jpg" alt="Error" style= "width: 1000px; height: auto;">
+<iframe style="position: absolute; top: 190px; left: 245px; width: 426px; height: 240px;"
+        src="https://www.youtube.com/embed/gaKHGD2vXAI?autoplay=1&mute=1" allow="autoplay"></iframe>
+<script>
+    class Remote {
+        constructor(channelCode) {
+            this.channelCode = channelCode;
+        }
+
+        changeChannel = function (newChannel, tivi) {
+            if (tivi.status) {
+                tivi.channel = newChannel;
+            }
+        };
+        adjustVolume = function (newVolume, tivi) {
+            if (tivi.status) {
+                tivi.volume = newVolume;
+            }
+        };
+    }
+
+    class Tivi {
+        constructor(currentChannel, currentVolume, status) {
+            this.currentChannel = currentChannel;
+            this.currentVolume = currentVolume;
+            this.status = status;
+        }
+
+        changeChannel = function (newChannel) {
+            this.currentChannel = newChannel;
+        };
+        adjustVolume = function (newVolume) {
+            this.volume = newVolume;
+        }
+    }
+
+    let tivi = new Tivi(1, 50, false);
+    let remote = new Remote(1);
+
+</script>
+</body>
+</html>

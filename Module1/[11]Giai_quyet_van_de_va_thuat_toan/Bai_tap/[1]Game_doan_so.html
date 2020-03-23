@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game đoán số</title>
+    <style>
+        td {
+            text-align: center;
+            font-size: x-large;
+            color: black;
+            width: 60px;
+            height: 60px;
+        }
+
+        .cellBorder {
+            color: darkblue;
+        !important;
+            border: 3px solid coral;
+        }
+
+        h3 {
+            color: coral;
+        }
+    </style>
+</head>
+<body>
+<h3>20 ô số phía dưới đã được sắp xếp theo thứ tự <i>tăng dần</i>. Mỗi ô chứa 1 số ngẫu nhiên trong khoảng 0-50.</h3>
+<label for="input"><strong>Nhập 1 số để bắt đầu tìm kiếm nhị phân:</strong></label>
+<input type="number" id="input" style="width: 40px;">
+<button type="button" id="start" onclick="startBinarySearch()">Start</button>
+<button type="button" id="next" onclick="nextStep()" disabled>Next step</button>
+&emsp;&emsp;
+<button type="button" onclick="location.reload();">Reset</button>
+<table style="position: absolute; top: 240px; left: 0;">
+    <tr>
+        <td id="a0"></td>
+        <td id="a1"></td>
+        <td id="a2"></td>
+        <td id="a3"></td>
+        <td id="a4"></td>
+        <td id="a5"></td>
+        <td id="a6"></td>
+        <td id="a7"></td>
+        <td id="a8"></td>
+        <td id="a9"></td>
+        <td id="a10"></td>
+        <td id="a11"></td>
+        <td id="a12"></td>
+        <td id="a13"></td>
+        <td id="a14"></td>
+        <td id="a15"></td>
+        <td id="a16"></td>
+        <td id="a17"></td>
+        <td id="a18"></td>
+        <td id="a19"></td>
+    <tr>
+    <tr>
+        <td class="cellBorder" id="cell0">?</td>
+        <td class="cellBorder" id="cell1">?</td>
+        <td class="cellBorder" id="cell2">?</td>
+        <td class="cellBorder" id="cell3">?</td>
+        <td class="cellBorder" id="cell4">?</td>
+        <td class="cellBorder" id="cell5">?</td>
+        <td class="cellBorder" id="cell6">?</td>
+        <td class="cellBorder" id="cell7">?</td>
+        <td class="cellBorder" id="cell8">?</td>
+        <td class="cellBorder" id="cell9">?</td>
+        <td class="cellBorder" id="cell10">?</td>
+        <td class="cellBorder" id="cell11">?</td>
+        <td class="cellBorder" id="cell12">?</td>
+        <td class="cellBorder" id="cell13">?</td>
+        <td class="cellBorder" id="cell14">?</td>
+        <td class="cellBorder" id="cell15">?</td>
+        <td class="cellBorder" id="cell16">?</td>
+        <td class="cellBorder" id="cell17">?</td>
+        <td class="cellBorder" id="cell18">?</td>
+        <td class="cellBorder" id="cell19">?</td>
+    <tr>
+    <tr>
+        <td id="i0">0</td>
+        <td id="i1">1</td>
+        <td id="i2">2</td>
+        <td id="i3">3</td>
+        <td id="i4">4</td>
+        <td id="i5">5</td>
+        <td id="i6">6</td>
+        <td id="i7">7</td>
+        <td id="i8">8</td>
+        <td id="i9">9</td>
+        <td id="i10">10</td>
+        <td id="i11">11</td>
+        <td id="i12">12</td>
+        <td id="i13">13</td>
+        <td id="i14">14</td>
+        <td id="i15">15</td>
+        <td id="i16">16</td>
+        <td id="i17">17</td>
+        <td id="i18">18</td>
+        <td id="i19">19</td>
+    <tr>
+</table>
+<br><br>
+<b id="arr"></b>
+<script>
+    let input = document.getElementById("input");
+    let sortedArr = document.getElementById("arr");
+    let arrNumbers = [];
+    let step = 0;
+    let next = true;
+    for (let i = 0; i < 20; i++) {
+        arrNumbers[i] = Math.floor(Math.random() * 50) + 1;
+    }
+    quickSort(arrNumbers, 0, arrNumbers.length - 1);
+    sortedArr.innerText = "Mảng hiện tại: " + arrNumbers;
+
+    let isFound = false;
+    let seekingNumber;
+    let left;
+    let right;
+    let lastLeft;
+    let lastRight;
+    let lastMid;
+
+    function startBinarySearch() {
+        document.getElementById("start").disabled = true;
+        document.getElementById("next").disabled = false;
+
+        seekingNumber = input.value;
+        left = 0;
+        right = arrNumbers.length - 1;
+        continueBinarySearch();
+    }
+
+    function continueBinarySearch() {
+        while (left <= right && next) {
+            let mid = Math.floor((left + right) / 2);
+            document.getElementById("a" + left).innerText = "[";
+            document.getElementById("a" + right).innerText = "]";
+            document.getElementById("a" + mid).innerHTML = "&darr;";
+            if (step !== 0) {
+                if (lastLeft !== left) document.getElementById("a" + lastLeft).innerText = "";
+                if (lastRight !== right) document.getElementById("a" + lastRight).innerText = "";
+                document.getElementById("a" + lastMid).innerText = "step " + step;
+            }
+            lastLeft = left;
+            lastRight = right;
+            lastMid = mid;
+            step++;
+            document.getElementById("cell" + mid).innerText = arrNumbers[mid];
+            if (arrNumbers[mid] == seekingNumber) {
+                for (let i = 0; i < arrNumbers.length; i++) {
+                    document.getElementById("cell" + i).innerText = arrNumbers[i];
+                }
+                document.getElementById("a" + mid).innerText = "Found at step " + step;
+                sortedArr.innerText = "Sau " + step + " bước tìm kiếm, đã tìm được arr[" + mid + "] = " + arrNumbers[mid] + ".";
+                document.getElementById("next").disabled = true;
+                isFound = true;
+                break;
+            }
+            if (arrNumbers[mid] > seekingNumber) {
+                right = mid - 1;
+            }
+            if (arrNumbers[mid] < seekingNumber) {
+                left = mid + 1;
+            }
+            next = false;
+        }
+        if (next && !isFound) {
+            for (let i = 0; i < arrNumbers.length; i++) {
+                document.getElementById("cell" + i).innerText = arrNumbers[i];
+            }
+            document.getElementById("next").disabled = true;
+            sortedArr.innerText = "Tìm kiếm kết thúc sau " + step + " bước, không tìm thấy số " + seekingNumber + ".";
+            document.getElementById("a" + lastMid).innerText = "End at step " + step;
+        }
+    }
+
+    function nextStep() {
+        next = true;
+        continueBinarySearch();
+    }
+
+    function binarySearch(arr, arrLength, number) {
+        let left = 0;
+        let right = arrLength - 1;
+        while (left <= right) {
+            let mid = Math.floor((left + right) / 2);
+            if (arr[mid] === number) return mid;
+            if (arr[mid] > number) right = mid - 1;
+            if (arr[mid] < number) left = mid + 1;
+        }
+        return -1;
+    }
+
+    function quickSort(arr, low, high) {
+        if (low < high) {
+            let pivot = partition(arr, low, high);
+            quickSort(arr, low, pivot - 1);
+            quickSort(arr, pivot + 1, high);
+        }
+    }
+
+    function partition(arr, low, high) {
+        let pivot = arr[high];
+        let left = low;
+        let right = high - 1;
+        while (true) {
+            while (left <= right && arr[left] < pivot) left++;
+            while (right >= left && arr[right] > pivot) right--;
+            if (left >= right) break;
+            [arr[left], arr[right]] = [arr[right], arr[left]];
+            left++;
+            right--;
+        }
+        [arr[left], arr[high]] = [arr[high], arr[left]];
+        return left;
+    }
+</script>
+</body>
+</html>

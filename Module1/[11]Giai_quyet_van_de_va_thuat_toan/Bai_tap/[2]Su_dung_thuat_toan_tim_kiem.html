@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sử dụng thuật toán tìm kiếm</title>
+</head>
+<body>
+Cho một danh sách các số điện thoại thuộc các nhà mạng khác nhau. Hãy tìm các số điện thoại thuộc nhà mạng Viettel. <br>
+<script>
+    let arrPhoneNumbers = ["0972349815", "0904298731", "0761349824", "0982741362", "0821359720", "0841369721",
+        "0331234876", "0567982134", "0123456789", "03456789", "3456789120"];
+
+    function isViettelPhoneNumber(phoneNumber) {
+        let pattern = /^0(86|96|97|98|32|33|34|35|36|37|38|39)\d{7}$/;
+        return pattern.test(phoneNumber);
+    }
+
+    for (let i = 0; i < arrPhoneNumbers.length; i++) {
+        document.write(arrPhoneNumbers[i] + "&emsp;");
+    }
+    document.write("<br><br>");
+    document.write("Các số điện thoại thuộc nhà mạng Viettel là: ");
+    for (let i = 0; i < arrPhoneNumbers.length; i++) {
+        if (isViettelPhoneNumber(arrPhoneNumbers[i])) {
+            document.write("<br>" + arrPhoneNumbers[i]);
+        }
+    }
+</script>
+</body>
+</html>

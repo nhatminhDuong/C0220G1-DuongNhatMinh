@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mèo bắt Chuột</title>
+</head>
+<body>
+<h3>CAT</h3>
+<p id="cat"></p>
+<button type="button" id="catch" onclick="catchRat()">Catch rat</button>
+<button type="button" id="new" onclick="newRat()" disabled>New rat</button>
+<h3>RAT</h3>
+<p id="rat"></p>
+<script>
+    class Rat {
+        constructor(name, weight, speed, status) {
+            this.name = name;
+            this.weight = weight;
+            this.speed = speed;
+            this.status = status;
+        }
+
+        sound = function () {
+            return "chít.. chít";
+        }
+    }
+
+    class Cat {
+        constructor(name, weight, maxSpeed) {
+            this.name = name;
+            this.weight = weight;
+            this.maxSpeed = maxSpeed;
+        }
+
+        sound = function () {
+            return "meoooooow";
+        };
+        catchRat = function (rat) {
+            if (this.maxSpeed > rat.speed) {
+                alert("Mèo đã bắt được chuột vì mèo chạy nhanh hơn.");
+                this.maxSpeed += 0.1;
+                let isAlive = Math.random() >= 0.6;
+                rat.status = isAlive;
+                if (rat.status) {
+                    this.eatRat(rat);
+                    alert("Mèo đã ăn chuột vì chuột còn sống.");
+                    catInfo.innerText = "Speed: " + this.maxSpeed.toFixed(1) + "\nWeight: " + this.weight;
+                    ratInfo.innerText = "Status: " + "trong bụng mèo" + "\nSpeed: " + rat.speed + "\nWeight: " + rat.weight;
+                } else {
+                    alert("Chuột đã chết. Mèo ko ăn.");
+                    catInfo.innerText = "Speed: " + this.maxSpeed.toFixed(1) + "\nWeight: " + this.weight;
+                    ratInfo.innerText = "Status: " + "DEAD" + "\nSpeed: " + rat.speed + "\nWeight: " + rat.weight;
+                }
+            } else {
+                alert("Chuột đã chạy thoát.");
+                ratInfo.innerText = "Status: " + "chạy mất tiu" + "\nSpeed: " + rat.speed + "\nWeight: " + rat.weight;
+            }
+        };
+        eatRat = function (rat) {
+            this.weight += rat.weight;
+            rat.status = false;
+        }
+    }
+
+    let rat = new Rat("chuột", Math.floor(Math.random() * 4) + 1, Math.floor(Math.random() * 7) + 17, true);
+    let cat = new Cat("mèo", 10, 20);
+    let catInfo = document.getElementById("cat");
+    let ratInfo = document.getElementById("rat");
+    catInfo.innerText = "Speed: " + cat.maxSpeed.toFixed(1) + "\nWeight: " + cat.weight;
+    ratInfo.innerText = "Status: còn thở" + "\nSpeed: " + rat.speed + "\nWeight: " + rat.weight;
+
+    function catchRat() {
+        document.getElementById("catch").disabled = true;
+        cat.catchRat(rat);
+        document.getElementById("new").disabled = false;
+    }
+
+    function newRat() {
+        rat = new Rat("chuột", Math.floor(Math.random() * 4) + 1, Math.floor(Math.random() * 7) + 17, true);
+        ratInfo.innerText = "Status: còn thở" + "\nSpeed: " + rat.speed + "\nWeight: " + rat.weight;
+        document.getElementById("catch").disabled = false;
+        document.getElementById("new").disabled = true;
+    }
+</script>
+</body>
+</html>

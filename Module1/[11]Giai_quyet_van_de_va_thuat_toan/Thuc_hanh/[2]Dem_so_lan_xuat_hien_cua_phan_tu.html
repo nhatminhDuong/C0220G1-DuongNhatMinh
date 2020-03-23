@@ -3,12 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <title>Đếm số lần xuất hiện của phần tử</title>
+    <style>
+        h3 {
+            color: coral;
+        }
+    </style>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <body>
 <script>
     let arrNumbers = [];
+    document.write("<h3>Mảng ngẫu nhiên:</h3>");
     for (let i = 0; i < 100; i++) {
         arrNumbers[i] = Math.floor(Math.random() * 101);
+        document.write(arrNumbers[i] + " ");
+        if (i % 10 === 9 && i !== 0) document.write("<br>");
+    }
+    document.write("<br>");
+    // let arrNumbers = [28, 16, 56, 30, 17, 32, 24, 18];
+
+    quickSort(arrNumbers, 0, arrNumbers.length - 1);
+
+    document.write("<h3>Mảng đã sắp xếp (quickSort):</h3>");
+    for (let i = 0; i < arrNumbers.length; i++) {
+        document.write(arrNumbers[i] + " ");
+        if (i % 10 === 9 && i !== 0) document.write("<br>");
+    }
+    document.write("<br>");
+
+    // class Promise thay cho callBack()
+    // let x;
+    // function first() {
+    //     return new Promise(function(resolve, reject) {
+    //         setTimeout((function() {
+    //             x = prompt("Enter a value to count: ");
+    //             resolve();
+    //         }), 500);
+    //     });
+    // }
+    // function display() {
+    //     alert(x);
+    // }
+    // first().then(display);
+
+    let number;
+    setTimeout(function () {
+        inputNumber(callBack);
+    }, 200);
+
+    function inputNumber(callBack) {
+        while (isNaN(number)) {
+            number = parseInt(prompt("Enter a value to count:"));
+            if (!isNaN(number)) callBack();
+            else alert("Bạn phải nhập số. Mời nhập lại!");
+        }
+    }
+
+    function callBack() {
+        let result = binarySearch(arrNumbers, arrNumbers.length, number);
+        if (result !== -1) {
+            let count = 1;
+            let indexLeft = result - 1;
+            let indexRight = result + 1;
+            while (arrNumbers[indexLeft] === number && indexLeft >= 0) {
+                count++;
+                indexLeft--;
+            }
+            while (arrNumbers[indexRight] === number && indexRight < arrNumbers.length) {
+                count++;
+                indexRight++;
+            }
+            alert("Số " + number + " xuất hiện " + count + " lần trong mảng.");
+        } else {
+            alert("Không có số " + number + " trong mảng.")
+        }
+    }
+
+    // Tìm kiếm nhị phân không đệ quy
+    function binarySearch(arr, arrLength, num) {
+        let left = 0;
+        let right = arrLength - 1;
+        while (left <= right) {
+            let mid = Math.floor((left + right) / 2);
+            if (arr[mid] === num) return mid;
+            else if (arr[mid] > num) right = mid - 1;
+            else if (arr[mid] < num) left = mid + 1;
+        }
+        return -1;
+    }
+
+    // Tìm kiếm nhị phân đệ quy
+    function binSearch(arr, left, right, num) {
+        if (left > right) return -1;
+        let mid = Math.floor((left + right) / 2);
+        if (arr[mid] === num) return mid;
+        if (arr[mid] > num) return binSearch(arr, left, mid - 1, num);
+        if (arr[mid] < num) return binSearch(arr, mid + 1, right, num)
+    }
+
+    function quickSort(arr, low, high) {
+        if (low < high) {
+            let pivot = partition(arr, low, high);
+            quickSort(arr, low, pivot - 1);
+            quickSort(arr, pivot + 1, high);
+        }
+    }
+
+    function partition(arr, low, high) {
+        let pivot = arr[high];
+        let left = low;
+        let right = high - 1;
+        while (true) {
+            while (left <= right && arr[left] < pivot) left++;
+            while (right >= left && arr[right] > pivot) right--;
+            if (left >= right) break;
+            [arr[left], arr[right]] = [arr[right], arr[left]];
+            left++;
+            right--;
+        }
+        [arr[left], arr[high]] = [arr[high], arr[left]];
+        return left;
     }
 
 </script>
