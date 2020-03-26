@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiểm tra từ đối xứng</title>
+</head>
+<body>
+<script>
+    while (1) {
+        let word = prompt("Nhập từ cần kiểm tra:");
+        if (isPalindrome(word)) {
+            alert(word + " is a Palindrome.");
+        } else {
+            alert(word + " is not a Palindrome.");
+        }
+    }
+
+    function isPalindrome(str) {
+        if (str.charAt(0) !== str.charAt(str.length - 1)) {
+            return false;
+        } else if (str.length > 2) {
+            return isPalindrome(str.substr(1, str.length - 2));
+        } else return true;
+    }
+</script>
+</body>
+</html>
