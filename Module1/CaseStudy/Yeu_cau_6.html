@@ -302,7 +302,7 @@
             + "5. Địa chỉ: " + arrListCustomers[chooseDisplay].getAddress() + "\n"
             + "6. Loại thành viên: " + arrListCustomers[chooseDisplay].getMemberType() + "\n"
             + "7. Giảm giá: " + arrListCustomers[chooseDisplay].getDiscount() + "\n"
-            + "8. Số lượng đi kèm: " + arrListCustomers[chooseDisplay].getAmount()+ "\n"
+            + "8. Số lượng đi kèm: " + arrListCustomers[chooseDisplay].getAmount() + "\n"
             + "9. Số ngày thuê: " + arrListCustomers[chooseDisplay].getRentDays() + "\n"
             + "10. Loại dịch vụ: " + arrListCustomers[chooseDisplay].getServiceType() + "\n"
             + "11. Loại phòng: " + arrListCustomers[chooseDisplay].getRoomType() + "\n"
@@ -375,18 +375,17 @@
         }
         text += arrListCustomers.length + ". Back";
         let chooseDisplay = parseInt(prompt(text));
-        if (chooseDisplay >=0 && chooseDisplay < arrListCustomers.length) {
+        if (chooseDisplay >= 0 && chooseDisplay < arrListCustomers.length) {
             for (let i = chooseDisplay; i < arrListCustomers.length - 1; i++) {
-                arrListCustomers[i] = arrListCustomers[i+1];
+                arrListCustomers[i] = arrListCustomers[i + 1];
             }
             arrListCustomers.pop();
-            alert("Successful!");
+            alert("Successful!" +
+                "");
             deleteCustomer();
-        }
-        else if (chooseDisplay === arrListCustomers.length) {
+        } else if (chooseDisplay === arrListCustomers.length) {
             displayCustomerMenu();
-        }
-        else {
+        } else {
             alert("Failed");
             deleteCustomer();
         }
@@ -465,7 +464,7 @@
         for (let i = 0; i < arrListEmployees.length; i++) {
             text += i + ". Name: " + arrListEmployees[i].getName() + "   " + "CMND: " + arrListEmployees[i].getIdNumber() + "\n";
         }
-            let chooseDisplay = parseInt(prompt(text));
+        let chooseDisplay = parseInt(prompt(text));
         alert("Tên: " + arrListEmployees[chooseDisplay].getName() + "\n"
             + "CMND: " + arrListEmployees[chooseDisplay].getIdNumber() + "\n"
             + "Ngày sinh: " + arrListEmployees[chooseDisplay].getDateOfBirth() + "\n"

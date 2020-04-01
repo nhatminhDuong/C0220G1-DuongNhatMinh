@@ -107,7 +107,7 @@ function bai5() {
 
 function bai6() {
     document.getElementById("result6").innerHTML = "";
-    let heartSize = parseInt(prompt("Nhập kích thước trái tim:"));
+    let heartSize = parseInt(prompt("Nhập kích thước trái tim (nhỏ hơn 20):"));
     let n1 = heartSize * 4 + 1; //Nhập size = 3 => n1 = 13;
     let n2 = (n1 + 1) / 2; // n2 = 7;
     let n3 = (n2 + 1) / 2; // n3 = 4;

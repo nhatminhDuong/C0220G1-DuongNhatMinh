@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Câu 2</title>
+</head>
+<body>
+<script>
+    while (true) {
+        let number = parseInt(prompt("Nhập số nguyên cần kiểm tra:"));
+        alert(isMainNumber(number));
+    }
+
+    function isMainNumber(x) {
+        return (Number.isInteger(Math.sqrt(x)));
+    }
+</script>
+</body>
+</html>

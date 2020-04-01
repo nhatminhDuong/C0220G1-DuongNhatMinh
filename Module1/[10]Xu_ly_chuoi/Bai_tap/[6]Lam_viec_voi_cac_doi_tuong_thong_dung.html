@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Làm việc với các đối tượng thông dụng</title>
+</head>
+<body>
+<h3>Làm việc với Date</h3>
+<button type="button" onclick="bai1()">Click me</button>
+<br>
+Tính số thời gian mà bạn đã sống dưới nhiều đơn vị khác nhau.<br>
+Bước 1: Tạo đối tượng Date() với thời gian truyền vào là ngày giờ sinh của bạn.<br>
+Bước 2: Tạo đối tượng Date() với thời gian hiện tại.<br>
+Bước 3: Hiển thị thời gian mà bạn đã sống dưới nhiều đơn vị khác nhau:<br>
+<p id="result1"></p>
+<h3>Làm việc với Math</h3>
+<button type="button" onclick="bai2()">Click me</button>
+<br>
+Bước 1: Sinh số ngẫu nhiên
+<br>
+Sinh số ngẫu nhiên từ 0-10:&emsp;<span id="result2a"></span>
+<br>
+Sinh số ngẫu nhiên từ 0-400:&emsp;<span id="result2b"></span>
+<br>
+Sinh số ngẫu nhiên từ 50-100:&emsp;<span id="result2c"></span>
+<br><br>
+Bước 2: Tìm giá trị nhỏ nhất trong các số 5, 7, 2, 9:&emsp;<span id="result2d"></span>
+<br><br>
+Bước 3: Tìm luỹ thừa: 53^6 = <span id="result2e"></span>
+<br><br>
+Bước 4: Tính diện tích của hình tròn có bán kính là 5cm:&emsp;<span id="result2f"></span>
+
+<h3>Làm việc với đối tượng String</h3>
+<button type="button" onclick="bai3()">Click me</button>
+<br>
+Bước 1: Cho sẵn chuỗi như sau: "Tôi yêu ngôn ngữ lập trình Javascript".<br>
+Đếm số lần xuất hiện của chữ 'a' ở trong chuỗi trên:&emsp;<span id="result3a"></span>
+<br>
+Bước 2: Tách chuỗi<br>
+Hãy tách chuỗi trên vào trong một mảng các chuỗi. Mỗi từ là một phần tử:&emsp;<span id="result3b"></span>
+<br>
+Bước 3: Đếm số lượng từ có trong chuỗi: <span id="result3c"></span>
+<br>
+Bước 4: Hãy thay thế chữ 'Javascript' bằng chữ 'Typescript':<br>
+<span id="result3d"></span>
+<script>
+    function bai1() {
+        let myTime = new Date(1997, 2, 12, 13, 26, 24, 600);
+        let myMilliseconds = myTime.getMilliseconds() + myTime.getSeconds() * 1000 + myTime.getMinutes() * 1000 * 60
+            + myTime.getHours() * 1000 * 60 * 60 + myTime.getDay() * 1000 * 60 * 60 * 24
+            + myTime.getMonth() * 1000 * 60 * 60 * 24 * 30 + (myTime.getFullYear() - 1970) * 1000 * 60 * 60 * 24 * 30 * 12;
+        let currentMilliseconds = Date.now();
+        let secondsLived = Math.floor((currentMilliseconds - myMilliseconds) / 1000);
+        let minutesLived = Math.floor((currentMilliseconds - myMilliseconds) / (1000 * 60));
+        let hoursLived = Math.floor((currentMilliseconds - myMilliseconds) / (1000 * 60 * 60));
+        let daysLived = Math.floor((currentMilliseconds - myMilliseconds) / (1000 * 60 * 60 * 24));
+        let monthsLived = Math.floor((currentMilliseconds - myMilliseconds) / (1000 * 60 * 60 * 24 * 30));
+        let yearsLived = Math.floor((currentMilliseconds - myMilliseconds) / (1000 * 60 * 60 * 24 * 30 * 12));
+        document.getElementById("result1").innerText = "Tôi đã sống " + yearsLived + " năm\n"
+            + "Tôi đã sống " + monthsLived + " tháng\n"
+            + "Tôi đã sống " + daysLived + " ngày\n"
+            + "Tôi đã sống " + hoursLived + " giờ\n"
+            + "Tôi đã sống " + minutesLived + " phút\n"
+            + "Tôi đã sống " + secondsLived + " giây.";
+    }
+
+    function bai2() {
+        document.getElementById("result2a").innerText = Math.floor(Math.random() * 11);
+        document.getElementById("result2b").innerText = Math.floor(Math.random() * 401);
+        document.getElementById("result2c").innerText = Math.floor(Math.random() * 51) + 50;
+
+        let arr = [5, 7, 2, 9];
+        document.getElementById("result2d").innerText = Math.min(...arr) + " //using Math.min()";
+
+        document.getElementById("result2e").innerText = Math.pow(53, 6) + " //using Math.pow(x, y)";
+
+        document.getElementById("result2f").innerText = (Math.pow(5, 2) * Math.PI).toFixed(4) + " //using Math.PI";
+    }
+
+    function bai3() {
+        let str = "Tôi yêu ngôn ngữ lập trình Javascript";
+        let count_a = 0;
+        for (let i = 0; i < str.length; i++) {
+            if (str.charAt(i) === 'a') {
+                ++count_a;
+            }
+        }
+        document.getElementById("result3a").innerText = count_a + " lần." + " //using charAt()";
+        let arr = str.split(" ");
+        document.getElementById("result3b").innerText = arr + ' //using split(" ")';
+
+        document.getElementById("result3c").innerText = str.split(" ").length + " từ." + " //using split(\" \").length";
+
+        document.getElementById("result3d").innerText = str.replace("Javascript", "Typescript") + " //using replace()";
+    }
+</script>
+</body>
+</html>

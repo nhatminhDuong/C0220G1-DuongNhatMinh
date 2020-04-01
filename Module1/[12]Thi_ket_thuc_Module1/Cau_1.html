@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Câu 1</title>
+</head>
+<body>
+<script>
+    let arr = [];
+    for (let i = 0; i < 5; i++) {
+        let number;
+        do {
+            number = parseInt(prompt("Nhập phần tử thứ " + i + " của mảng:"));
+        } while (!Number.isInteger(number));
+        arr.push(number);
+    }
+    document.write("Mảng đã nhập: " + arr + "<br>");
+    insertionSort(arr);
+    document.write("Mảng đã sắp xếp: " + arr + "<br>");
+
+    function insertionSort(arr) {
+        for (let i = 0; i < arr.length; i++) {
+            let key = arr[i];
+            let j = i - 1;
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            arr[j + 1] = key;
+        }
+    }
+</script>
+</body>
+</html>

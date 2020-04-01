@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Câu 4</title>
+</head>
+<body>
+<script>
+    class HocSinh {
+        constructor(orderNumber, name, dateOfBirth, averagePoint) {
+            this.orderNumber = orderNumber;
+            this.name = name;
+            this.dateOfBirth = dateOfBirth;
+            this.averagePoint = averagePoint;
+        };
+
+        showInfo = function () {
+            document.write("Số thứ tự:" + this.orderNumber + "<br>");
+            document.write("Họ và tên: " + this.name + "<br>");
+            document.write("Ngày sinh: " + this.dateOfBirth + "<br>");
+            document.write("Điểm trung bình: " + this.averagePoint.toFixed(1) + "<br>");
+        };
+
+        learningCapacity = function () {
+            let a = this.averagePoint;
+            if (a > 8) {
+                return "GIỎI";
+            } else if (a >= 6.5) {
+                return "KHÁ";
+            } else if (a >= 5) {
+                return "TRUNG BÌNH";
+            } else if (a >= 3.5) {
+                return "YẾU";
+            } else return "KÉM";
+        };
+    }
+
+    let student = new HocSinh(17, "Dương Nhật Minh", "01/01/2000", 8.5);
+    student.showInfo();
+    document.write("Học lực: " + student.learningCapacity());
+</script>
+</body>
+</html>
