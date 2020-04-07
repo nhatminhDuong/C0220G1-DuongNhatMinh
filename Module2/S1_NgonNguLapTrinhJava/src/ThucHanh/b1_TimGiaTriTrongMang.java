@@ -1,22 +1,22 @@
-package Thuc_hanh;
+package ThucHanh;
 
 import java.util.Scanner;
 
-public class _1_Tim_gia_tri_trong_mang {
+public class b1_TimGiaTriTrongMang {
     public static void main(String[] args) {
         String[] students = {"Christian", "Michael", "Camila", "Sienna", "Tanya", "Connor", "Zoe", "Emily"};
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a student's name to find: ");
+        System.out.print("Enter a name’s student: ");
         String inputName = scanner.nextLine();
-        boolean isExist = false;
+        boolean isFound = false;
         for (int i = 0; i < students.length; i++) {
             if (students[i].equals(inputName)) {
-                System.out.println("Position of the students in the list " + inputName + " is: " + (i + 1));
-                isExist = true;
+                System.out.println("Position of the student " + inputName + " in the list is: " + (i + 1));
+                isFound = true;
                 break;
             }
         }
-        if (!isExist)
+        if (!isFound)
             System.out.println("Not found " + inputName + " in the list.");
     }
 }

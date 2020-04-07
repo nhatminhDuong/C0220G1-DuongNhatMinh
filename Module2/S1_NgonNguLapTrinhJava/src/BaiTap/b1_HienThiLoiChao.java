@@ -1,8 +1,8 @@
-package Bai_tap;
+package BaiTap;
 
 import java.util.Scanner;
 
-public class _1_Hien_thi_loi_chao {
+public class b1_HienThiLoiChao {
     public static void main(String[] args) {
         System.out.println("Enter your name: ");
         Scanner scanner = new Scanner(System.in);
