@@ -29,7 +29,7 @@ public class MyLinkedList {
             tempNode = tempNode.next;
         }
         holder = tempNode.next;
-        tempNode.next = new Node(data);
+        tempNode.next = new Node(data); // tempNode.next là node mới cần chèn
         tempNode.next.next = holder;
         numNodes++;
     }
