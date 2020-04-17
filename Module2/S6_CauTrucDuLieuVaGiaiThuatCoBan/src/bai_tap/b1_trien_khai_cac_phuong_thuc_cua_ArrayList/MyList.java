@@ -31,16 +31,16 @@ public class MyList<E> {
     }
 
     public E remove(int index) {
-        E removedElement = (E) elements[index];
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index is out of range! Cannot remove.");
         } else {
+            E removedElement = (E) elements[index];
             for (int i = index; i < size - 1; i++) {
                 elements[i] = elements[i + 1];
             }
             elements[--size] = null;
+            return removedElement;
         }
-        return removedElement;
     }
 
     public int size() {
