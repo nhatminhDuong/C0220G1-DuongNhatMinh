@@ -6,7 +6,7 @@ public class TennisGame {
     public static final String DRAW_SCORE_BY_1 = "Fifteen-All";
     public static final String DRAW_SCORE_BY_2 = "Thirty-All";
     public static final String DRAW_SCORE_BY_3 = "Forty-All";
-    public static final String DRAW_SCORE_BY_4 = "Deuce";
+    public static final String DRAW_SCORE_BY_DEUCE = "Deuce";
     public static final String ADVANTAGE_FOR_PLAYER_1 = "Advantage player1";
     public static final String ADVANTAGE_FOR_PLAYER_2 = "Advantage player2";
     public static final String WIN_FOR_PLAYER_1 = "Win for player1";
@@ -53,7 +53,7 @@ public class TennisGame {
                 result = DRAW_SCORE_BY_3;
                 break;
             default:
-                result = DRAW_SCORE_BY_4;
+                result = DRAW_SCORE_BY_DEUCE;
                 break;
 
         }
