@@ -10,14 +10,18 @@ public class MyLinkedListTest {
         linkedList.add(3);
 
 //        linkedList.remove(2);
-        linkedList.add(3, 6);
+//        linkedList.add(3, 6);
 //        linkedList.addFirst(10);
 //        System.out.println(linkedList.remove((Object) 5));
-//        linkedList.clone().printList();
+        linkedList.clone().printList();
+        linkedList.add(3);
+
 //        System.out.println(linkedList.contains(4));
 //        System.out.println(linkedList.indexOf(5));
 //        System.out.println(linkedList.get(7));
 //        linkedList.clear();
+//        linkedList.add(2);
+
 
         System.out.println();
         linkedList.printList();

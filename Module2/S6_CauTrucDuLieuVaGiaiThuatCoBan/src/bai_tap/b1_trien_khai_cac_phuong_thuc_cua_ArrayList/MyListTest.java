@@ -13,8 +13,9 @@ public class MyListTest {
         listIntegers.add(3);
 
 //        listIntegers.add(4, 10);
-//        listIntegers.remove(2);
+        listIntegers.remove(2);
 //        System.out.println(listIntegers.size());
+
 //        listIntegers.clone().printList();
 //        System.out.println(listIntegers.contains(1));
 //        System.out.println(listIntegers.indexOf(3));

@@ -95,10 +95,13 @@ public class MyLinkedList<E> {
     @Override
     public MyLinkedList<E> clone() {
         MyLinkedList<E> clone = new MyLinkedList<E>(head.getData());
-        Node tempNode = head;
-        while (tempNode.nextNode != null) {
+        if (head.nextNode != null) {
+            Node tempNode = head.nextNode;
+            while (tempNode.nextNode != null) {
+                clone.add((E) tempNode.getData());
+                tempNode = tempNode.nextNode;
+            }
             clone.add((E) tempNode.getData());
-            tempNode = tempNode.nextNode;
         }
         return clone;
     }
@@ -156,26 +159,20 @@ public class MyLinkedList<E> {
     }
 
     public void clear() {
-        Node tempNode = head;
-        while (tempNode.nextNode != null) {
-            Node next = tempNode.nextNode;
-            tempNode.data = null;
-            tempNode.nextNode = null;
-            tempNode = next;
-        }
-        tempNode.data = null;
+        head = null;
         size = 0;
     }
 
     public void printList() {
-        Node tempNode = head;
-        System.out.print("Elements:\t");
-        while (tempNode.nextNode != null) {
-            System.out.print((tempNode.getData() + "\t"));
-            tempNode = tempNode.nextNode;
+        if (head != null) {
+            Node tempNode = head;
+            System.out.print("Elements:\t");
+            while (tempNode.nextNode != null) {
+                System.out.print((tempNode.getData() + "\t"));
+                tempNode = tempNode.nextNode;
+            }
+            System.out.println((tempNode.getData()));
+            System.out.println("Size: " + size);
         }
-        System.out.println((tempNode.getData()));
-        System.out.println("Size: " + size);
     }
-
 }

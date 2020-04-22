@@ -19,6 +19,7 @@ public class TennisGame {
     public static final int NUMBER_OF_PLAYERS = 2;
     public static final int ONE_POINT = 1;
     public static final int TWO_POINT = 2;
+    public static final int FIRST_PLAYER = 1;
 
     public static String getScore(String nameOfPlayer1, String nameOfPlayer2, int scoreOfPlayer1, int scoreOfPlayer2) {
         String result = "";
@@ -76,14 +77,14 @@ public class TennisGame {
 
     private static String getCurrentScore(int scoreOfPlayer1, int scoreOfPlayer2) {
         String result = "";
-        int tempScore = 0;
+        int tempResult = 0;
         for (int i = 1; i <= NUMBER_OF_PLAYERS; i++) {
-            if (i == 1) tempScore = scoreOfPlayer1;
+            if (i == FIRST_PLAYER) tempResult = scoreOfPlayer1;
             else {
                 result += DASH;
-                tempScore = scoreOfPlayer2;
+                tempResult = scoreOfPlayer2;
             }
-            switch (tempScore) {
+            switch (tempResult) {
                 case 0:
                     result += SCORE_BY_0;
                     break;
