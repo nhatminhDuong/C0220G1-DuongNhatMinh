@@ -1,4 +1,4 @@
-package Controllers;
+package Libs;
 
 public class PassingParameterException extends Exception{
     public PassingParameterException(String message) {

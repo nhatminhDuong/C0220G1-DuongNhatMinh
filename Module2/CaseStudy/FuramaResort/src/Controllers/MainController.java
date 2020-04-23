@@ -1,8 +1,7 @@
 package Controllers;
 
-import Models.House;
-import Models.Room;
-import Models.Villa;
+import Libs.*;
+import Models.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class MainController {
                 + "1. Add new Services\n"
                 + "2. Show Services\n"
                 + "3. Add a new Customer\n"
-                + "4. Show Information of Customer\n"
+                + "4. Show Information of all Customers\n"
                 + "5. Add a new Booking\n"
                 + "6. Show Information of Employee\n"
                 + "7. Book 4D Movie Tickets\n"
@@ -30,7 +29,7 @@ public class MainController {
         int chosenNumber = scanner.nextInt();
         switch (chosenNumber) {
             case 1: {
-                addNewServices();
+                addNewService();
                 break;
             }
             case 2: {
@@ -38,22 +37,28 @@ public class MainController {
                 break;
             }
             case 3: {
-
+                addNewCustomer();
+                break;
             }
             case 4: {
-
+                showInformationOfCustomers();
+                break;
             }
             case 5: {
-
+                addNewBooking();
+                break;
             }
             case 6: {
-
+                showInformationOfEmployee();
+                break;
             }
             case 7: {
-
+                book4DMovieTickets();
+                break;
             }
             case 8: {
-
+                findEmployee();
+                break;
             }
             case 9: {
                 break;
@@ -61,7 +66,31 @@ public class MainController {
         }
     }
 
-    private static void addNewServices() {
+    private static void addNewCustomer() {
+        CustomerCsvWriter.inputCustomerData();
+        CustomerCsvWriter.saveCustomerDataToFile();
+    }
+
+    private static void showInformationOfCustomers() {
+        CustomerCsvReader.readAllRecords();
+        CustomerCsvReader.showAllCustomers();
+    }
+
+    private static void addNewBooking() {
+        CustomerCsvReader.readAllRecords();
+        CustomerCsvReader.bookService();
+    }
+
+    private static void showInformationOfEmployee() {
+    }
+
+    private static void book4DMovieTickets() {
+    }
+
+    private static void findEmployee() {
+    }
+
+    private static void addNewService() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Choose a number:\n" +
@@ -75,7 +104,8 @@ public class MainController {
         switch (chosenNumber) {
             case 1: {
                 try {
-                    CsvWriter.inputData("Villa");
+                    ServiceCsvWriter.inputServiceData("Villa");
+                    ServiceCsvWriter.saveServiceDataToFile();
                 } catch (PassingParameterException e) {
                     e.printStackTrace();
                 }
@@ -83,7 +113,8 @@ public class MainController {
             }
             case 2: {
                 try {
-                    CsvWriter.inputData("House");
+                    ServiceCsvWriter.inputServiceData("House");
+                    ServiceCsvWriter.saveServiceDataToFile();
                 } catch (PassingParameterException e) {
                     e.printStackTrace();
                 }
@@ -91,7 +122,8 @@ public class MainController {
             }
             case 3: {
                 try {
-                    CsvWriter.inputData("Room");
+                    ServiceCsvWriter.inputServiceData("Room");
+                    ServiceCsvWriter.saveServiceDataToFile();
                 } catch (PassingParameterException e) {
                     e.printStackTrace();
                 }
@@ -124,7 +156,7 @@ public class MainController {
         switch (chosenNumber) {
             case 1: {
                 try {
-                    CsvReader.readAllRecords("Villa");
+                    ServiceCsvReader.readAllRecords("Villa");
                 } catch (PassingParameterException e) {
                     e.printStackTrace();
                 }
@@ -132,7 +164,7 @@ public class MainController {
             }
             case 2: {
                 try {
-                    CsvReader.readAllRecords("House");
+                    ServiceCsvReader.readAllRecords("House");
                 } catch (PassingParameterException e) {
                     e.printStackTrace();
                 }
@@ -140,20 +172,23 @@ public class MainController {
             }
             case 3: {
                 try {
-                    CsvReader.readAllRecords("Room");
+                    ServiceCsvReader.readAllRecords("Room");
                 } catch (PassingParameterException e) {
                     e.printStackTrace();
                 }
                 break;
             }
             case 4: {
-
+                showAllVillaNotDuplicate();
+                break;
             }
             case 5: {
-
+                showAllHouseNotDuplicate();
+                break;
             }
             case 6: {
-
+                showAllRoomNotDuplicate();
+                break;
             }
             case 7: {
                 displayMainMenu();
@@ -165,13 +200,25 @@ public class MainController {
         }
     }
 
-    private static class CsvWriter {
+    private static void showAllVillaNotDuplicate() {
+    }
+
+    private static void showAllHouseNotDuplicate() {
+    }
+
+    private static void showAllRoomNotDuplicate() {
+    }
+
+    private static class ServiceCsvWriter {
         private static String id;
         private static String serviceName;
         private static String usedSpace;
         private static String fee;
         private static String maxPeople;
         private static String rentType;
+        private static String accompaniedServiceName;
+        private static String unit;
+        private static String unitPrice;
         private static String roomStandards;
         private static String otherAmenitiesDescription;
         private static String poolArea;
@@ -179,11 +226,11 @@ public class MainController {
         private static String includedFreeServices;
         private static Scanner scanner = new Scanner(System.in);
 
-        public static void inputData(String service) throws PassingParameterException {
+        public static void inputServiceData(String service) throws PassingParameterException {
             if (!(service.equals("Villa") || service.equals("House") || service.equals("Room"))) {
                 throw new PassingParameterException("Parameter \"service\" must be \"Villa\" or \"House\" or \"Room\".");
             } else {
-                inputCommonData(service);
+                inputCommonServiceData(service);
                 switch (service) {
                     case "Villa": {
                         boolean isValid = false;
@@ -318,16 +365,24 @@ public class MainController {
                         } while (!isValid);
                         isValid = false;
 
-                        System.out.print("Dịch vụ miễn phí đi kèm: ");
-                        includedFreeServices = scanner.nextLine();
+                        do {
+                            System.out.print("Dịch vụ miễn phí đi kèm: ");
+                            includedFreeServices = scanner.nextLine();
+                            String includedFreeServicesRegExp = "^[A-Z]([a-z]|[0-9]| )+$";
+                            boolean isMatched = includedFreeServices.matches(includedFreeServicesRegExp);
+                            if (!isMatched) {
+                                System.out.println("Không hợp lệ! Viết hoa ký tự đầu, còn lại viết thường. Mời nhập lại.");
+                            } else {
+                                isValid = true;
+                            }
+                        } while (!isValid);
                         break;
                     }
                 }
-                saveDataToFile();
             }
         }
 
-        private static void inputCommonData(String service) {
+        private static void inputCommonServiceData(String service) {
             boolean isValid = false;
 
             serviceName = service;
@@ -372,14 +427,67 @@ public class MainController {
                 String rentTypeRegExp = "^(Year|Month|Day|Hour)$";
                 boolean isMatched = rentType.matches(rentTypeRegExp);
                 if (!isMatched) {
-                    System.out.println("Kiểu thuê phải thuộc một trong các loại sau: Year/Month/Day/Hour. Mời nhập lại.");
+                    System.out.println("Kiểu thuê phải là 1 trong các loại: Year/Month/Day/Hour. Mời nhập lại.");
+                } else {
+                    isValid = true;
+                }
+            } while (!isValid);
+            isValid = false;
+
+            do {
+                System.out.print("Tên dịch vụ đi kèm: ");
+                accompaniedServiceName = scanner.nextLine();
+                String accompaniedServiceNameRegExp = "^(Massage|Karaoke|Food|Drink|Car)$";
+                boolean isMatched = accompaniedServiceName.matches(accompaniedServiceNameRegExp);
+                if (!isMatched) {
+                    System.out.println("Dịch vụ đi kèm phải là 1 trong các loại: Massage/Karaoke/Food/Drink/Car. Mời nhập lại.");
+                } else {
+                    isValid = true;
+                }
+            } while (!isValid);
+            isValid = false;
+
+            do {
+                System.out.print("Đơn vị của dịch vụ đi kèm: ");
+                unit = scanner.nextLine();
+                String unitRegExp = "^[A-Z]([a-z]|[0-9]| )+$";
+                boolean isMatched = unit.matches(unitRegExp);
+                if (!isMatched) {
+                    System.out.println("Không hợp lệ! Viết hoa ký tự đầu, còn lại viết thường. Mời nhập lại.");
+                } else {
+                    isValid = true;
+                }
+            } while (!isValid);
+            isValid = false;
+
+            do {
+                System.out.print("Đơn giá dịch vụ đi kèm: ");
+                unitPrice = scanner.nextLine();
+                if (Integer.parseInt(unitPrice) <= 0) {
+                    System.out.println("Đơn giá phải lớn hơn 0! Mời nhập lại.");
                 } else {
                     isValid = true;
                 }
             } while (!isValid);
         }
 
-        public static void saveDataToFile() {
+        private static Services getNewCreatedService() {
+            if (serviceName.equals("Villa")) {
+                return new Villa(id, serviceName, usedSpace, fee, maxPeople, rentType,
+                        accompaniedServiceName, unit, unitPrice,
+                        roomStandards, otherAmenitiesDescription, poolArea, floors);
+            } else if (serviceName.equals("House")) {
+                return new House(id, serviceName, usedSpace, fee, maxPeople, rentType,
+                        accompaniedServiceName, unit, unitPrice,
+                        roomStandards, otherAmenitiesDescription, floors);
+            } else {
+                return new Room(id, serviceName, usedSpace, fee, maxPeople, rentType,
+                        accompaniedServiceName, unit, unitPrice,
+                        includedFreeServices);
+            }
+        }
+
+        private static void saveServiceDataToFile() {
             String filePath = System.getProperty("user.dir") + "\\src\\Data\\" + serviceName + ".csv";
 
             try {
@@ -387,7 +495,8 @@ public class MainController {
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                 PrintWriter printWriter = new PrintWriter(bufferedWriter);
 
-                printWriter.print(id + "," + serviceName + "," + usedSpace + "," + fee + "," + maxPeople + "," + rentType + ",");
+                printWriter.print(id + "," + serviceName + "," + usedSpace + "," + fee + "," + maxPeople + "," + rentType
+                        + "," + accompaniedServiceName + "," + unit + "," + unitPrice + ",");
 
                 switch (serviceName) {
                     case "Villa": {
@@ -408,13 +517,16 @@ public class MainController {
                 printWriter.close();
                 System.out.println("Successfully added!");
             } catch (Exception e) {
-                System.out.println("Failed to save data to file!");
+                System.out.println("Failed to save service data to file!");
             }
         }
     }
 
-    private static class CsvReader {
+    public static class ServiceCsvReader {
         private static Scanner scanner;
+        public static ArrayList<Villa> villas = new ArrayList<Villa>();
+        public static ArrayList<House> houses = new ArrayList<House>();
+        public static ArrayList<Room> rooms = new ArrayList<Room>();
 
         public static void readAllRecords(String service) throws PassingParameterException {
             if (!(service.equals("Villa") || service.equals("House") || service.equals("Room"))) {
@@ -431,7 +543,6 @@ public class MainController {
 
                 switch (service) {
                     case "Villa": {
-                        ArrayList<Villa> villas = new ArrayList<Villa>();
                         while (scanner.hasNext()) {
                             String id = scanner.next();
                             String serviceName = scanner.next();
@@ -439,21 +550,22 @@ public class MainController {
                             String fee = scanner.next();
                             String maxPeople = scanner.next();
                             String rentType = scanner.next();
+                            String accompaniedServiceName = scanner.next();
+                            String unit = scanner.next();
+                            String unitPrice = scanner.next();
                             String roomStandards = scanner.next();
                             String otherAmenitiesDescription = scanner.next();
                             String poolArea = scanner.next();
                             String floors = scanner.next();
                             Villa temp = new Villa(id, serviceName, usedSpace, fee, maxPeople, rentType,
+                                    accompaniedServiceName, unit, unitPrice,
                                     roomStandards, otherAmenitiesDescription, poolArea, floors);
                             villas.add(temp);
                         }
-                        for (Villa villa : villas) {
-                            villa.showInfo();
-                            System.out.println();
-                        }
+
+                        showAllVillas();
                     }
                     case "House": {
-                        ArrayList<House> houses = new ArrayList<House>();
                         while (scanner.hasNext()) {
                             String id = scanner.next();
                             String serviceName = scanner.next();
@@ -461,20 +573,21 @@ public class MainController {
                             String fee = scanner.next();
                             String maxPeople = scanner.next();
                             String rentType = scanner.next();
+                            String accompaniedServiceName = scanner.next();
+                            String unit = scanner.next();
+                            String unitPrice = scanner.next();
                             String roomStandards = scanner.next();
                             String otherAmenitiesDescription = scanner.next();
                             String floors = scanner.next();
                             House temp = new House(id, serviceName, usedSpace, fee, maxPeople, rentType,
+                                    accompaniedServiceName, unit, unitPrice,
                                     roomStandards, otherAmenitiesDescription, floors);
                             houses.add(temp);
                         }
-                        for (House house : houses) {
-                            house.showInfo();
-                            System.out.println();
-                        }
+
+                        showAllHouses();
                     }
                     case "Room": {
-                        ArrayList<Room> rooms = new ArrayList<Room>();
                         while (scanner.hasNext()) {
                             String id = scanner.next();
                             String serviceName = scanner.next();
@@ -482,16 +595,451 @@ public class MainController {
                             String fee = scanner.next();
                             String maxPeople = scanner.next();
                             String rentType = scanner.next();
+                            String accompaniedServiceName = scanner.next();
+                            String unit = scanner.next();
+                            String unitPrice = scanner.next();
                             String includedFreeServices = scanner.next();
-                            Room temp = new Room(id, serviceName, usedSpace, fee, maxPeople, rentType, includedFreeServices);
+                            Room temp = new Room(id, serviceName, usedSpace, fee, maxPeople, rentType,
+                                    accompaniedServiceName, unit, unitPrice, includedFreeServices);
                             rooms.add(temp);
                         }
-                        for (Room room : rooms) {
-                            room.showInfo();
-                            System.out.println();
-                        }
+
+                        showAllRooms();
                     }
                 }
+            }
+        }
+
+        private static void showAllRooms() {
+            for (int i = 0; i < rooms.size(); i++) {
+                System.out.println("Item " + (i + 1) + ":");
+                rooms.get(i).showInfo();
+                System.out.println();
+            }
+        }
+
+        private static void showAllHouses() {
+            for (int i = 0; i < houses.size(); i++) {
+                System.out.println("Item " + (i + 1) + ":");
+                houses.get(i).showInfo();
+                System.out.println();
+            }
+        }
+
+        private static void showAllVillas() {
+            for (int i = 0; i < villas.size(); i++) {
+                System.out.println("Item " + (i + 1) + ":");
+                villas.get(i).showInfo();
+                System.out.println();
+            }
+        }
+    }
+
+    private static class CustomerCsvWriter {
+        private static Customer newCustomer = new Customer();
+        private static Scanner scanner = new Scanner(System.in);
+
+        private static void inputCustomerData() {
+            boolean isValid = false;
+
+            do {
+                System.out.print("Họ tên khách hàng: ");
+                String tempFullName = scanner.nextLine();
+                try {
+                    String[] words = tempFullName.split(" ");
+                    String wordRegExp = "^[A-Z][a-z]+$";
+                    boolean isAccepted = true;
+                    for (String word : words) {
+                        if (!word.matches(wordRegExp)) {
+                            isAccepted = false;
+                            break;
+                        }
+                    }
+                    if (!isAccepted) {
+                        throw new NameException("Không hợp lệ! Tên khách hàng phải in hoa ký tự đầu tiên trong mỗi từ. Mời nhập lại.");
+                    }
+                } catch (NameException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+                newCustomer.setFullName(tempFullName);
+                isValid = true;
+            } while (!isValid);
+            isValid = false;
+
+            do {
+                System.out.print("Ngày sinh: ");
+                String tempDateOfBirth = scanner.nextLine();
+                try {
+                    String dateOfBirthRegExp = "^(0[1-9]|[12]\\d|3[01])/(0[1-9]|1[0-2])/(19\\d{2}|200[0-2])$";
+                    boolean isAccepted = tempDateOfBirth.matches(dateOfBirthRegExp);
+                    if (!isAccepted) {
+                        throw new BirthdayException("Không hợp lệ! Ngày sinh phải đúng định dạng dd/mm/yyyy và khách hàng phải trên 18 tuổi. Mời nhập lại.");
+                    }
+                } catch (BirthdayException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+                newCustomer.setDateOfBirth(tempDateOfBirth);
+                isValid = true;
+            } while (!isValid);
+            isValid = false;
+
+            do {
+                System.out.print("Giới tính: ");
+                String tempGender = scanner.nextLine();
+                try {
+                    tempGender = tempGender.toLowerCase();
+                    String genderRegExp = "^(male|female|unknown)$";
+                    boolean isAccepted = tempGender.matches(genderRegExp);
+
+                    if (!isAccepted) {
+                        throw new GenderException("Không hợp lệ! Giới tính phải là Male/Female/Unknown. Mời nhập lại.");
+                    }
+                } catch (GenderException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+                tempGender = tempGender.substring(0, 1).toUpperCase() + tempGender.substring(1);
+                newCustomer.setGender(tempGender);
+                isValid = true;
+            } while (!isValid);
+            isValid = false;
+
+            do {
+                System.out.print("Số CMND: ");
+                String tempIdNumber = scanner.nextLine();
+                try {
+                    String idNumberRegExp = "^\\d{3} \\d{3} \\d{3}$";
+                    boolean isAccepted = tempIdNumber.matches(idNumberRegExp);
+
+                    if (!isAccepted) {
+                        throw new GenderException("Không hợp lệ! Số CMND phải có 9 số theo định dạng XXX XXX XXX. Mời nhập lại.");
+                    }
+                } catch (GenderException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+                newCustomer.setIdNumber(tempIdNumber);
+                isValid = true;
+            } while (!isValid);
+            isValid = false;
+
+            do {
+                System.out.print("Số điện thoại: ");
+                String tempPhoneNumber = scanner.nextLine();
+                try {
+                    String phoneNumberRegExp = "^\\d{10}$";
+                    boolean isAccepted = tempPhoneNumber.matches(phoneNumberRegExp);
+                    if (!isAccepted) {
+                        throw new PhoneNumberException("Không hợp lệ! Số điện thoại phải có 10 số. Mời nhập lại.");
+                    }
+                } catch (PhoneNumberException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+                newCustomer.setPhoneNumber(tempPhoneNumber);
+                isValid = true;
+            } while (!isValid);
+            isValid = false;
+
+            do {
+                System.out.print("Email: ");
+                String tempEmail = scanner.nextLine();
+                try {
+                    String emailRegExp = "^([0-9A-Za-z]+){3}@([0-9A-Za-z]+){3}(\\.[0-9A-Za-z]+){1,2}$";
+                    boolean isAccepted = tempEmail.matches(emailRegExp);
+                    if (!isAccepted) {
+                        throw new EmailException("Không hợp lệ! Email phải theo định dạng abc@abc.abc");
+                    }
+                } catch (EmailException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+                newCustomer.setEmail(tempEmail);
+                isValid = true;
+            } while (!isValid);
+            isValid = false;
+
+            do {
+                System.out.print("Loại khách hàng: ");
+                String tempTypeOfCustomer = scanner.nextLine();
+                String typeOfCustomerRegExp = "^[A-Z]([a-z]|[0-9]| )+$";
+                boolean isAccepted = tempTypeOfCustomer.matches(typeOfCustomerRegExp);
+                if (!isAccepted) {
+                    System.out.println("Không hợp lệ! Viết hoa ký tự đầu, còn lại viết thường. Mời nhập lại.");
+                } else {
+                    newCustomer.setTypeOfCustomer(tempTypeOfCustomer);
+                    isValid = true;
+                }
+            } while (!isValid);
+            isValid = false;
+
+            do {
+                System.out.print("Địa chỉ: ");
+                String tempAddress = scanner.nextLine();
+                String addressRegExp = "^[A-Z]([a-z]|[0-9]|-| )+$";
+                boolean isAccepted = tempAddress.matches(addressRegExp);
+                if (!isAccepted) {
+                    System.out.println("Không hợp lệ! Viết hoa ký tự đầu, còn lại viết thường. Mời nhập lại.");
+                } else {
+                    newCustomer.setAddress(tempAddress);
+                    isValid = true;
+                }
+            } while (!isValid);
+
+        }
+
+        private static void saveCustomerDataToFile() {
+            String filePath = System.getProperty("user.dir") + "\\src\\Data\\Customer.csv";
+
+            try {
+                FileWriter fileWriter = new FileWriter(filePath, true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                PrintWriter printWriter = new PrintWriter(bufferedWriter);
+
+                printWriter.println(newCustomer.getFullName() + ","
+                        + newCustomer.getDateOfBirth() + ","
+                        + newCustomer.getGender() + ","
+                        + newCustomer.getIdNumber() + ","
+                        + newCustomer.getPhoneNumber() + ","
+                        + newCustomer.getEmail() + ","
+                        + newCustomer.getTypeOfCustomer() + ","
+                        + newCustomer.getAddress());
+
+                printWriter.flush();
+                printWriter.close();
+                System.out.println("Successfully added!");
+            } catch (Exception e) {
+                System.out.println("Failed to save customer data to file!");
+            }
+        }
+    }
+
+    private static class CustomerCsvReader {
+        private static Scanner scanner;
+        private static ArrayList<Customer> customers = new ArrayList<Customer>();
+        private static int chosenCustomerNumber;
+        private static int displayServiceNumber;
+        private static int chosenItemNumber;
+
+        public static void readAllRecords() {
+            String filePath = System.getProperty("user.dir") + "\\src\\Data\\Customer.csv";
+            try {
+                scanner = new Scanner(new File(filePath));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            scanner.useDelimiter("[,\n]");
+
+            while (scanner.hasNext()) {
+                String fullName = scanner.next();
+                String dateOfBirth = scanner.next();
+                String gender = scanner.next();
+                String idNumber = scanner.next();
+                String phoneNumber = scanner.next();
+                String email = scanner.next();
+                String typeOfCustomer = scanner.next();
+                String address = scanner.next();
+                Customer temp = new Customer(fullName, dateOfBirth, gender, idNumber, phoneNumber, email, typeOfCustomer, address);
+                customers.add(temp);
+
+                customers.sort(new BirthYearComparator());
+                customers.sort(new NameComparator());
+            }
+        }
+
+        public static void showAllCustomers() {
+            for (Customer customer : customers) {
+                customer.showInfo();
+                System.out.println();
+            }
+        }
+
+        public static void bookService() {
+            chooseCustomerToBook();
+            chooseServiceToDisplay();
+            displayServiceItemsToBook(displayServiceNumber);
+            chooseServiceItemToBook(displayServiceNumber);
+            saveBookingDataToFile(chosenCustomerNumber, displayServiceNumber, chosenItemNumber);
+        }
+
+        public static void chooseCustomerToBook() {
+            scanner = new Scanner(System.in);
+            for (int i = 0; i < customers.size(); i++) {
+                System.out.printf("%-1d%-20s%s", i + 1, ". " + customers.get(i).getFullName(), "CMND: " + customers.get(i).getIdNumber());
+                System.out.println();
+            }
+            do {
+                System.out.print("Choose a number: ");
+                chosenCustomerNumber = scanner.nextInt();
+                if (chosenCustomerNumber - 1 >= customers.size() || chosenCustomerNumber <= 0) {
+                    System.out.println("Số vừa nhập không có trong danh sách. Mời nhập lại.");
+                } else {
+                    break;
+                }
+            } while (true);
+
+        }
+
+        public static void chooseServiceToDisplay() {
+            System.out.println("1. Booking Villa\n"
+                    + "2. Booking House\n"
+                    + "3. Booking Room\n");
+            do {
+                System.out.print("Choose a number: ");
+                displayServiceNumber = scanner.nextInt();
+                if (displayServiceNumber > 3 || displayServiceNumber <= 0) {
+                    System.out.println("Số vừa nhập không có trong danh sách. Mời nhập lại.");
+                } else {
+                    break;
+                }
+            } while (true);
+        }
+
+        public static void displayServiceItemsToBook(int displayServiceNumber) {
+            switch (displayServiceNumber) {
+                case 1: {
+                    try {
+                        ServiceCsvReader.readAllRecords("Villa");
+                    } catch (PassingParameterException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+                case 2: {
+                    try {
+                        ServiceCsvReader.readAllRecords("House");
+                    } catch (PassingParameterException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+                case 3: {
+                    try {
+                        ServiceCsvReader.readAllRecords("Room");
+                    } catch (PassingParameterException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+            }
+        }
+
+        public static void chooseServiceItemToBook(int displayServiceNumber) {
+            scanner = new Scanner(System.in);
+            switch (displayServiceNumber) {
+                case 1: {
+                    System.out.print("Enter an item number: ");
+                    chosenItemNumber = scanner.nextInt();
+                    int itemIndex = chosenItemNumber - 1;
+                    if (itemIndex < 0 || itemIndex >= ServiceCsvReader.villas.size()) {
+                        System.out.println("Số nhập vào không có trong danh sách. Mời nhập lại.");
+                        chooseServiceItemToBook(displayServiceNumber);
+                    }
+                    break;
+                }
+                case 2: {
+                    System.out.println("Enter an item number: ");
+                    chosenItemNumber = scanner.nextInt();
+                    int itemIndex = chosenItemNumber - 1;
+                    if (itemIndex < 0 || itemIndex >= ServiceCsvReader.houses.size()) {
+                        System.out.println("Số nhập vào không có trong danh sách. Mời nhập lại.");
+                        chooseServiceItemToBook(displayServiceNumber);
+                    }
+                    break;
+                }
+                case 3: {
+                    System.out.println("Enter an item number: ");
+                    chosenItemNumber = scanner.nextInt();
+                    int itemIndex = chosenItemNumber - 1;
+                    if (itemIndex < 0 || itemIndex >= ServiceCsvReader.rooms.size()) {
+                        System.out.println("Số nhập vào không có trong danh sách. Mời nhập lại.");
+                        chooseServiceItemToBook(displayServiceNumber);
+                    }
+                    break;
+                }
+            }
+        }
+
+        public static void saveBookingDataToFile(int customerNumber, int displayServiceNumber, int itemNumber) {
+            String filePath = System.getProperty("user.dir") + "\\src\\Data\\Booking.csv";
+
+            int customerIndex = customerNumber - 1;
+            int itemIndex = itemNumber - 1;
+            String printContent = "";
+
+            printContent = customers.get(customerIndex).getFullName() + ","
+                    + customers.get(customerIndex).getDateOfBirth() + ","
+                    + customers.get(customerIndex).getGender() + ","
+                    + customers.get(customerIndex).getIdNumber() + ","
+                    + customers.get(customerIndex).getPhoneNumber() + ","
+                    + customers.get(customerIndex).getEmail() + ","
+                    + customers.get(customerIndex).getTypeOfCustomer() + ","
+                    + customers.get(customerIndex).getAddress() + ",";
+
+            switch (displayServiceNumber) {
+                case 1: {
+                    Villa villa = ServiceCsvReader.villas.get(itemIndex);
+                    printContent += villa.id + ","
+                            + villa.serviceName + ","
+                            + villa.usedSpace + ","
+                            + villa.fee + ","
+                            + villa.maxPeople + ","
+                            + villa.rentType + ","
+                            + villa.accompaniedService.name + ","
+                            + villa.accompaniedService.unit + ","
+                            + villa.accompaniedService.unitPrice + ","
+                            + villa.roomStandards + ","
+                            + villa.otherAmenitiesDescription + ","
+                            + villa.poolArea + ","
+                            + villa.floors;
+                    break;
+                }
+                case 2: {
+                    House house = ServiceCsvReader.houses.get(itemIndex);
+                    printContent += house.id + ","
+                            + house.serviceName + ","
+                            + house.usedSpace + ","
+                            + house.fee + ","
+                            + house.maxPeople + ","
+                            + house.rentType + ","
+                            + house.accompaniedService.name + ","
+                            + house.accompaniedService.unit + ","
+                            + house.accompaniedService.unitPrice + ","
+                            + house.roomStandards + ","
+                            + house.otherAmenitiesDescription + ","
+                            + house.floors;
+                    break;
+                }
+                case 3: {
+                    Room room = ServiceCsvReader.rooms.get(itemIndex);
+                    printContent += room.id + ","
+                            + room.serviceName + ","
+                            + room.usedSpace + ","
+                            + room.fee + ","
+                            + room.maxPeople + ","
+                            + room.rentType + ","
+                            + room.accompaniedService.name + ","
+                            + room.accompaniedService.unit + ","
+                            + room.accompaniedService.unitPrice + ","
+                            + room.includedFreeServices;
+                    break;
+                }
+            }
+            try {
+                FileWriter fileWriter = new FileWriter(filePath, true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                PrintWriter printWriter = new PrintWriter(bufferedWriter);
+                printContent = printContent.replaceFirst("\\r", "");
+                printWriter.print(printContent);
+
+                printWriter.flush();
+                printWriter.close();
+                System.out.println("Successfully added!");
+            } catch (Exception e) {
+                System.out.println("Failed to save customer data to file!");
             }
         }
     }
