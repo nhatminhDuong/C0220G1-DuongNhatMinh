@@ -4,10 +4,11 @@ import Libs.*;
 import Models.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class MainController {
+    private static Queue<Customer> customerQueueBookingTickets = new LinkedList<Customer>();
+
     public static void main(String[] args) {
         displayMainMenu();
     }
@@ -21,7 +22,7 @@ public class MainController {
                 + "3. Add a new Customer\n"
                 + "4. Show Information of all Customers\n"
                 + "5. Add a new Booking\n"
-                + "6. Show Information of Employee\n"
+                + "6. Show Information of Employees\n"
                 + "7. Book 4D Movie Tickets\n"
                 + "8. Find an Employee\n"
                 + "9. Exit");
@@ -49,7 +50,7 @@ public class MainController {
                 break;
             }
             case 6: {
-                showInformationOfEmployee();
+                showInformationOfEmployees();
                 break;
             }
             case 7: {
@@ -63,31 +64,11 @@ public class MainController {
             case 9: {
                 break;
             }
+            default: {
+                System.out.println("Invalid number. Try again!");
+                displayMainMenu();
+            }
         }
-    }
-
-    private static void addNewCustomer() {
-        CustomerCsvWriter.inputCustomerData();
-        CustomerCsvWriter.saveCustomerDataToFile();
-    }
-
-    private static void showInformationOfCustomers() {
-        CustomerCsvReader.readAllRecords();
-        CustomerCsvReader.showAllCustomers();
-    }
-
-    private static void addNewBooking() {
-        CustomerCsvReader.readAllRecords();
-        CustomerCsvReader.bookService();
-    }
-
-    private static void showInformationOfEmployee() {
-    }
-
-    private static void book4DMovieTickets() {
-    }
-
-    private static void findEmployee() {
     }
 
     private static void addNewService() {
@@ -143,12 +124,12 @@ public class MainController {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Choose a number:\n" +
-                "1. Show all Villa\n" +
-                "2. Show all House\n" +
-                "3. Show all Room\n" +
-                "4. Show all Name Villa not duplicate\n" +
-                "5. Show all Name House not duplicate\n" +
-                "6. Show all Name Room not duplicate\n" +
+                "1. Show all Villas\n" +
+                "2. Show all Houses\n" +
+                "3. Show all Rooms\n" +
+                "4. Show all Villa names not duplicate\n" +
+                "5. Show all House names not duplicate\n" +
+                "6. Show all Room names not duplicate\n" +
                 "7. Back to Main menu\n" +
                 "8. Exit");
 
@@ -157,6 +138,8 @@ public class MainController {
             case 1: {
                 try {
                     ServiceCsvReader.readAllRecords("Villa");
+                    ServiceCsvReader.showAllVillas();
+                    displayMainMenu();
                 } catch (PassingParameterException e) {
                     e.printStackTrace();
                 }
@@ -165,6 +148,8 @@ public class MainController {
             case 2: {
                 try {
                     ServiceCsvReader.readAllRecords("House");
+                    ServiceCsvReader.showAllHouses();
+                    displayMainMenu();
                 } catch (PassingParameterException e) {
                     e.printStackTrace();
                 }
@@ -173,6 +158,8 @@ public class MainController {
             case 3: {
                 try {
                     ServiceCsvReader.readAllRecords("Room");
+                    ServiceCsvReader.showAllRooms();
+                    displayMainMenu();
                 } catch (PassingParameterException e) {
                     e.printStackTrace();
                 }
@@ -180,14 +167,17 @@ public class MainController {
             }
             case 4: {
                 showAllVillaNotDuplicate();
+                displayMainMenu();
                 break;
             }
             case 5: {
                 showAllHouseNotDuplicate();
+                displayMainMenu();
                 break;
             }
             case 6: {
                 showAllRoomNotDuplicate();
+                displayMainMenu();
                 break;
             }
             case 7: {
@@ -200,16 +190,158 @@ public class MainController {
         }
     }
 
+    private static void addNewCustomer() {
+        CustomerCsvWriter.inputCustomerData();
+        CustomerCsvWriter.saveCustomerDataToFile();
+    }
+
+    private static void showInformationOfCustomers() {
+        CustomerCsvReader.readAllRecords();
+        CustomerCsvReader.showAllCustomers();
+        displayMainMenu();
+    }
+
+    private static void addNewBooking() {
+        CustomerCsvReader.readAllRecords();
+        CustomerCsvReader.bookService();
+    }
+
+    private static void showInformationOfEmployees() {
+        EmployeeCsvReader.readAllRecords();
+        EmployeeCsvReader.showAllEmployees();
+        displayMainMenu();
+    }
+
+    private static void book4DMovieTickets() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Choose a number:\n"
+                + "1. Book movie tickets\n"
+                + "2. Show customer booking movie tickets\n"
+                + "3. Exit");
+
+        String chosenNumber = scanner.nextLine();
+        switch (chosenNumber) {
+            case "1": {
+                addBooking4DMovieTickets();
+                break;
+            }
+            case "2": {
+                showBookingMovieTickets();
+                break;
+            }
+            case "3": {
+                break;
+            }
+            default: {
+                System.out.println("Error! Back to Main menu");
+                displayMainMenu();
+            }
+        }
+    }
+
+    private static void showBookingMovieTickets() {
+        int i = 1;
+        for (Customer customer : customerQueueBookingTickets) {
+            System.out.println("No." + i);
+            customer.showInfo();
+            i++;
+        }
+        displayMainMenu();
+    }
+
+    private static void addBooking4DMovieTickets() {
+        Scanner scanner = new Scanner(System.in);
+        CustomerCsvReader.readAllRecords();
+        CustomerCsvReader.showAllCustomers();
+        System.out.println("Select a customer:");
+        String chosenNumber = scanner.nextLine();
+        int index = Integer.parseInt(chosenNumber) - 1;
+        if (index < 0 || index >= CustomerCsvReader.customers.size()) {
+            System.out.println("Out of list. Try again!");
+            addBooking4DMovieTickets();
+        } else {
+            customerQueueBookingTickets.add(CustomerCsvReader.customers.get(index));
+        }
+        displayMainMenu();
+    }
+
+    private static void findEmployee() {
+        Scanner scanner = new Scanner(System.in);
+        Stack<Employee> stackEmployees = Resume.getAllEmployees();
+        System.out.print("Enter key of employee to find: ");
+        String key = scanner.nextLine();
+        try {
+            while (true) {
+                boolean found = stackEmployees.peek().getId().equals(key);
+                if (!found) {
+                    stackEmployees.pop();
+                } else {
+                    System.out.println("Employee found with key " + key + ":");
+                    System.out.println(stackEmployees.peek().toString());
+                    break;
+                }
+            }
+        } catch (EmptyStackException e) {
+            System.out.println("Invalid key. Try again!");
+            findEmployee();
+        }
+        displayMainMenu();
+    }
+
     private static void showAllVillaNotDuplicate() {
+        TreeSet<String> differentVillaNames = new TreeSet<String>();
+        try {
+            ServiceCsvReader.readAllRecords("Villa");
+        } catch (PassingParameterException e) {
+            e.printStackTrace();
+        }
+
+        for (Villa villa : ServiceCsvReader.villas) {
+            differentVillaNames.add(villa.serviceName);
+        }
+
+        for (String villaName : differentVillaNames) {
+            System.out.println(villaName);
+        }
     }
 
     private static void showAllHouseNotDuplicate() {
+        TreeSet<String> differentHouseNames = new TreeSet<String>();
+        try {
+            ServiceCsvReader.readAllRecords("House");
+        } catch (PassingParameterException e) {
+            e.printStackTrace();
+        }
+
+        for (House house : ServiceCsvReader.houses) {
+            differentHouseNames.add(house.serviceName);
+        }
+
+        for (String houseName : differentHouseNames) {
+            System.out.println(houseName);
+        }
     }
 
     private static void showAllRoomNotDuplicate() {
+        TreeSet<String> differentRoomNames = new TreeSet<String>();
+        try {
+            ServiceCsvReader.readAllRecords("Room");
+        } catch (PassingParameterException e) {
+            e.printStackTrace();
+        }
+
+        for (Room room : ServiceCsvReader.rooms) {
+            differentRoomNames.add(room.serviceName);
+        }
+
+        for (String roomName : differentRoomNames) {
+            System.out.println(roomName);
+        }
     }
 
     private static class ServiceCsvWriter {
+        private static String serviceType;
         private static String id;
         private static String serviceName;
         private static String usedSpace;
@@ -384,8 +516,10 @@ public class MainController {
 
         private static void inputCommonServiceData(String service) {
             boolean isValid = false;
+            serviceType = service;
 
-            serviceName = service;
+            System.out.print("Tên " + service + ": ");
+            serviceName = scanner.nextLine();
 
             do {
                 System.out.print("Diện tích sử dụng: ");
@@ -471,24 +605,8 @@ public class MainController {
             } while (!isValid);
         }
 
-        private static Services getNewCreatedService() {
-            if (serviceName.equals("Villa")) {
-                return new Villa(id, serviceName, usedSpace, fee, maxPeople, rentType,
-                        accompaniedServiceName, unit, unitPrice,
-                        roomStandards, otherAmenitiesDescription, poolArea, floors);
-            } else if (serviceName.equals("House")) {
-                return new House(id, serviceName, usedSpace, fee, maxPeople, rentType,
-                        accompaniedServiceName, unit, unitPrice,
-                        roomStandards, otherAmenitiesDescription, floors);
-            } else {
-                return new Room(id, serviceName, usedSpace, fee, maxPeople, rentType,
-                        accompaniedServiceName, unit, unitPrice,
-                        includedFreeServices);
-            }
-        }
-
         private static void saveServiceDataToFile() {
-            String filePath = System.getProperty("user.dir") + "\\src\\Data\\" + serviceName + ".csv";
+            String filePath = System.getProperty("user.dir") + "\\src\\Data\\" + serviceType + ".csv";
 
             try {
                 FileWriter fileWriter = new FileWriter(filePath, true);
@@ -543,6 +661,7 @@ public class MainController {
 
                 switch (service) {
                     case "Villa": {
+                        villas = new ArrayList<Villa>();
                         while (scanner.hasNext()) {
                             String id = scanner.next();
                             String serviceName = scanner.next();
@@ -562,10 +681,9 @@ public class MainController {
                                     roomStandards, otherAmenitiesDescription, poolArea, floors);
                             villas.add(temp);
                         }
-
-                        showAllVillas();
                     }
                     case "House": {
+                        houses = new ArrayList<House>();
                         while (scanner.hasNext()) {
                             String id = scanner.next();
                             String serviceName = scanner.next();
@@ -584,10 +702,9 @@ public class MainController {
                                     roomStandards, otherAmenitiesDescription, floors);
                             houses.add(temp);
                         }
-
-                        showAllHouses();
                     }
                     case "Room": {
+                        rooms = new ArrayList<Room>();
                         while (scanner.hasNext()) {
                             String id = scanner.next();
                             String serviceName = scanner.next();
@@ -603,8 +720,6 @@ public class MainController {
                                     accompaniedServiceName, unit, unitPrice, includedFreeServices);
                             rooms.add(temp);
                         }
-
-                        showAllRooms();
                     }
                 }
             }
@@ -824,6 +939,7 @@ public class MainController {
         private static int chosenItemNumber;
 
         public static void readAllRecords() {
+            customers = new ArrayList<Customer>();
             String filePath = System.getProperty("user.dir") + "\\src\\Data\\Customer.csv";
             try {
                 scanner = new Scanner(new File(filePath));
@@ -851,8 +967,9 @@ public class MainController {
         }
 
         public static void showAllCustomers() {
-            for (Customer customer : customers) {
-                customer.showInfo();
+            for (int i = 0; i < customers.size(); i++) {
+                System.out.println("No." + (i + 1));
+                customers.get(i).showInfo();
                 System.out.println();
             }
         }
@@ -1041,6 +1158,41 @@ public class MainController {
             } catch (Exception e) {
                 System.out.println("Failed to save customer data to file!");
             }
+        }
+    }
+
+    public static class EmployeeCsvReader {
+        private static Scanner scanner;
+        private static Map<String, Employee> mapEmployees = new HashMap<>();
+        public static ArrayList<Employee> listEmployees = new ArrayList<Employee>();
+
+        public static void readAllRecords() {
+            String filePath = System.getProperty("user.dir") + "\\src\\Data\\Employee.csv";
+            try {
+                scanner = new Scanner(new File(filePath));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            scanner.useDelimiter("[,\n]");
+
+            mapEmployees = new HashMap<>();
+            listEmployees = new ArrayList<Employee>();
+            while (scanner.hasNext()) {
+                String id = scanner.next();
+                String fullName = scanner.next();
+                String age = scanner.next();
+                String address = scanner.next();
+                Employee employee = new Employee(id, fullName, age, address);
+
+                mapEmployees.put(employee.getId(), employee);
+                listEmployees.add(employee);
+            }
+        }
+
+        public static void showAllEmployees() {
+            mapEmployees.forEach((key, value) -> {
+                System.out.println("Key: " + key + "\t" + value.toString());
+            });
         }
     }
 }
