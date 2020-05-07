@@ -154,13 +154,13 @@ values
 
 insert into KhachHang (IDKhachHang, IDLoaiKhach, HoTen, NgaySinh, SoCMND, SDT, Email, DiaChi)
 values
-(1, 3, 'Nam Tran', '1991-12-01', '236598214', '0958426851', 'namtran1kh@codegym.vn', 'Ha Tinh'),
+(1, 2, 'Nam Tran', '1991-12-01', '236598214', '0958426851', 'namtran1kh@codegym.vn', 'Vinh'),
 (2, 1, 'Son Nguyen', '2000-01-01', '3269874621', '0986251472', 'sonnguyen2kh@codegym.vn', 'Da Nang'),
-(3, 2, 'Binh Le', '1967-03-20', '986251346', '098213542', 'binhle3kh@codegym.vn', 'Quang Tri'),
+(3, 1, 'Binh Le', '1967-03-20', '986251346', '098213542', 'binhle3kh@codegym.vn', 'Ha Tinh'),
 (4, 4, 'Phu Pham', '2003-02-02', '862843928', '0973251248', 'phupham@codegym.vn', 'Da Nang'),
-(5, 1, 'Quang Le', '1982-06-13', '492843916', '0382364972', 'quangle@codegym.vn', 'Quang Tri'),
-(6, 1, 'Phuong Nguyen', '1999-12-05', '362974816', '0342698128', 'phuongnguyen@codegym.vn', 'Quang Nam'),
-(7, 5, 'Phuong Nguyen', '1994-12-05', '362394816', '0342696197', 'phuongnguyenqn@codegym.vn', 'Quang Ngai');
+(5, 1, 'Quang Le', '1982-06-13', '492843916', '0382364972', 'quangle@codegym.vn', 'Vinh'),
+(6, 1, 'Phuong Nguyen', '1999-12-05', '362974816', '0342698128', 'phuongnguyen@codegym.vn', 'Quang Ngai'),
+(7, 5, 'Phuong Nguyen', '1994-12-05', '362394816', '0342696197', 'phuongnguyenqn@codegym.vn', 'Quang Nam');
 
 -- TASK 3: Hiển thị thông tin của tất cả khách hàng có độ tuổi từ 18 đến 50 tuổi và có địa chỉ ở “Đà Nẵng” hoặc “Quảng Trị”.
 select *
@@ -195,13 +195,13 @@ values
 
 insert into HopDong (IDHopDong, IDNhanVien, IDKhachHang, IDDichVu, NgayLamHopDong, NgayKetThuc, TienDatCoc, TongTien)
 values
-(1, 2, 2, 4, '2018-04-01', '2018-04-15', 200, 700),
-(2, 3, 4, 5, '2020-02-02', '2020-02-16', 200, 710),
+(1, 2, 5, 4, '2018-04-01', '2018-04-15', 200, 700),
+(2, 3, 3, 5, '2020-02-02', '2020-02-16', 200, 1200),
 (3, 4, 6, 6, '2018-04-03', '2018-04-17', 200, 720),
-(4, 5, 5, 1, '2020-04-04', '2020-04-18', 200, 730),
-(5, 6, 2, 2, '2020-05-05', '2020-05-20', 200, 740),
-(6, 2, 5, 3, '2020-05-06', '2020-05-21', 200, 750),
-(7, 3, 2, 6, '2019-12-01', '2020-01-01', 400, 1000);select * from HopDong
+(4, 5, 2, 1, '2019-11-11', '2019-11-12', 200, 730),
+(5, 6, 2, 1, '2019-03-05', '2019-05-25', 200, 740),
+(6, 2, 2, 3, '2020-05-06', '2020-05-21', 200, 750),
+(7, 3, 2, 6, '2019-12-01', '2020-01-01', 400, 1000);
 
 -- TASK 4: Đếm xem tương ứng với mỗi khách hàng đã từng đặt phòng bao nhiêu lần.
 -- Kết quả hiển thị được sắp xếp tăng dần theo số lần đặt phòng của khách hàng.
@@ -317,7 +317,7 @@ values
 (8, 5, 1, 1),
 (9, 6, 3, 1),
 (10, 6, 4, 1),
-(11, 7, 4, 1);
+(11, 7, 3, 1);
 
 -- TASK 10: Hiển thị thông tin tương ứng với từng Hợp đồng thì đã sử dụng bao nhiêu Dịch vụ đi kèm.
 -- Kết quả hiển thị bao gồm IDHopDong, NgayLamHopDong, NgayKetthuc, TienDatCoc, SoLuongDichVuDiKem
@@ -327,5 +327,137 @@ from HopDongChiTiet
 join HopDong on HopDongChiTiet.IDHopDong = HopDong.IDHopDong
 group by HopDongChiTiet.IDHopDong;
 
+-- TASK 11: Hiển thị thông tin các Dịch vụ đi kèm đã được sử dụng bởi những Khách hàng có TenLoaiKhachHang là “Diamond”
+-- và có địa chỉ là “Vinh” hoặc “Quảng Ngãi”.
+select KhachHang.IDKhachHang, HoTen, DiaChi, TenLoaiKhach, DichVuDiKem.IDDichVuDiKem, TenDichVuDiKem, Gia, DonVi, TrangThaiKhaDung
+from LoaiKhach
+join KhachHang on LoaiKhach.IDLoaiKhach = KhachHang.IDLoaiKhach
+join HopDong on KhachHang.IDKhachHang = HopDong.IDKhachHang
+join HopDongChiTiet on HopDong.IDHopDong = HopDongChiTiet.IDHopDong
+join DichVuDiKem on HopDongChiTiet.IDDichVuDiKem = DichVuDiKem.IDDichVuDiKem
+where TenLoaiKhach = 'Diamond' and (DiaChi = 'Vinh' or DiaChi = 'Quang Ngai');
 
+-- TASK 12: Hiển thị thông tin IDHopDong, TenNhanVien, TenKhachHang, SoDienThoaiKhachHang, TenDichVu, SoLuongDichVuDiKem
+-- (được tính dựa trên tổng Hợp đồng chi tiết), TienDatCoc của tất cả các dịch vụ đã từng được khách hàng đặt vào 3 tháng cuối năm 2019
+-- nhưng chưa từng được khách hàng đặt vào 6 tháng đầu năm 2019.
+select HopDong.IDHopDong, NhanVien.HoTen as TenNhanVien, KhachHang.Hoten as TenKhachHang, KhachHang.SDT, TenDichVu,
+TienDatCoc, count(*) as SoLuongDichVuDiKem
+from HopDong
+join DichVu on HopDong.IDDichVu = DichVu.IDDichVu
+join HopDongChiTiet on HopDong.IDHopDong = HopDongChiTiet.IDHopDong
+join DichVuDiKem on HopDongChiTiet.IDDichVuDiKem = DichVuDiKem.IDDichVuDiKem
+join KhachHang on HopDong.IDKhachHang = KhachHang.IDKhachHang
+join NhanVien on HopDong.IDNhanVien = NhanVien.IDNhanVien
+where
+DichVu.IDDichVu in (select IDDichVu from HopDong where month(NgayLamHopDong) in (10, 11, 12)) and
+DichVu.IDDichVu not in (select IDDichVu from HopDong where NgayLamHopDong between '2019-01-01' and '2019-06-30')
+and 
+month(NgayLamHopDong) in (10, 11, 12)
+group by HopDongChiTiet.IDHopDong;
+
+-- TASK 13: Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng.
+-- (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
+select HopDong.IDHopDong, TenLoaiDichVu, TenDichVuDiKem, count(DichVuDiKem.IDDIchVuDIKem) as SoLanSuDung
+from HopDong
+join DichVu on HopDong.IDDichVu = DichVu.IDDichVu
+join LoaiDichVu on DichVu.IDLoaiDichVu = LoaiDichVU.IDLoaiDichVu
+join HopDongChiTiet on HopDong.IDHopDong = HopDongChiTiet.IDHopDong
+join DichVuDiKem on HopDongChiTiet.IDDichVuDiKem = DichVuDiKem.IDDichVuDiKem
+group by DichVuDiKem.IDDichVuDiKem
+having SoLanSuDung = (select max(BangThongKe2.SoLanSuDung)
+					from (
+					select DichVuDiKem.IDDichVuDiKem, count(*) as SoLanSuDung
+					from HopDongChiTiet
+					join DichVuDiKem on HopDongChiTiet.IDDichVuDiKem = DichVuDiKem.IDDichVuDiKem
+					group by IDDichVuDiKem) as BangThongKe2);
+
+-- TASK 14: Hiển thị thông tin tất cả các Dịch vụ đi kèm chỉ mới được sử dụng một lần duy nhất.
+-- Thông tin hiển thị bao gồm IDHopDong, TenLoaiDichVu, TenDichVuDiKem, SoLanSuDung.
+select HopDong.IDHopDong, TenLoaiDichVu, TenDichVuDiKem, count(DichVuDiKem.IDDIchVuDIKem) as SoLanSuDung
+from HopDong
+join DichVu on HopDong.IDDichVu = DichVu.IDDichVu
+join LoaiDichVu on DichVu.IDLoaiDichVu = LoaiDichVU.IDLoaiDichVu
+join HopDongChiTiet on HopDong.IDHopDong = HopDongChiTiet.IDHopDong
+join DichVuDiKem on HopDongChiTiet.IDDichVuDiKem = DichVuDiKem.IDDichVuDiKem
+group by DichVuDiKem.IDDichVuDiKem
+having SoLanSuDung = 1;
+
+-- TASK 15: Hiển thi thông tin của tất cả nhân viên bao gồm IDNhanVien, HoTen, TrinhDo, TenBoPhan, SoDienThoai, DiaChi mới chỉ
+-- lập được tối đa 3 hợp đồng
+ -- (từ năm 2018 đến 2019.)
+
+select NhanVien.IDNhanVien, NhanVien.HoTen, TrinhDo, TenBoPhan, NhanVien.SDT as SoDienThoai, DiaChi
+from NhanVien
+join TrinhDo on NhanVien.IDTrinhDo = TrinhDo.IDTrinhDo
+join BoPhan on NhanVien.IDBoPhan = BoPhan.IDBoPhan
+left join HopDong on NhanVien.IDNhanVien = HopDong.IDNhanVien
+group by NhanVien.IDNhanVien
+having NhanVien.IDNhanVien not in (select IDNhanVien from HopDong)
+or
+count(HopDong.IDNhanVien) <= 3;
+
+-- TASK 16: Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2018 đến năm 2020.
+delete from NhanVien
+where not exists (
+select NhanVien.IDNhanVien
+from HopDong
+where year(NgayLamHopDong) between 2018 and 2020  
+and HopDong.IDNhanVien = NhanVien.IDNhanVien)
+and IDNhanVien > 0; -- this condition is to trick safe update mode.
+
+-- TASK 17: Cập nhật thông tin những khách hàng có TenLoaiKhachHang từ  Platinium lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng
+-- với tổng Tiền thanh toán trong năm 2019 là lớn hơn 1500$.
+
+-- CÁCH 1:
+update KhachHang
+set KhachHang.IDLoaiKhach = (select IDLoaiKhach from LoaiKhach where TenLoaiKhach = 'Diamond')
+where KhachHang.IDLoaiKhach = (select IDLoaiKhach from LoaiKhach where TenLoaiKhach = 'Platinum')
+and
+KhachHang.IDKhachHang in (select IDKhachHang from (select HopDong.IDKhachHang, sum(HopDong.TongTien) as TongThanhToanTrongNam
+													from HopDong
+													where year(NgayLamHopDong) = 2019
+													group by HopDong.IDKhachHang
+													having TongThanhToanTrongNam > 1500) as temp);
+
+-- CÁCH 2:                                                    
+update KhachHang, (select HopDong.IDKhachHang, sum(HopDong.TongTien) as TongThanhToanTrongNam
+													from HopDong
+													where year(NgayLamHopDong) = 2019
+													group by HopDong.IDKhachHang
+													having TongThanhToanTrongNam > 1500) as temp
+set KhachHang.IDLoaiKhach = (select IDLoaiKhach from LoaiKhach where TenLoaiKhach = 'Diamond')
+where KhachHang.IDLoaiKhach = (select IDLoaiKhach from LoaiKhach where TenLoaiKhach = 'Platinum')
+and KhachHang.IDKhachHang = temp.IDKhachHang;
+
+-- TASK 18: Xóa những khách hàng có hợp đồng trước năm 2016 (chú ý ràng buộc giữa các bảng)
+set SQL_SAFE_UPDATES = 0; -- turn-off-safe-update
+
+delete KhachHang, HopDong, HopDongChiTiet
+from KhachHang
+inner join HopDong on KhachHang.IDKhachHang = HopDong.IDKhachHang
+inner join HopDongChiTiet on HopDong.IDHopDong = HopDongChiTiet.IDHopDong
+where not exists (select HopDong.IDHopDong
+					where year (NgayLamHopDong) > 2016
+					and KhachHang.IDKhachHang = HopDong.IDKhachHang);
+set SQL_SAFE_UPDATES = 1; -- turn-on-safe-update
+
+-- TASK 19: Cập nhật giá cho các Dịch vụ đi kèm được sử dụng trên 10 lần trong năm 2019 lên gấp đôi.
+update DichVuDiKem
+inner join (select TenDichVuDiKem 
+			from HopDongChiTiet 
+            inner join DichVuDiKem on DichVuDiKem.IDDichVuDiKem = HopDongChiTiet.IDDichVuDiKem
+            group by DichVuDiKem.IDDichVuDiKem
+            having count(HopDongChiTiet.IDDichVuDiKem) > 10) as temp
+set DichVuDiKem.Gia = DichVuDiKem.Gia * 2
+where DichVuDiKem.TenDichVuDiKem = temp.TenDichVuDiKem
+and IDDichVuDiKem > 0; -- this condition is to trick safe update mode instead of using SQL_SAFE_UPDATES = 0.
+
+-- TASK 20: Hiển thị thông tin của tất cả các Nhân viên và Khách hàng có trong hệ thống, thông tin hiển thị
+-- bao gồm ID (IDNhanVien, IDKhachHang), HoTen, Email, SoDienThoai, NgaySinh, DiaChi.
+select NhanVien.IDNhanVien, NhanVien.HoTen, NhanVien.Email, NhanVien.SDT, NhanVien.NgaySinh, NhanVien.DiaChi, "NhanVien" as fromTable
+from NhanVien
+union all
+select KhachHang.IDKhachHang, KhachHang.HoTen, KhachHang.Email, KhachHang.SDT, KhachHang.NgaySinh, KhachHang.DiaChi, "KhachHang" as fromTable
+from KhachHang;
+                    
 
