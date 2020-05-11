@@ -36,6 +36,7 @@
       <option name="presentableId" value="Default" />
       <updated>1588759354742</updated>
       <workItem from="1588759357741" duration="82000" />
+      <workItem from="1588909455906" duration="121000" />
     </task>
     <servers />
   </component>
@@ -43,9 +44,17 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1588759360709">
+    <state x="462" y="106" key="FileChooserDialogImpl" timestamp="1588909539350">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="189" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1588759360709" />
+    <state x="462" y="106" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1588909539350" />
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1588909496846">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1588909496846" />
+    <state x="65" y="0" key="new project wizard" timestamp="1588909574875">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="65" y="0" key="new project wizard/0.0.1366.728@0.0.1366.728" timestamp="1588909574875" />
   </component>
 </project>

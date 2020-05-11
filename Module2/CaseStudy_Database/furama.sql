@@ -459,5 +459,6 @@ from NhanVien
 union all
 select KhachHang.IDKhachHang, KhachHang.HoTen, KhachHang.Email, KhachHang.SDT, KhachHang.NgaySinh, KhachHang.DiaChi, "KhachHang" as fromTable
 from KhachHang;
+
                     
 
