@@ -83,7 +83,16 @@ public class ProductServlet extends HttpServlet {
                 matchedProducts.add(product);
             }
         }
-
+        String message;
+        int matchedSize = matchedProducts.size();
+        if (matchedSize == 0) {
+            message = "No product found.";
+        } else if (matchedSize == 1){
+            message = matchedProducts.size() + " product found.";
+        } else {
+            message = matchedProducts.size() + " products found.";
+        }
+        request.setAttribute("message", message);
         request.setAttribute("matchedProducts", matchedProducts);
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/results.jsp");
         try {

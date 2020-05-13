@@ -10,19 +10,31 @@
 <html>
 <head>
     <title>Searching product</title>
+    <style>
+        .message {
+            color: limegreen;
+            font-size: larger;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <p>
     <a href="/products">Back to product list</a>
 </p>
-<h2 style="color: limegreen">Results</h2>
+<h2 style="color: orangered">Results</h2>
+<p>
+    <span class="message">${requestScope["message"]}</span>
+</p>
 <table border="1" style="text-align: center">
-    <tr>
-        <td><b>ID</b></td>
-        <td><b>Product Name</b></td>
-        <td><b>Price($)</b></td>
-        <td><b>Image</b></td>
-    </tr>
+    <c:if test='${requestScope["message"]} != "No product found."'>
+        <tr>
+            <td><b>ID</b></td>
+            <td><b>Product Name</b></td>
+            <td><b>Price($)</b></td>
+            <td><b>Image</b></td>
+        </tr>
+    </c:if>
     <c:forEach var="product" items='${requestScope["matchedProducts"]}'>
         <tr>
             <td style="width: 30px">${product.getId()}</td>
