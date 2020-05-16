@@ -34,10 +34,6 @@ public class ConvertingController {
             return "result";
         }
     }
-
-    int a;
-    int c;
-    int b;
 //    @PostMapping("/convert")
 //    public ModelAndView convertValue(@RequestParam float rate, @RequestParam float usd) {
 //        ModelAndView resultModelAndView = new ModelAndView("result");
