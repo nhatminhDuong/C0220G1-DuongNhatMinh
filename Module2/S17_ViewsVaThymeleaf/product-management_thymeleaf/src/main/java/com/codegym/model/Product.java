@@ -3,13 +3,13 @@ package com.codegym.model;
 public class Product {
     private int id;
     private String name;
-    private float price;
+    private Float price;
     private String imagePath;
 
     public Product() {
     }
 
-    public Product(int id, String name, float price, String imagePath) {
+    public Product(int id, String name, Float price, String imagePath) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -32,11 +32,11 @@ public class Product {
         this.name = name;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
