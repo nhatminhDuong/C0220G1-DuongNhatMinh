@@ -1,10 +1,10 @@
 package com.codegym.model;
 
 public class Sandwich {
-    private boolean lettuceTicked = false;
-    private boolean tomatoTicked = false;
-    private boolean mustardTicked = false;
-    private boolean sproutsTicked = false;
+    private boolean lettuceTicked;
+    private boolean tomatoTicked;
+    private boolean mustardTicked;
+    private boolean sproutsTicked;
 
     public Sandwich() {
     }

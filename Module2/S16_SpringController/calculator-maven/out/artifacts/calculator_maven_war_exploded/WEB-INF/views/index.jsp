@@ -21,7 +21,7 @@
         <tr>
 <%--                            <td><input type="text" id="firstOperand" name="firstOperand"></td>--%>
 <%--                            <td><input type="text" id="secondOperand" name="secondOperand"></td>--%>
-            <td><form:input id="firstOperand" name="firstOperand" path=""/></td>
+            <td><form:input id="firstOperand" path="firstOperand"/></td>
             <td><form:input id="secondOperand" path="secondOperand"/></td>
         </tr>
     </table>

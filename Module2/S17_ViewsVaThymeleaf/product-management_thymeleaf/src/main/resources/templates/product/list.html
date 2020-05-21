@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Product list</title>
+</head>
+<body>
+<h3>Customers</h3>
+<p>
+    <a th:href="@{/create}">Add new product</a>
+</p>
+<div class="notify">
+    <div th:if="${successMessage}">
+        <span th:text="${successMessage}"></span>
+    </div>
+</div>
+<table id="products" border="1" cellspacing="1" style="text-align: center">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Images</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row, rowStat : ${products}">
+        <td th:text="${row.id}"></td>
+        <td th:text="${row.name}"></td>
+        <td th:text="${row.price}"></td>
+        <td><img th:src="${row.imagePath}" width="60px" alt="Error"></td>
+        <td><a th:href="@{/{id}/edit(id=${row.getId()})}">edit</a></td>
+        <td><a th:href="@{/__${row.getId()}__/delete}">delete</a></td>
+        <td><a th:href="@{/__${row.id}__/view}">view</a></td>
+    </tr>
+    </tbody>
+</table>
+<!--<footer th:replace="layout :: footer"></footer>-->
+</body>
+</html>
