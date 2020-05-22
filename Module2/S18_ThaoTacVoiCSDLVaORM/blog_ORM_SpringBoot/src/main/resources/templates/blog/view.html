@@ -9,17 +9,17 @@
     <a href="/blogs">Back to blog list</a>
 </p>
 <form th:object="${blog}">
-    <fieldset data-th-align="center" style="width: 600px;">
+    <fieldset data-th-align="center" style="width: 600px;" th:style="'background: url(/images/background.jpg)'" >
         <legend><strong>View Blog</strong></legend>
         <label for="blog-title"><strong>Title:</strong>&emsp;</label>
         <input type="text" id="blog-title" th:field="*{title}" disabled
                style="background-color: aquamarine; text-align: center; font-size: x-large"><br><br>
         <label for="blog-author"><strong>Author:</strong></label>
         <input type="text" id="blog-author" th:field="*{author}" disabled
-               style="background-color: aquamarine; text-align: center; font-size: x-large"><br><br>
+               style="background-color: orange; text-align: center; font-size: x-large"><br><br>
         <label for="blog-content"></label>
         <textarea id="blog-content" placeholder="Blog contents..."
-                  style="font-size: large; background-color: lightgoldenrodyellow"
+                  style="font-size: large; color: indigo; background-color: lightgoldenrodyellow"
                   maxlength="1200" cols="80" rows="15" th:field="*{content}" disabled></textarea><br><br>
     </fieldset>
     <h4>Last modified: <span th:text="*{creationTime}"></span></h4>

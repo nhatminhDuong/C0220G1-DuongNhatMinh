@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -39,10 +40,11 @@ public class BlogController {
     }
 
     @GetMapping("/blogs")
-    public ModelAndView listBlogs() {
+    public ModelAndView listBlogs(@ModelAttribute("message") String message) {
         List<Blog> blogs = blogService.findAll();
         ModelAndView modelAndView = new ModelAndView("/blog/list");
         modelAndView.addObject("blogs", blogs);
+        modelAndView.addObject("message", message);
         return modelAndView;
     }
 
@@ -59,13 +61,11 @@ public class BlogController {
     }
 
     @PostMapping("/edit-blog")
-    public ModelAndView updateBlog(@ModelAttribute("blog") Blog blog) {
+    public String updateBlog(@ModelAttribute("blog") Blog blog, RedirectAttributes redirectAttributes) {
         blog.setCreationTime(timeGenerationService.autoGenerate());
         blogService.save(blog);
-        ModelAndView modelAndView = new ModelAndView("/blog/edit");
-        modelAndView.addObject("blog", blog);
-        modelAndView.addObject("message", "Successfully updated blog!");
-        return modelAndView;
+        redirectAttributes.addFlashAttribute("message", "Successfully edited!");
+        return "redirect:/blogs";
     }
 
     @GetMapping("/delete-blog/{id}")
@@ -81,9 +81,10 @@ public class BlogController {
     }
 
     @PostMapping("/delete-blog")
-    public String deleteBlog(@ModelAttribute("blog") Blog blog) {
+    public String deleteBlog(@ModelAttribute("blog") Blog blog, RedirectAttributes redirectAttributes) {
         blogService.remove(blog.getId());
-        return "redirect:blogs";
+        redirectAttributes.addFlashAttribute("message", "Successfully deleted!");
+        return "redirect:/blogs";
     }
 
     @GetMapping("/view-blog/{id}")

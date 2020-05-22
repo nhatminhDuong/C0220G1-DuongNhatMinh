@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>List blogs</title>
 </head>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
 <body>
 <table border="1">
     <tr>
@@ -27,5 +30,6 @@
         </tr>
     </th:block>
 </table>
+<p><a th:href="@{/create-blog}">Create new blog</a></p>
 </body>
 </html>
