@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="831aceaa-4ac2-4f0f-9163-bd5e103796bc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../CaseStudy_Database/furama.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../CaseStudy_Database/furama.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../S18_ThaoTacVoiCSDLVaORM/blog_ORM_SpringBoot/src/main/java/com/codegym/controller/BlogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../S18_ThaoTacVoiCSDLVaORM/blog_ORM_SpringBoot/src/main/java/com/codegym/controller/BlogController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +37,7 @@
       <updated>1588759354742</updated>
       <workItem from="1588759357741" duration="82000" />
       <workItem from="1588909455906" duration="121000" />
+      <workItem from="1590373877221" duration="206000" />
     </task>
     <servers />
   </component>
@@ -44,6 +45,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="531" y="254" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1590373893046">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="531" y="254" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.728@0.0.1366.728" timestamp="1590373893046" />
     <state x="462" y="106" key="FileChooserDialogImpl" timestamp="1588909539350">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

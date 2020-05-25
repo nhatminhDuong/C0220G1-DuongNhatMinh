@@ -1,18 +1,24 @@
-package com.codegym.controller;
+package com.codegym.controllers;
 
-import com.codegym.model.Blog;
-import com.codegym.service.BlogService;
-import com.codegym.service.TimeGenerationService;
+import com.codegym.models.Blog;
+import com.codegym.models.Category;
+import com.codegym.services.BlogService;
+import com.codegym.services.CategoryService;
+import com.codegym.services.TimeGenerationService;
+import com.codegym.services.TimeSorter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class BlogController {
@@ -20,7 +26,20 @@ public class BlogController {
     BlogService blogService;
 
     @Autowired
+    CategoryService categoryService;
+
+    @Autowired
     TimeGenerationService timeGenerationService;
+
+    @Autowired
+    TimeSorter timeSorter;
+
+    static Boolean currentSortedStatus = true;
+
+    @ModelAttribute("categories")
+    public List<Category> categories() {
+        return categoryService.findAll();
+    }
 
     @GetMapping("/create-blog")
     public ModelAndView showCreateForm() {
@@ -40,11 +59,25 @@ public class BlogController {
     }
 
     @GetMapping("/blogs")
-    public ModelAndView listBlogs(@ModelAttribute("message") String message) {
-        List<Blog> blogs = blogService.findAll();
+    public ModelAndView listBlogs(@RequestParam("keyword") Optional<String> keyword,
+                                  @PageableDefault(size = 3) Pageable pageable,
+                                  @ModelAttribute("message") String message) {
+        Pageable pageableSortByCreationTime = timeSorter.isSortedByNewestFirst(currentSortedStatus, pageable);
+
+        String lastKeyWord = null;
+        Page<Blog> blogs = null;
+        if (keyword.isPresent()) {
+            lastKeyWord = keyword.get();
+            blogs = blogService.findAllByTitleContaining(lastKeyWord, pageableSortByCreationTime);
+        } else {
+            blogs = blogService.findAll(pageableSortByCreationTime);
+        }
         ModelAndView modelAndView = new ModelAndView("/blog/list");
         modelAndView.addObject("blogs", blogs);
         modelAndView.addObject("message", message);
+        currentSortedStatus = !currentSortedStatus;
+        modelAndView.addObject("newStatus", currentSortedStatus);
+        modelAndView.addObject("keyword", lastKeyWord);
         return modelAndView;
     }
 
@@ -82,7 +115,7 @@ public class BlogController {
 
     @PostMapping("/delete-blog")
     public String deleteBlog(@ModelAttribute("blog") Blog blog, RedirectAttributes redirectAttributes) {
-        blogService.remove(blog.getId());
+        blogService.delete(blog.getId());
         redirectAttributes.addFlashAttribute("message", "Successfully deleted!");
         return "redirect:/blogs";
     }

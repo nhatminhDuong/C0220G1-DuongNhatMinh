@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View category</title>
+</head>
+<body>
+<h1>View category: <span th:text="${category.name}"></span></h1>
+<a href="/categories">Category list</a>
+<table border="1">
+    <tr>
+        <th>No.</th>
+        <th>Category</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Creation Time</th>
+    </tr>
+    <th:block th:each="blog, iter : ${blogs}">
+        <tr>
+            <td th:utext="${iter.index + 1}"></td>
+            <td th:text="${blog.category.name}"></td>
+            <td th:text="${blog.title}"></td>
+            <td th:text="${blog.author}"></td>
+            <td th:text="${blog.creationTime}"></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>
