@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/style.css}">
+</head>
+<body>
+<h3 style="color: darkred">Product details</h3>
+<p>
+    <a th:href="@{/shopping}">Back to product list</a>
+</p>
+<div id="detail">
+    <form th:action="@{/choose}" method="post" th:object="${product}">
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{name}">
+        <input type="hidden" th:field="*{price}">
+        <input type="hidden" th:field="*{imagePath}">
+        <table id="products" border="1" cellspacing="1" style="text-align: center">
+            <tr>
+                <td>ID</td>
+                <td th:text="${product.id}"></td>
+                <th rowspan="3" style="border: 0">
+                </th>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td th:text="${product.name}"></td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td th:text="${product.price}"></td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td><img th:src="${'../' + product.imagePath}" alt="Error" width="300px"></td>
+                <td style="border: 0">
+                    <label><strong>Enter quantity:</strong>
+                        <input type="number" min="1" style="width: 38px; text-align: center" th:field="*{quantity}"/>
+                    </label>
+                    <div class="ball">
+                        <input type="submit" value="Add" class="button"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<br>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Shopping cart</title>
+</head>
+<body>
+<h3 style="color: darkred">Chosen products:</h3>
+<div>
+    <div th:if="${successMessage}">
+        <span style="color: limegreen" th:text="${successMessage}"></span>
+    </div>
+</div>
+<table id="products" border="1" cellspacing="1" style="text-align: center">
+    <thead>
+    <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Price per unit</th>
+        <th>Image</th>
+        <th><a th:href="@{/removeAll}" style="text-decoration: none">
+            <span style="color: black">Quantity</span><br>(Click to update)</a></th>
+        <th><a th:href="@{/removeAll}" style="text-decoration: none">Remove all</a></th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product, rowStat: ${cart.getProducts()}">
+        <td th:text="${rowStat.index + 1}"></td>
+        <td th:text="${product.value.getName()}"></td>
+        <td th:text="${product.value.getPrice()}"></td>
+        <td><img th:src="${product.value.getImagePath()}" width="70px" alt="Error"></td>
+        <td>
+            <input type="number" min="1" style="width: 40px; text-align: center"
+                   th:value="${product.value.getQuantity()}"/>
+        </td>
+        <td><a th:href="@{/__${product.value.getId()}__/remove}" style="text-decoration: none">Remove <this></this></a>
+        </td>
+        <td th:text="${product.value.getPrice() * product.value.getQuantity()}"></td>
+    </tr>
+    <tr>
+        <td colspan="6"><strong>Total Pay</strong></td>
+        <td th:text="${cart.getTotalPay()}" style="color: red; font-weight: bold;"></td>
+    </tr>
+    </tbody>
+</table>
+<h4><a th:href="@{/shopping}" style="text-decoration: none"><< Continue shopping</a></h4>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Product list</title>
+</head>
+<body>
+<h3 style="color: darkred">Available products:</h3>
+<div>
+    <div th:if="${successMessage}">
+        <span style="color: limegreen" th:text="${successMessage}"></span>
+    </div>
+</div>
+<table id="products" border="1" cellspacing="1" style="text-align: center">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row, rowStat : ${products}">
+        <td th:text="${row.id}"></td>
+        <td th:text="${row.name}"></td>
+        <td th:text="${row.price}"></td>
+        <td><img th:src="${row.imagePath}" width="70px" alt="Error"></td>
+        <td><a th:href="@{/__${row.id}__/view}">view detail</a></td>
+    </tr>
+    </tbody>
+</table>
+<h4><a th:href="@{/cart}" style="text-decoration: none"><< Check out</a></h4>
+</body>
+</html>
