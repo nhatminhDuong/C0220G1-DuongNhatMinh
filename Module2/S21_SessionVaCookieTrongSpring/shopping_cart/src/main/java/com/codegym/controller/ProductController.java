@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.security.PermitAll;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @SessionAttributes("cart")
@@ -103,4 +106,23 @@ public class ProductController {
         redirectAttributes.addFlashAttribute("successMessage", "Successfully removed all products!");
         return ("redirect:/cart");
     }
+
+    @PostMapping("/changeQuantity")
+    public String changeQuantity(@RequestParam Integer[] idArray, @RequestParam Integer[] quantityArray,
+                                 @SessionAttribute Cart cart, RedirectAttributes redirectAttributes) {
+
+        Map<Integer, Integer> updatedQuantityProducts = new HashMap<>();
+        for (int i = 0; i < idArray.length; i++) {
+            updatedQuantityProducts.put(idArray[i], quantityArray[i]);
+        }
+
+        for (Map.Entry<Integer, Integer> productId : updatedQuantityProducts.entrySet()) {
+            cart.getProducts().get(productId.getKey()).setQuantity(productId.getValue());
+        }
+
+        cart.updateTotalPay();
+        redirectAttributes.addFlashAttribute("successMessage", "Successfully changed quantity!");
+        return("redirect:/cart");
+    }
+
 }

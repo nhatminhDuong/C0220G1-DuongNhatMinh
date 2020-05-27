@@ -27,7 +27,7 @@ public class Cart {
         return totalPay;
     }
 
-    private Double updateTotalPay() {
+    public Double updateTotalPay() {
         totalPay = 0.0;
         for (Map.Entry<Integer, Product> productEntry : products.entrySet()) {
             totalPay += productEntry.getValue().getPrice() * productEntry.getValue().getQuantity();
