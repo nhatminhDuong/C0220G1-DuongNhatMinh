@@ -2,6 +2,7 @@ package com.codegym.controller;
 
 import com.codegym.model.Cart;
 import com.codegym.model.Product;
+import com.codegym.service.CartService;
 import com.codegym.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ import java.util.Map;
 public class ProductController {
     @Autowired
     ProductService productService;
+
+    @Autowired
+    CartService cartService;
 
     @ModelAttribute("cart")
     public Cart setUpCart() {
@@ -111,18 +115,10 @@ public class ProductController {
     public String changeQuantity(@RequestParam Integer[] idArray, @RequestParam Integer[] quantityArray,
                                  @SessionAttribute Cart cart, RedirectAttributes redirectAttributes) {
 
-        Map<Integer, Integer> updatedQuantityProducts = new HashMap<>();
-        for (int i = 0; i < idArray.length; i++) {
-            updatedQuantityProducts.put(idArray[i], quantityArray[i]);
-        }
+        cartService.updatedCart(idArray, quantityArray, cart);
 
-        for (Map.Entry<Integer, Integer> productId : updatedQuantityProducts.entrySet()) {
-            cart.getProducts().get(productId.getKey()).setQuantity(productId.getValue());
-        }
-
-        cart.updateTotalPay();
         redirectAttributes.addFlashAttribute("successMessage", "Successfully changed quantity!");
-        return("redirect:/cart");
+        return ("redirect:/cart");
     }
 
 }

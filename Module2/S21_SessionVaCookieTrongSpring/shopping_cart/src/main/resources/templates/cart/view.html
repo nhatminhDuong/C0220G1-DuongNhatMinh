@@ -40,7 +40,7 @@
             </td>
             <td><a th:href="@{/__${product.value.getId()}__/remove}" style="text-decoration: none">Remove this</a>
             </td>
-            <td th:text="${#numbers.formatDecimal((product.value.getPrice() * product.value.getQuantity()), 0, 1)}"></td>
+            <td th:text="${#numbers.formatDecimal((product.value.getPay()), 0, 1)}"></td>
         </tr>
         <tr>
             <td colspan="6"><strong>Total Pay</strong></td>
