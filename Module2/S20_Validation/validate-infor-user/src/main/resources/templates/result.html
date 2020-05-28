@@ -1,8 +1,11 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Congratulations</title>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
 </head>
 <body>
-<h1>Congratulations! You are old enough to sign up for this site.</h1>
+<h2>Successfully signed up!</h2>
+<h2 th:text="${user.getName()}"></h2>
 </body>
 </html>
