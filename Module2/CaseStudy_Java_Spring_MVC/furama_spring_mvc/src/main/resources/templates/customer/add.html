@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add new customer</title>
+    <th:block th:replace="/common/layout.html :: style"></th:block>
+</head>
+<body>
+<div class="header" th:replace="/common/layout.html :: header"></div>
+
+<div class="topnav-container" th:replace="/common/layout.html :: topnav-container"></div>
+
+<div class="row">
+    <div class="column side" th:replace="/common/layout.html :: column-left"></div>
+    <div class="column middle">
+        <h3>Add new customer</h3><br>
+
+    </div>
+    <div class="column side" th:replace="/common/layout.html :: column-right"></div>
+</div>
+</body>
+<div class="footer" th:replace="/common/layout.html :: footer"></div>
+</html>

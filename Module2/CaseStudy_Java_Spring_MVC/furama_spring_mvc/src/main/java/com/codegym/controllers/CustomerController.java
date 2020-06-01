@@ -15,8 +15,23 @@ public class CustomerController {
         return "/common/index";
     }
 
-    @GetMapping("/create-customer")
-    public String showCreatCustomerForm() {
-        return "customer/create";
+    @GetMapping("/add-customer")
+    public String showAddCustomerPage() {
+        return "customer/add";
+    }
+
+    @GetMapping("/view-customer")
+    public String showViewCustomerPage() {
+        return "customer/view";
+    }
+
+    @GetMapping("/edit-customer")
+    public String showEditCustomerPage() {
+        return "customer/edit";
+    }
+
+    @GetMapping("/remove-customer")
+    public String showRemoveCustomerForm() {
+        return "customer/remove";
     }
 }

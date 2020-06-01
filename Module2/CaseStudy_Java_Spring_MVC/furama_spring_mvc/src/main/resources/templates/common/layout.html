@@ -14,7 +14,7 @@
 <body>
 
 <div class="header" th:fragment="header">
-    <h1>Welcome to Furama Resort Danang</h1>
+    <h1>Furama Resort Danang</h1>
     <h3>A Culinary Beach Resort In Vietnam</h3>
     <div class="logo">
         <img src="images/furama-logo.png" alt="Error" width="50">
@@ -22,7 +22,7 @@
 </div>
 <div class="topnav-container" th:fragment="topnav-container">
     <div class="topnav">
-        <a href="#">Home</a>
+        <a href="/">Home</a>
         <a href="#">Services</a>
         <a href="#">Search</a>
         <a href="#">Review</a>
@@ -30,15 +30,28 @@
 </div>
 <div class="row">
     <div class="column side" th:fragment="column-left">
-        <h2>Managements</h2>
-        <ul>
-            <li><a href="#">Customer</a></li>
-            <li><a href="#">Service</a></li>
-            <li><a href="#">Contract</a></li>
+        <h3>Managements</h3>
+        <ul id="menu">
+            <li><a href="#">Customer</a>
+                <ul>
+                    <li><a href="/add-customer">Add new</a></li>
+                    <li><a href="/view-customer">View</a></li>
+                    <li><a href="/edit-customer">Edit</a></li>
+                    <li><a href="/remove-customer">Remove</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Contract</a>
+                <ul>
+                    <li><a href="#">Add new</a></li>
+                    <li><a href="#">View</a></li>
+                    <li><a href="#">Edit</a></li>
+                    <li><a href="#">Delete</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
     <div class="column middle" th:fragment="column-middle">
-        <h2>Main Content</h2><br>
+        <h3>Main Content</h3><br>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eligendi ducimus at ipsam eaque, adipisci
             aliquam eum assumenda minus esse.</p>
         <p>Exercitationem quaerat dolorem, inventore modi rerum nesciunt excepturi, quidem aliquid magni animi
@@ -47,22 +60,13 @@
             veniam quo, nemo sit, beatae minus.</p>
         <p>Recusandae assumenda, accusamus magni unde iusto ipsa asperiores vel reiciendis officiis id non est minus
             animi voluptatem cumque perferendis nesciunt!</p>
-        <p>Accusamus praesentium, reprehenderit quos optio quasi aperiam necessitatibus dicta ipsum esse maxime
-            magni perspiciatis animi culpa! Quisquam corrupti in dolor.</p>
-        <p>Ut, quo, fugiat officiis sequi provident quam, itaque laboriosam distinctio eveniet in est perferendis
-            accusantium ipsum harum natus quaerat voluptate.</p>
-        <p>Veritatis, repudiandae eos alias quaerat iusto a sunt aliquam deleniti. Hic quia consequuntur aliquam
-            excepturi doloribus et corrupti atque quae.</p>
-        <p>Harum consectetur recusandae officiis similique ducimus ullam. Consequatur odit porro hic exercitationem.
-            Iste deserunt, modi rem doloribus delectus saepe maiores.</p>
-        <p>Eligendi, harum. Ipsa hic tempora saepe magnam accusamus at, voluptatibus quae provident reiciendis
-            consequuntur corrupti eius ab alias rem totam?</p>
-        <p>Provident, laudantium voluptatem a voluptate est, quam hic veniam ab harum earum fuga facere consequatur
-            numquam, cum assumenda eveniet sit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda cum cumque doloremque maiores!</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus dignissimos doloremque eius expedita
+            iusto magni modi, obcaecati quaerat! Est, itaque, quos.</p>
     </div>
 
     <div class="column side" th:fragment="column-right">
-        <h2>Features</h2>
+        <h3>Features</h3>
         <ul>
             <li><a href="#">Lorem, ipsum dolor.</a></li>
             <li><a href="#">Nesciunt, illum quibusdam.</a></li>
@@ -73,7 +77,7 @@
 </div>
 
 <div class="footer" th:fragment="footer">
-    <p>Footer</p>
+    <p><strong>&copy;2020 CodeGym Danang</strong></p>
 </div>
 <!--<footer th:fragment="footer">-->
 <!--    &copy; 2020 CodeGym-->
