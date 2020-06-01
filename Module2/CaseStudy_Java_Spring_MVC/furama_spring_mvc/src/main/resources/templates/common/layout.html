@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layout</title>
+    <th:block th:fragment="style">
+        <link rel="shortcut icon" href="images/favicon.png">
+        <link rel="stylesheet" href="css/style.css">
+    </th:block>
+</head>
+
+<body>
+
+<div class="header" th:fragment="header">
+    <h1>Welcome to Furama Resort Danang</h1>
+    <h3>A Culinary Beach Resort In Vietnam</h3>
+    <div class="logo">
+        <img src="images/furama-logo.png" alt="Error" width="50">
+    </div>
+</div>
+<div class="topnav-container" th:fragment="topnav-container">
+    <div class="topnav">
+        <a href="#">Home</a>
+        <a href="#">Services</a>
+        <a href="#">Search</a>
+        <a href="#">Review</a>
+    </div>
+</div>
+<div class="row">
+    <div class="column side" th:fragment="column-left">
+        <h2>Managements</h2>
+        <ul>
+            <li><a href="#">Customer</a></li>
+            <li><a href="#">Service</a></li>
+            <li><a href="#">Contract</a></li>
+        </ul>
+    </div>
+    <div class="column middle" th:fragment="column-middle">
+        <h2>Main Content</h2><br>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eligendi ducimus at ipsam eaque, adipisci
+            aliquam eum assumenda minus esse.</p>
+        <p>Exercitationem quaerat dolorem, inventore modi rerum nesciunt excepturi, quidem aliquid magni animi
+            incidunt porro illo. Tenetur hic fuga sapiente et!</p>
+        <p>Alias explicabo placeat consectetur accusamus vitae voluptas? Ab iste harum doloremque illum dolores est
+            veniam quo, nemo sit, beatae minus.</p>
+        <p>Recusandae assumenda, accusamus magni unde iusto ipsa asperiores vel reiciendis officiis id non est minus
+            animi voluptatem cumque perferendis nesciunt!</p>
+        <p>Accusamus praesentium, reprehenderit quos optio quasi aperiam necessitatibus dicta ipsum esse maxime
+            magni perspiciatis animi culpa! Quisquam corrupti in dolor.</p>
+        <p>Ut, quo, fugiat officiis sequi provident quam, itaque laboriosam distinctio eveniet in est perferendis
+            accusantium ipsum harum natus quaerat voluptate.</p>
+        <p>Veritatis, repudiandae eos alias quaerat iusto a sunt aliquam deleniti. Hic quia consequuntur aliquam
+            excepturi doloribus et corrupti atque quae.</p>
+        <p>Harum consectetur recusandae officiis similique ducimus ullam. Consequatur odit porro hic exercitationem.
+            Iste deserunt, modi rem doloribus delectus saepe maiores.</p>
+        <p>Eligendi, harum. Ipsa hic tempora saepe magnam accusamus at, voluptatibus quae provident reiciendis
+            consequuntur corrupti eius ab alias rem totam?</p>
+        <p>Provident, laudantium voluptatem a voluptate est, quam hic veniam ab harum earum fuga facere consequatur
+            numquam, cum assumenda eveniet sit.</p>
+    </div>
+
+    <div class="column side" th:fragment="column-right">
+        <h2>Features</h2>
+        <ul>
+            <li><a href="#">Lorem, ipsum dolor.</a></li>
+            <li><a href="#">Nesciunt, illum quibusdam.</a></li>
+            <li><a href="#">Deleniti, at libero.</a></li>
+            <li><a href="#">Delectus, fugit voluptatem.</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="footer" th:fragment="footer">
+    <p>Footer</p>
+</div>
+<!--<footer th:fragment="footer">-->
+<!--    &copy; 2020 CodeGym-->
+<!--</footer>-->
+</body>
+</html>

@@ -6,39 +6,50 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Customer {
+public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer customerTypeId;
     private String fullName;
+    private Integer positionId;
+    private Integer qualificationId;
+    private Integer departmentId;
     private String dateOfBirth;
     private String identityNumber;
+    private String salary;
     private String phoneNumber;
     private String email;
     private String address;
 
-    public Customer() {
+    public Staff() {
     }
 
-    public Customer(Integer customerTypeId, String fullName, String dateOfBirth, String identityNumber,
-                    String phoneNumber, String email, String address) {
-        this.customerTypeId = customerTypeId;
+    public Staff(String fullName, Integer positionId, Integer qualificationId,
+                 Integer departmentId, String dateOfBirth, String identityNumber,
+                 String salary, String phoneNumber, String email, String address) {
         this.fullName = fullName;
+        this.positionId = positionId;
+        this.qualificationId = qualificationId;
+        this.departmentId = departmentId;
         this.dateOfBirth = dateOfBirth;
         this.identityNumber = identityNumber;
+        this.salary = salary;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
     }
 
-    public Customer(Integer id, Integer customerTypeId, String fullName, String dateOfBirth, String identityNumber,
-                    String phoneNumber, String email, String address) {
+    public Staff(Integer id, String fullName, Integer positionId, Integer qualificationId,
+                 Integer departmentId, String dateOfBirth, String identityNumber, String salary,
+                 String phoneNumber, String email, String address) {
         this.id = id;
-        this.customerTypeId = customerTypeId;
         this.fullName = fullName;
+        this.positionId = positionId;
+        this.qualificationId = qualificationId;
+        this.departmentId = departmentId;
         this.dateOfBirth = dateOfBirth;
         this.identityNumber = identityNumber;
+        this.salary = salary;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
@@ -52,20 +63,36 @@ public class Customer {
         this.id = id;
     }
 
-    public Integer getCustomerTypeId() {
-        return customerTypeId;
-    }
-
-    public void setCustomerTypeId(Integer customerTypeId) {
-        this.customerTypeId = customerTypeId;
-    }
-
     public String getFullName() {
         return fullName;
     }
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public Integer getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Integer positionId) {
+        this.positionId = positionId;
+    }
+
+    public Integer getQualificationId() {
+        return qualificationId;
+    }
+
+    public void setQualificationId(Integer qualificationId) {
+        this.qualificationId = qualificationId;
+    }
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
     public String getDateOfBirth() {
@@ -82,6 +109,14 @@ public class Customer {
 
     public void setIdentityNumber(String identityNumber) {
         this.identityNumber = identityNumber;
+    }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
     }
 
     public String getPhoneNumber() {

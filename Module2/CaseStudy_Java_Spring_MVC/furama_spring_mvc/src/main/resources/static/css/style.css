@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+/* Style the header */
+.header {
+    position: relative;
+    background-color: lightgray;
+    padding: 10px;
+    text-align: center;
+
+    height: 80px;
+}
+
+.logo {
+    position: absolute;
+    top: 0;
+    left: 50px;
+    width: 100px;
+    height: 100px;
+    /* background-color: palegreen; */
+}
+
+.topnav-container {
+    overflow: hidden;
+    background-color: #333;
+}
+
+/* Style the top navigation bar */
+.topnav {
+    width: 320px;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Style the topnav links */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+    float: left;
+    padding: 10px;
+}
+
+/* Left and right column */
+.column.side {
+    background-color: limegreen;
+    width: 25%;
+}
+
+/* Middle column */
+.column.middle {
+    background-color: lightpink;
+    width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #f1f1f1;
+  }
+  
+  li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change the link color on hover */
+  li a:hover {
+    background-color: #555;
+    color: white;
+  }
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+
+    .column.side,
+    .column.middle {
+        width: 100%;
+    }
+}
+
+/* Style the footer */
+.footer {
+    background-color: lightslategray;
+    padding: 10px;
+    text-align: center;
+}
