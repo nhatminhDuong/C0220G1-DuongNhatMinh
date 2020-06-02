@@ -16,7 +16,7 @@ create table staff_department (
 );
 
 create table staff (
-	id int primary key not null,
+	id int primary key not null auto_increment,
     full_name varchar(45),
     position_id int,
     qualification_id int,
@@ -38,7 +38,7 @@ create table customer_type (
 );
 
 create table customer (
-	id int primary key not null,
+	id int primary key not null auto_increment,
     customer_type_id int,
     full_name varchar(45),
     date_of_birth Date,
@@ -82,7 +82,7 @@ create table accompanied_service (
 );
 
 create table contract (
-	id int primary key not null,
+	id int primary key not null auto_increment,
     staff_id int,
     customer_id int,
     service_id int,
@@ -96,7 +96,7 @@ create table contract (
 );                    
 
 create table detail_contract (
-	id int primary key not null,
+	id int primary key not null auto_increment,
     contract_id int,
     accompanied_service_id int,
     amount int,

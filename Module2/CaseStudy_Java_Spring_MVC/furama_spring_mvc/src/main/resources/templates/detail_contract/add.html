@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add new Detail Contract</title>
+    <th:block th:replace="/common/layout.html :: style"></th:block>
+</head>
+<body>
+<div class="header" th:replace="/common/layout.html :: header"></div>
+
+<div class="topnav-container" th:replace="/common/layout.html :: topnav-container"></div>
+
+<div class="row">
+    <div class="column side" th:replace="/common/layout.html :: column-left"></div>
+    <div class="column middle">
+        <form th:action="@{add-detail-contract}" th:object="${detailContract}" method="post">
+            <fieldset data-th-align="center" style="width: 350px; border: 0; margin: auto">
+                <legend><strong>Add new Detail Contract</strong></legend>
+                <br>
+                <table style="text-align:left;">
+                    <tr>
+                        <td>
+                            <label for="detail-contract-contract"><strong>Contract:<span
+                                    style="color: red">*</span></strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <select id="detail-contract-contract" th:field="*{contractId}">
+                                <option th:each="contract: ${contractList}"
+                                        th:value="${contract.getId()}"
+                                        th:text="${contract.getId() + ': ' +
+                                        contract.contractDate + ' --> ' + contract.endDate}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="detail-contract-accompanied-service"><strong>Accompanied service:<span
+                                    style="color: red">*</span></strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <select id="detail-contract-accompanied-service" th:field="*{accompaniedServiceId}">
+                                <option th:each="accompaniedService: ${accompaniedServiceList}"
+                                        th:value="${accompaniedService.getId()}"
+                                        th:text="${accompaniedService.getId() + ' - '
+                                        + accompaniedService.getAccompaniedServiceName()}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="detail-contract-amount"><strong>Amount:
+                                <span style="color: red">*</span></strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="number" min="1" id="detail-contract-amount" th:field="*{amount}"
+                                   style="width: 98px">
+                            <br><br>
+                        </td>
+                    </tr>
+                </table>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <input type="submit" value="Create detail contract"/>
+            </fieldset>
+        </form>
+    </div>
+    <div class="column side" th:replace="/common/layout.html :: column-right"></div>
+</div>
+</body>
+<div class="footer" th:replace="/common/layout.html :: footer"></div>
+</html>

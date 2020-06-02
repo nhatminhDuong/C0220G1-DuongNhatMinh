@@ -73,7 +73,8 @@ h3 {
 
 /* Middle column */
 .column.middle {
-    background-color: lightpink;
+    margin: auto;
+    background-color: lightgray;
     width: 50%;
 }
 
@@ -83,6 +84,7 @@ h3 {
     display: table;
     clear: both;
 }
+
 
 ul {
     list-style-type: none;
@@ -118,11 +120,12 @@ li a:hover {
 #menu, #menu ul {
     margin: 0;
     padding: 0;
+    text-align: center;
     list-style: none;
 }
 
 #menu {
-    width: 298px;
+    width: 304px;
     margin: 15px auto;
     background-color: #f1f1f1;
     border-radius: 6px;
@@ -140,18 +143,24 @@ li a:hover {
 
 #menu li {
     float: left;
-    box-shadow: 1px 0 0 #444;
+    box-shadow: 1px 1px 0 #444;
     position: relative;
     padding: 1px;
 }
 
-#menu li:last-child {
-    box-shadow: none;
+#menu li:nth-child(even) {
+    box-shadow: 0 1px 1px #444 ;
 }
+
+/*#menu li:nth-last-child(-n+2) {*/
+/*    box-shadow: 1px 0 0 #444;*/
+/*}*/
 
 #menu a {
     float: left;
-    padding: 13px 30px;
+    width: 150px;
+    height: 45px;
+    padding: 8px 30px;
     text-transform: uppercase;
     font-family: Baloo, serif;
     text-decoration: none;
@@ -169,7 +178,7 @@ li a:hover {
     opacity: 0;
     visibility: hidden;
     position: absolute;
-    top: 46px;
+    top: 48px;
     left: 0;
     z-index: 1;
     background: #262626;
@@ -180,7 +189,7 @@ li a:hover {
     opacity: 1;
     visibility: visible;
     margin: 0;
-    transition: all 0.33s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 #menu ul ul {

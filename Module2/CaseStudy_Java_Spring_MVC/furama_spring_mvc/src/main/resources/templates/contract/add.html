@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add new Contract</title>
+    <th:block th:replace="/common/layout.html :: style"></th:block>
+</head>
+<body>
+<div class="header" th:replace="/common/layout.html :: header"></div>
+
+<div class="topnav-container" th:replace="/common/layout.html :: topnav-container"></div>
+
+<div class="row">
+    <div class="column side" th:replace="/common/layout.html :: column-left"></div>
+    <div class="column middle">
+        <form th:action="@{add-contract}" th:object="${contract}" method="post">
+            <fieldset data-th-align="center" style="width: 350px; border: 0; margin: auto">
+                <legend><strong>Add new Contract</strong></legend>
+                <br>
+                <table style="text-align:left;">
+                    <tr>
+                        <td>
+                            <label for="contract-staff"><strong>Staff's full name:<span
+                                    style="color: red">*</span></strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <select id="contract-staff" th:field="*{staffId}">
+                                <option th:each="staff: ${staffList}"
+                                        th:value="${staff.getId()}"
+                                        th:text="${staff.getId() + ' - ' + staff.getFullName()}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="contract-customer"><strong>Customer's full name:<span
+                                    style="color: red">*</span></strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <select id="contract-customer" th:field="*{customerId}">
+                                <option th:each="customer: ${customerList}"
+                                        th:value="${customer.getId()}"
+                                        th:text="${customer.getId() + ' - ' + customer.getFullName()}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="contrac-service"><strong>Service:
+                                <span style="color: red">*</span></strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <select id="contrac-service" th:field="*{serviceId}">
+                                <option th:each="service: ${serviceList}"
+                                        th:value="${service.getId()}"
+                                        th:text="${service.getId() + ' - ' + service.getServiceName()}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="contract-contract-date"><strong>Contract date:<span
+                                    style="color: red">*</span></strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="contract-contract-date" th:field="*{contractDate}">
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="contract-end-date"><strong>Termination date:<span
+                                    style="color: red">*</span></strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="contract-end-date" th:field="*{endDate}">
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="contract-deposit"><strong>Deposit:
+                                <span style="color: red">*</span></strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="contract-deposit" th:field="*{deposit}">
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="contract-total-payment"><strong>Total payment:<span
+                                    style="color: red">*</span></strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="contract-total-payment" th:field="*{totalPayment}">
+                            <br><br>
+                        </td>
+                    </tr>
+                </table>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <input type="submit" value="Create contract"/>
+            </fieldset>
+        </form>
+    </div>
+    <div class="column side" th:replace="/common/layout.html :: column-right"></div>
+</div>
+</body>
+<div class="footer" th:replace="/common/layout.html :: footer"></div>
+</html>

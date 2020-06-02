@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Add new Customer</title>
+    <title>New Customer Details</title>
     <th:block th:replace="/common/layout.html :: style"></th:block>
 </head>
 <body>
@@ -17,16 +17,17 @@
     <div class="column middle">
         <form th:action="@{add-customer}" th:object="${customer}" method="post">
             <fieldset data-th-align="center" style="width: 350px; border: 0; margin: auto">
-                <legend><strong>Add new Customer</strong></legend>
-                <br>
+                <legend><strong>Customer details</strong></legend>
+                <span th:text="${message}" style="color: limegreen"></span><br>
                 <table style="text-align:left;">
                     <tr>
                         <td>
-                            <label for="customer-type"><strong>Customer Type:<span style="color: red">*</span></strong></label>
-                            <br><br>
+                            <label for="customer-type"><strong>Customer Type:</strong></label>
+                            <br>
+                            <br>
                         </td>
                         <td>
-                            <select id="customer-type" th:field="*{customerTypeId}">
+                            <select id="customer-type" th:field="*{customerTypeId}" disabled>
                                 <option th:each="customerType: ${customerTypeList}"
                                         th:value="${customerType.getId()}"
                                         th:text="${customerType.getCustomerTypeName()}"></option>
@@ -36,68 +37,67 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="customer-full-name"><strong>Full name:<span style="color: red">*</span></strong></label>
+                            <label for="customer-full-name"><strong>Full name:</strong>&emsp;</label>
                             <br><br>
                         </td>
                         <td>
-                            <input type="text" id="customer-full-name" th:field="*{fullName}">
-                            <br><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="customer-date-of-birth"><strong>Date of birth:<span style="color: red">*</span></strong></label>
-                            <br><br>
-                        </td>
-                        <td>
-                            <input type="text" id="customer-date-of-birth" th:field="*{dateOfBirth}">
+                            <input type="text" id="customer-full-name" th:field="*{fullName}" disabled>
                             <br><br>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="customer-identity-number"><strong>Identity number:<span style="color: red">*</span></strong></label>
+                            <label for="customer-date-of-birth"><strong>Date of birth:</strong></label>
                             <br><br>
                         </td>
                         <td>
-                            <input type="text" id="customer-identity-number" th:field="*{identityNumber}">
-                            <br><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="customer-phone-number"><strong>Phone number:<span style="color: red">*</span></strong></label>
-                            <br><br>
-                        </td>
-                        <td>
-                            <input type="text" id="customer-phone-number" th:field="*{phoneNumber}">
+                            <input type="text" id="customer-date-of-birth" th:field="*{dateOfBirth}" disabled>
                             <br><br>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="customer-email"><strong>Email:<span style="color: red">*</span></strong></label>
+                            <label for="customer-identity-number"><strong>Identity number:</strong></label>
                             <br><br>
                         </td>
                         <td>
-                            <input type="text" id="customer-email" th:field="*{email}">
+                            <input type="text" id="customer-identity-number" th:field="*{identityNumber}" disabled>
                             <br><br>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="customer-address"><strong>Address:<span style="color: red">*</span></strong></label>
+                            <label for="customer-phone-number"><strong>Phone number:</strong></label>
                             <br><br>
                         </td>
                         <td>
-                            <input type="text" id="customer-address" th:field="*{address}">
+                            <input type="text" id="customer-phone-number" th:field="*{phoneNumber}" disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-email"><strong>Email:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-email" th:field="*{email}" disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-address"><strong>Address:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-address" th:field="*{address}" disabled>
                             <br><br>
                         </td>
                     </tr>
                 </table>
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                <input type="submit" value="Add Customer"/>
             </fieldset>
+            <a href="/add-customer"><< Add another customer</a>
         </form>
     </div>
     <div class="column side" th:replace="/common/layout.html :: column-right"></div>
