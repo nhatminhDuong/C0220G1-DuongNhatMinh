@@ -91,16 +91,16 @@ create table contract (
     deposit int,
     total_payment int,
     foreign key (staff_id) references staff(id),
-    foreign key (customer_id) references customer(id),
+    foreign key (customer_id) references customer(id) on delete cascade,
     foreign key (service_id) references service(id)
-);                    
+);            
 
 create table detail_contract (
 	id int primary key not null auto_increment,
     contract_id int,
     accompanied_service_id int,
     amount int,
-    foreign key (contract_id) references contract(id),
+    foreign key (contract_id) references contract(id) on delete cascade,
     foreign key (accompanied_service_id) references accompanied_service(id)
 );
 

@@ -5,13 +5,15 @@ import com.codegym.models.CustomerType;
 import com.codegym.services.CustomerService;
 import com.codegym.services.CustomerTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CustomerController {
@@ -20,6 +22,11 @@ public class CustomerController {
 
     @Autowired
     CustomerTypeService customerTypeService;
+
+    @ModelAttribute("customerTypeService")
+    public CustomerTypeService customerTypeService() {
+        return customerTypeService;
+    }
 
     @ModelAttribute("customerTypeList")
     public List<CustomerType> customerTypeList() {
@@ -41,18 +48,53 @@ public class CustomerController {
     }
 
     @GetMapping("/list-customer")
-    public String showListCustomerPage() {
+    public String showListCustomerPage(@ModelAttribute("message") String message,
+                                       @PageableDefault(size = 5) Pageable pageable, Model model) {
+        model.addAttribute("customerList", customerService.findAll(pageable));
+        model.addAttribute("message", message);
         return "customer/list";
     }
 
-    @GetMapping("/edit-customer")
-    public String showEditCustomerPage() {
-        return "customer/edit";
+    @GetMapping("/edit-customer/{id}")
+    public String showEditCustomerPage(@PathVariable Integer id, Model model) {
+        Customer customer = customerService.findById(id);
+        if (customer != null) {
+            model.addAttribute("customer", customer);
+            return "/customer/edit";
+        } else {
+            return "common/error404";
+        }
     }
 
-    @GetMapping("/remove-customer")
-    public String showRemoveCustomerForm() {
-        return "customer/remove";
+    @PostMapping("/edit-customer")
+    public String updateCustomer(@ModelAttribute Customer customer, RedirectAttributes redirectAttributes) {
+        customerService.save(customer);
+        redirectAttributes.addFlashAttribute("message",
+                "Successfully edited customer (ID = " + customer.getId() + ")!");
+        return "redirect:/list-customer";
     }
 
+    @GetMapping("/remove-customer/{id}")
+    public String showRemoveCustomerPage(@PathVariable Integer id, Model model) {
+        Customer customer = customerService.findById(id);
+        if (customer != null) {
+            model.addAttribute("customer", customer);
+            return "/customer/remove";
+        } else {
+            return "common/error404";
+        }
+    }
+
+    @PostMapping("/remove-customer")
+    public String removeCustomer(@ModelAttribute Customer customer, RedirectAttributes redirectAttributes) {
+        customerService.delete(customer.getId());
+        redirectAttributes.addFlashAttribute("message",
+                "Successfully removed customer (ID = " + customer.getId() + ")!");
+        return "redirect:/list-customer";
+    }
+
+    @GetMapping("/search-customer")
+    public String showSearchCustomerPage() {
+        return "customer/search";
+    }
 }

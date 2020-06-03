@@ -66,16 +66,21 @@ h3 {
 }
 
 /* Left and right column */
-.column.side {
-    background-color: chartreuse;
+.column.side.left {
+    background-color: cadetblue;
     width: 25%;
+}
+
+.column.side.right {
+    background-color: chartreuse;
+    width: 20%;
 }
 
 /* Middle column */
 .column.middle {
     margin: auto;
     background-color: lightgray;
-    width: 50%;
+    width: 55%;
 }
 
 /* Clear floats after the columns */
@@ -160,7 +165,7 @@ li a:hover {
     float: left;
     width: 150px;
     height: 45px;
-    padding: 8px 30px;
+    padding: 10px;
     text-transform: uppercase;
     font-family: Baloo, serif;
     text-decoration: none;

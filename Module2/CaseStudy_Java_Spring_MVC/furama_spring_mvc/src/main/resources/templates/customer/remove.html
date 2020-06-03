@@ -15,8 +15,91 @@
 <div class="row">
     <div class="column side" th:replace="/common/layout.html :: column-left"></div>
     <div class="column middle">
-        <h3>Remove Customer</h3><br>
-
+        <form th:action="@{/remove-customer}" th:object="${customer}" method="post">
+            <input th:type="hidden" name="customer-id" th:field="*{id}"/>
+            <fieldset data-th-align="center" style="width: 350px; border: 0; margin: auto">
+                <legend><strong>Remove Customer</strong></legend>
+                <br>
+                <table style="text-align:left;">
+                    <tr>
+                        <td>
+                            <label for="customer-type"><strong>Customer Type:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <select id="customer-type" th:field="*{customerTypeId}" disabled>
+                                <option th:each="customerType: ${customerTypeList}"
+                                        th:value="${customerType.getId()}"
+                                        th:text="${customerType.getCustomerTypeName()}"></option>
+                            </select>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-full-name"><strong>Full name:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-full-name" th:field="*{fullName}"  disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-date-of-birth"><strong>Date of birth:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-date-of-birth" th:field="*{dateOfBirth}"  disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-identity-number"><strong>Identity number:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-identity-number" th:field="*{identityNumber}" disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-phone-number"><strong>Phone number:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-phone-number" th:field="*{phoneNumber}"  disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-email"><strong>Email:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-email" th:field="*{email}"  disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-address"><strong>Address:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-address" th:field="*{address}"  disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                </table>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <input type="submit" value="Remove Customer"/>
+            </fieldset>
+        </form>
     </div>
     <div class="column side" th:replace="/common/layout.html :: column-right"></div>
 </div>

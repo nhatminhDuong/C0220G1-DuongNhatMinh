@@ -32,7 +32,7 @@
     </tr>
     <th:block th:each="blog, iter : ${blogs}">
         <tr>
-            <td th:utext="${iter.index + 1}"></td>
+            <td th:text="${iter.index + 1}"></td>
             <td th:text="${blog.category.name}"></td>
             <td th:text="${blog.title}"></td>
             <td th:text="${blog.author}"></td>

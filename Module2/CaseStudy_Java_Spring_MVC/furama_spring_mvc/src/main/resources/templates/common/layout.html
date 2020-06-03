@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Layout</title>
     <th:block th:fragment="style">
-        <link rel="shortcut icon" href="images/favicon.png">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" href="/images/favicon.png">
+        <link rel="stylesheet" href="/css/style.css">
     </th:block>
 </head>
 
@@ -17,7 +17,7 @@
     <h1>Furama Resort Danang</h1>
     <h3>A Culinary Beach Resort In Vietnam</h3>
     <div class="logo">
-        <img src="images/furama-logo.png" alt="Error" width="50">
+        <img src="/images/furama-logo.png" alt="Error" width="50">
     </div>
 </div>
 <div class="topnav-container" th:fragment="topnav-container">
@@ -29,15 +29,14 @@
     </div>
 </div>
 <div class="row">
-    <div class="column side" th:fragment="column-left">
+    <div class="column side left" th:fragment="column-left">
         <h3>Managements</h3>
         <ul id="menu">
             <li><a href="#">Customer</a>
                 <ul>
                     <li><a href="/add-customer">Add new</a></li>
                     <li><a href="/list-customer">View list</a></li>
-                    <li><a href="/edit-customer">Edit</a></li>
-                    <li><a href="/remove-customer">Remove</a></li>
+                    <li><a href="/search-customer">Search</a></li>
                 </ul>
             </li>
             <li><a href="#">Contract</a>
@@ -89,7 +88,7 @@
             iusto magni modi, obcaecati quaerat! Est, itaque, quos.</p>
     </div>
 
-    <div class="column side" th:fragment="column-right">
+    <div class="column side right" th:fragment="column-right">
         <h3>Features</h3>
         <ul>
             <li><a href="#">Lorem, ipsum dolor.</a></li>
