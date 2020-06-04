@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Service List</title>
+    <th:block th:replace="/common/layout.html :: style"></th:block>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 2px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="header" th:replace="/common/layout.html :: header"></div>
+
+<div class="topnav-container" th:replace="/common/layout.html :: topnav-container"></div>
+
+<div class="row">
+    <div class="column side" th:replace="/common/layout.html :: column-left"></div>
+    <div class="column middle">
+        <form th:object="${serviceList}">
+            <fieldset data-th-align="center" style="width: 350px; border: 0; margin: auto">
+                <legend><strong>Service list</strong></legend>
+                <span th:text="${message}" style="color: limegreen"></span><br>
+                <table style="text-align:left;">
+                    <tr style="text-align: center">
+                        <th>No.</th>
+                        <th>ID</th>
+                        <th style="width: 300px">Service Name</th>
+                        <th>Area</th>
+                        <th>Number of floors</th>
+                        <th>Maximum people</th>
+                        <th>Rent fee</th>
+                        <th>Rent type</th>
+                        <th>Service type</th>
+                        <th>Status</th>
+                        <th><i>Edit</i></th>
+                        <th><i>Remove</i></th>
+                    </tr>
+                    <th:block th:each="service, iter : ${serviceList}">
+                        <tr style="text-align: center">
+                            <td th:text="${(iter.index + 1) + serviceList.size * serviceList.number}"></td>
+                            <td th:text="${service.id}"></td>
+                            <td th:text="${service.serviceName}"></td>
+                            <td th:text="${service.area}"></td>
+                            <td th:text="${service.numberOfFloors}"></td>
+                            <td th:text="${service.maximumPeople}"></td>
+                            <td th:text="${service.rentFee}"></td>
+                            <td th:text="${rentTypeService.findById(service.rentTypeId).rentTypeName}"></td>
+                            <td th:text="${serviceTypeService.findById(service.serviceTypeId).serviceTypeName}"></td>
+                            <td th:text="${service.availabilityStatus}"></td>
+                            <td><a th:href="@{/edit-service/__${service.id}__}">edit</a></td>
+                            <td><a th:href="@{/remove-service/__${service.id}__}">remove</a></td>
+                        </tr>
+                    </th:block>
+                </table>
+            </fieldset>
+        </form>
+    </div>
+    <div class="column side" th:replace="/common/layout.html :: column-right"></div>
+</div>
+<div style="text-align: center">
+    <th:block th:if="${serviceList.totalPages != 0}">
+        <a th:href="@{'/list-service'(page=${serviceList.number - 1})}"
+           th:if="${serviceList.hasPrevious()}">&lt;&lt;&nbsp;Previous</a>
+        <span th:text="${serviceList.number + 1}"></span> / <span th:text="${serviceList.totalPages}"></span>
+        <a th:href="@{'/list-service'(page=${serviceList.number + 1})}"
+           th:if="${serviceList.hasNext()}">Next&nbsp;&gt;&gt;</a>
+    </th:block>
+</div>
+</body>
+<div class="footer" th:replace="/common/layout.html :: footer"></div>
+</html>

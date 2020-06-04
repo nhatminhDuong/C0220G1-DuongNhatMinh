@@ -60,7 +60,7 @@ create table service_type (
 );
 
 create table service (
-	id int primary key not null,
+	id int primary key not null auto_increment,
     service_name varchar(45),
     area int,
     number_of_floors int,
@@ -92,8 +92,8 @@ create table contract (
     total_payment int,
     foreign key (staff_id) references staff(id),
     foreign key (customer_id) references customer(id) on delete cascade,
-    foreign key (service_id) references service(id)
-);            
+    foreign key (service_id) references service(id) on delete cascade
+);
 
 create table detail_contract (
 	id int primary key not null auto_increment,
