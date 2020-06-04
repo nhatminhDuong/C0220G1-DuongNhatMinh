@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Results</title>
+    <th:block th:replace="/common/layout.html :: style"></th:block>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 2px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .inline {
+            display: inline;
+        }
+
+        .link-button {
+            background: none;
+            border: none;
+            color: blue;
+            /*text-decoration: underline;*/
+            cursor: pointer;
+            font-size: 1em;
+            font-family: serif;
+        }
+
+        .link-button:focus {
+            outline: none;
+        }
+
+        .link-button:active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="header" th:replace="/common/layout.html :: header"></div>
+
+<div class="topnav-container" th:replace="/common/layout.html :: topnav-container"></div>
+
+<div class="row">
+    <div class="column side" th:replace="/common/layout.html :: column-left"></div>
+    <div class="column middle">
+        <form th:action="@{add-customer}" th:object="${customerList}" method="post">
+            <fieldset data-th-align="center" style="width: 350px; border: 0; margin: auto">
+                <legend><strong>Results</strong></legend>
+                <span th:text="${message}" style="color: limegreen"></span><br>
+                <table style="text-align:left;">
+                    <tr style="text-align: center">
+                        <th>No.</th>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th style="width: 300px">Full name</th>
+                        <th>Date of birth</th>
+                        <th>Identity number</th>
+                        <th>Phone number</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th><i>Edit</i></th>
+                        <th><i>Remove</i></th>
+                    </tr>
+                    <th:block th:each="customer, iter : ${customerList}">
+                        <tr style="text-align: center">
+                            <td th:text="${(iter.index + 1) + customerList.size * customerList.number}"></td>
+                            <td th:text="${customer.id}"></td>
+                            <td th:text="${customerTypeService.findById(customer.customerTypeId).customerTypeName}"></td>
+                            <td th:text="${customer.fullName}"></td>
+                            <td th:text="${customer.dateOfBirth}"></td>
+                            <td th:text="${customer.identityNumber}"></td>
+                            <td th:text="${customer.phoneNumber}"></td>
+                            <td th:text="${customer.email}"></td>
+                            <td th:text="${customer.address}"></td>
+                            <td><a th:href="@{/edit-customer/__${customer.id}__}">edit</a></td>
+                            <td><a th:href="@{/remove-customer/__${customer.id}__}">remove</a></td>
+                        </tr>
+                    </th:block>
+                </table>
+            </fieldset>
+            <br>
+            <a href="/search-customer"><< Back to search page</a>
+        </form>
+    </div>
+    <div class="column side" th:replace="/common/layout.html :: column-right"></div>
+</div>
+<div style="text-align: center">
+    <th:block th:if="${customerList.totalPages != 0}">
+        <form method="post" action="/search-customer" class="inline" th:if="${customerList.hasPrevious()}">
+            <input type="hidden" name="page" th:value="${customerList.number - 1}">
+            <input type="hidden" name="customerTypeId" th:value="${customerTypeId}">
+            <input type="hidden" name="fullName" th:value="${fullName}">
+            <input type="hidden" name="identityNumber" th:value="${identityNumber}">
+            <input type="hidden" name="phoneNumber" th:value="${phoneNumber}">
+            <input type="hidden" name="email" th:value="${email}">
+            <input type="hidden" name="address" th:value="${address}">
+            <button type="submit" class="link-button">&lt;&lt;&nbsp;Previous</button>
+        </form>
+        <span th:text="${customerList.number + 1}"></span> / <span th:text="${customerList.totalPages}"></span>
+        <form method="post" action="/search-customer" class="inline" th:if="${customerList.hasNext()}">
+            <input type="hidden" name="page" th:value="${customerList.number + 1}">
+            <input type="hidden" name="customerTypeId" th:value="${customerTypeId}">
+            <input type="hidden" name="fullName" th:value="${fullName}">
+            <input type="hidden" name="identityNumber" th:value="${identityNumber}">
+            <input type="hidden" name="phoneNumber" th:value="${phoneNumber}">
+            <input type="hidden" name="email" th:value="${email}">
+            <input type="hidden" name="address" th:value="${address}">
+            <button type="submit" class="link-button">Next&nbsp;&gt;&gt;</button>
+        </form>
+    </th:block>
+</div>
+</body>
+<div class="footer" th:replace="/common/layout.html :: footer"></div>
+</html>

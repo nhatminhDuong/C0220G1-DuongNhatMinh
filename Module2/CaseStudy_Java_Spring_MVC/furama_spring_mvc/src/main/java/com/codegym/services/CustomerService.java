@@ -16,4 +16,10 @@ public interface CustomerService {
     void save(Customer customer);
 
     void delete(Integer id);
+
+    Page<Customer> findAllByFullNameContainingAndIdentityNumberContainingAndPhoneNumberContainingAndEmailContainingAndAddressContaining(
+            String fullName, String identityNumber, String phoneNumber, String email, String address, Pageable pageable);
+
+    Page<Customer> findAllByCustomerTypeIdAndFullNameContainingAndIdentityNumberContainingAndPhoneNumberContainingAndEmailContainingAndAddressContaining(
+            Integer customerTypeId, String fullName, String identityNumber, String phoneNumber, String email, String address, Pageable pageable);
 }

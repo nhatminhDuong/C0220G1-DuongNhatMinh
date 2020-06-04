@@ -90,6 +90,10 @@ h3 {
     clear: both;
 }
 
+legend {
+    font-size: large;
+    color: orangered;
+}
 
 ul {
     list-style-type: none;

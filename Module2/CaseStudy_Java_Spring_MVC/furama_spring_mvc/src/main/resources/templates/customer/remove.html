@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Remove Customer</title>
     <th:block th:replace="/common/layout.html :: style"></th:block>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 <div class="header" th:replace="/common/layout.html :: header"></div>
@@ -99,6 +104,8 @@
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                 <input type="submit" value="Remove Customer"/>
             </fieldset>
+            <br>
+            <a href="/list-customer"><< Back to customer list</a>
         </form>
     </div>
     <div class="column side" th:replace="/common/layout.html :: column-right"></div>

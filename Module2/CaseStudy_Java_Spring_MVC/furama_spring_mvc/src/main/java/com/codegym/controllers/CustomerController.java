@@ -2,9 +2,11 @@ package com.codegym.controllers;
 
 import com.codegym.models.Customer;
 import com.codegym.models.CustomerType;
+import com.codegym.services.CustomerSearchingService;
 import com.codegym.services.CustomerService;
 import com.codegym.services.CustomerTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class CustomerController {
@@ -22,6 +23,9 @@ public class CustomerController {
 
     @Autowired
     CustomerTypeService customerTypeService;
+
+    @Autowired
+    CustomerSearchingService customerSearchingService;
 
     @ModelAttribute("customerTypeService")
     public CustomerTypeService customerTypeService() {
@@ -94,7 +98,42 @@ public class CustomerController {
     }
 
     @GetMapping("/search-customer")
-    public String showSearchCustomerPage() {
+    public String showSearchCustomerPage(@ModelAttribute String message) {
         return "customer/search";
+    }
+
+    @PostMapping("/search-customer")
+    public String showResult(@RequestParam Integer customerTypeId,
+                             @RequestParam String fullName,
+                             @RequestParam String identityNumber,
+                             @RequestParam String phoneNumber,
+                             @RequestParam String email,
+                             @RequestParam String address,
+                             @PageableDefault(size = 5) Pageable pageable, Model model) {
+        if (customerTypeId.equals(0) && fullName.equals("") && identityNumber.equals("") && phoneNumber.equals("")
+                && email.equals("") && address.equals("")) {
+            model.addAttribute("message", "Please enter information to search!");
+            return "customer/search";
+        }
+
+        Page<Customer> customerList = null;
+        if (!customerTypeId.equals(0)) {
+            customerList = customerSearchingService.search(customerTypeId, fullName, identityNumber,
+                    phoneNumber, email, address, pageable);
+        } else {
+            customerList = customerSearchingService.search(fullName, identityNumber, phoneNumber,
+                    email, address, pageable);
+        }
+
+        model.addAttribute("customerList", customerList);
+
+        model.addAttribute("customerTypeId", customerTypeId);
+        model.addAttribute("fullName", fullName);
+        model.addAttribute("identityNumber", identityNumber);
+        model.addAttribute("phoneNumber", phoneNumber);
+        model.addAttribute("email", email);
+        model.addAttribute("address", address);
+
+        return "customer/results";
     }
 }

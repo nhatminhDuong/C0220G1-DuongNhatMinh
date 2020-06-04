@@ -15,7 +15,82 @@
 <div class="row">
     <div class="column side" th:replace="/common/layout.html :: column-left"></div>
     <div class="column middle">
-       <h1>Search</h1>
+        <form th:action="@{search-customer}" method="post">
+            <fieldset data-th-align="center" style="width: 350px; border: 0; margin: auto">
+                <legend><strong>Find customers by information</strong></legend>
+                <span th:text="${message}" style="color: darkred"></span><br>
+                <table style="text-align:left;">
+                    <tr>
+                        <td>
+                            <label for="customer-type"><strong>Customer Type:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <select id="customer-type" name="customerTypeId">
+                                <option th:value="0" th:text="All"></option>
+                                <option th:each="customerType: ${customerTypeList}"
+                                        th:value="${customerType.getId()}"
+                                        th:text="${customerType.getCustomerTypeName()}">
+                                </option>
+                            </select>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-full-name"><strong>Full name:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-full-name" name="fullName">
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-identity-number"><strong>Identity number:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-identity-number" name="identityNumber">
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-phone-number"><strong>Phone number:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-phone-number" name="phoneNumber">
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-email"><strong>Email:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-email" name="email">
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-address"><strong>Address:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-address" name="address">
+                            <br><br>
+                        </td>
+                    </tr>
+                </table>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <input type="submit" value="Search"/>
+            </fieldset>
+        </form>
     </div>
     <div class="column side" th:replace="/common/layout.html :: column-right"></div>
 </div>
