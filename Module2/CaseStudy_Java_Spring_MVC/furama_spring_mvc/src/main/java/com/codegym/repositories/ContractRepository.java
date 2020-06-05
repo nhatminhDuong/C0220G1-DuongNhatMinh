@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface ContractRepository extends JpaRepository<Contract, Integer> {
-    @Query(value = "SELECT * FROM contract WHERE contract.end_date > curdate() AND contract.contract_date < curdate()",
-            nativeQuery = true)
+
+    String findContractsInPeriodQuery = "SELECT * FROM contract WHERE contract.end_date > curdate() AND contract.contract_date < curdate()";
+
+    @Query(value = findContractsInPeriodQuery, nativeQuery = true)
     Page<Contract> findContractsInPeriod(Pageable pageable);
 }

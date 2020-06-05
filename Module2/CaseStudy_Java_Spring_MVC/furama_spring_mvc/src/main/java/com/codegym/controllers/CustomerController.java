@@ -111,6 +111,18 @@ public class CustomerController {
         return "redirect:/list-customer";
     }
 
+    @GetMapping("/view-customer/{id}")
+    public String showViewCustomerPage(@PathVariable Integer id, @RequestParam Integer page, Model model) {
+        Customer customer = customerService.findById(id);
+        if (customer != null) {
+            model.addAttribute("customer", customer);
+            model.addAttribute("page", page);
+            return "/customer/view";
+        } else {
+            return "common/error404";
+        }
+    }
+
     @GetMapping("/search-customer")
     public String showSearchCustomerPage(@ModelAttribute String message) {
         return "customer/search";

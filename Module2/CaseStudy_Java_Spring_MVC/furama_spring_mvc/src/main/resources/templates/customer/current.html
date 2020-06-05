@@ -50,7 +50,9 @@
                         <tr style="text-align: center">
                             <td th:text="${(iter.index + 1) + contractInPeriodList.size * contractInPeriodList.number}"></td>
                             <td th:text="${customerService.findById(contract.customerId).id}"></td>
-                            <td th:text="${customerService.findById(contract.customerId).fullName}"></td>
+                            <td><a th:href="@{/view-customer/__${customerService.findById(contract.customerId).id}__/
+                            (page=${contractInPeriodList.number})}"
+                                   th:text="${customerService.findById(contract.customerId).fullName}"></a></td>
                             <td th:text="${customerService.findById(contract.customerId).identityNumber}"></td>
                             <td th:text="${customerService.findById(contract.customerId).phoneNumber}"></td>
                             <td th:text="${customerService.findById(contract.customerId).address}"></td>

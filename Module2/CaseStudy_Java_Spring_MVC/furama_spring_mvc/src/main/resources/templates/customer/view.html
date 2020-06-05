@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Customer details</title>
+    <th:block th:replace="/common/layout.html :: style"></th:block>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="header" th:replace="/common/layout.html :: header"></div>
+
+<div class="topnav-container" th:replace="/common/layout.html :: topnav-container"></div>
+
+<div class="row">
+    <div class="column side" th:replace="/common/layout.html :: column-left"></div>
+    <div class="column middle">
+        <form th:object="${customer}">
+            <input th:type="hidden" name="customer-id" th:field="*{id}"/>
+            <fieldset data-th-align="center" style="width: 350px; border: 0; margin: auto">
+                <legend><strong>Customer details</strong></legend>
+                <br>
+                <table style="text-align:left;">
+                    <tr>
+                        <td>
+                            <label for="customer-type"><strong>Customer Type:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <select id="customer-type" th:field="*{customerTypeId}" disabled>
+                                <option th:each="customerType: ${customerTypeList}"
+                                        th:value="${customerType.getId()}"
+                                        th:text="${customerType.getCustomerTypeName()}"></option>
+                            </select>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-full-name"><strong>Full name:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-full-name" th:field="*{fullName}"  disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-date-of-birth"><strong>Date of birth:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-date-of-birth" th:field="*{dateOfBirth}"  disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-identity-number"><strong>Identity number:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-identity-number" th:field="*{identityNumber}" disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-phone-number"><strong>Phone number:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-phone-number" th:field="*{phoneNumber}"  disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-email"><strong>Email:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-email" th:field="*{email}"  disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customer-address"><strong>Address:</strong></label>
+                            <br><br>
+                        </td>
+                        <td>
+                            <input type="text" id="customer-address" th:field="*{address}"  disabled>
+                            <br><br>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <br>
+            <a th:href="@{/current-customer/(page = ${page})}"><< Back</a>
+        </form>
+    </div>
+    <div class="column side" th:replace="/common/layout.html :: column-right"></div>
+</div>
+</body>
+<div class="footer" th:replace="/common/layout.html :: footer"></div>
+</html>
