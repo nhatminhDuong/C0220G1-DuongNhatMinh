@@ -22,4 +22,6 @@ public interface CustomerService {
 
     Page<Customer> findAllByCustomerTypeIdAndFullNameContainingAndIdentityNumberContainingAndPhoneNumberContainingAndEmailContainingAndAddressContaining(
             Integer customerTypeId, String fullName, String identityNumber, String phoneNumber, String email, String address, Pageable pageable);
+
+    Page<Customer> findCustomersCurrentlyUsingService(Pageable pageable);
 }

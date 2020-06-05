@@ -39,4 +39,9 @@ public class ContractServiceImpl implements ContractService {
     public void delete(Integer id) {
         contractRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Contract> findContractsInPeriod(Pageable pageable) {
+        return contractRepository.findContractsInPeriod(pageable);
+    }
 }

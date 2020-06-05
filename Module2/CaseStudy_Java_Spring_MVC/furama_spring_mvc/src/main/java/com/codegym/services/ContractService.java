@@ -16,4 +16,6 @@ public interface ContractService {
     void save(Contract contract);
 
     void delete(Integer id);
+
+    Page<Contract> findContractsInPeriod(Pageable pageable);
 }

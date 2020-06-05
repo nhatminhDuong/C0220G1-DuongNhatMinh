@@ -2,9 +2,7 @@ package com.codegym.controllers;
 
 import com.codegym.models.Customer;
 import com.codegym.models.CustomerType;
-import com.codegym.services.CustomerSearchingService;
-import com.codegym.services.CustomerService;
-import com.codegym.services.CustomerTypeService;
+import com.codegym.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +25,12 @@ public class CustomerController {
     @Autowired
     CustomerSearchingService customerSearchingService;
 
+    @Autowired
+    ServiceService serviceService;
+
+    @Autowired
+    ContractService contractService;
+
     @ModelAttribute("customerTypeService")
     public CustomerTypeService customerTypeService() {
         return customerTypeService;
@@ -35,6 +39,16 @@ public class CustomerController {
     @ModelAttribute("customerTypeList")
     public List<CustomerType> customerTypeList() {
         return customerTypeService.findAll();
+    }
+
+    @ModelAttribute("serviceService")
+    public ServiceService serviceService() {
+        return serviceService;
+    }
+
+    @ModelAttribute("customerService")
+    public CustomerService customerService() {
+        return customerService;
     }
 
     @GetMapping("/add-customer")
@@ -52,7 +66,7 @@ public class CustomerController {
     }
 
     @GetMapping("/list-customer")
-    public String showListCustomerPage(@ModelAttribute("message") String message,
+    public String showCustomerListPage(@ModelAttribute("message") String message,
                                        @PageableDefault(size = 5) Pageable pageable, Model model) {
         model.addAttribute("customerList", customerService.findAll(pageable));
         model.addAttribute("message", message);
@@ -135,5 +149,13 @@ public class CustomerController {
         model.addAttribute("address", address);
 
         return "customer/results";
+    }
+
+    @GetMapping("/current-customer")
+    public String showCurrentCustomerListPage(@ModelAttribute("message") String message,
+                                              @PageableDefault(size = 5) Pageable pageable, Model model) {
+        model.addAttribute("contractInPeriodList", contractService.findContractsInPeriod(pageable));
+        model.addAttribute("message", message);
+        return "customer/current";
     }
 }

@@ -11,6 +11,15 @@
             text-decoration: none;
         }
     </style>
+    <script>
+        function confirmRequest() {
+            if (confirm("Are you sure you want to remove this item?")) {
+                document.getElementById("submit").submit();
+            } else {
+                alert("Cancelled!");
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="header" th:replace="/common/layout.html :: header"></div>
@@ -20,7 +29,7 @@
 <div class="row">
     <div class="column side" th:replace="/common/layout.html :: column-left"></div>
     <div class="column middle">
-        <form th:action="@{/edit-service}" th:object="${service}" method="post">
+        <form  id="submit" th:action="@{/remove-service}" th:object="${service}" method="post">
             <input th:type="hidden" name="service-id" th:field="*{id}"/>
             <fieldset data-th-align="center" style="width: 350px; border: 0; margin: auto">
                 <legend><strong>Remove Service</strong></legend>
@@ -117,7 +126,7 @@
                     </tr>
                 </table>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                <input type="submit" value="Remove Service"/>
+                <input type="button" value="Remove Service" onclick="confirmRequest();"/>
             </fieldset>
             <br>
             <a href="/list-service"><< Back to service list</a>

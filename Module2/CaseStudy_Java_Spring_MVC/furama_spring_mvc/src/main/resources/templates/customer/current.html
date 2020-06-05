@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Current Customer List</title>
+    <th:block th:replace="/common/layout.html :: style"></th:block>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 2px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="header" th:replace="/common/layout.html :: header"></div>
+
+<div class="topnav-container" th:replace="/common/layout.html :: topnav-container"></div>
+
+<div class="row">
+    <div class="column side" th:replace="/common/layout.html :: column-left"></div>
+    <div class="column middle">
+        <form th:object="${contractInPeriodList}">
+            <fieldset data-th-align="center" style="width: 350px; border: 0; margin: auto">
+                <legend><strong>Current Customer list</strong></legend>
+                <span th:text="${message}" style="color: limegreen"></span><br>
+                <table style="text-align:left;">
+                    <tr style="text-align: center">
+                        <th>No.</th>
+                        <th>Customer ID</th>
+                        <th>Full name</th>
+                        <th>Identity number</th>
+                        <th>Phone number</th>
+                        <th>Address</th>
+                        <th>Service ID</th>
+                        <th>Service Name</th>
+                        <th>Begin Date</th>
+                        <th>End Date</th>
+                    </tr>
+                    <th:block th:each="contract, iter : ${contractInPeriodList}">
+                        <tr style="text-align: center">
+                            <td th:text="${(iter.index + 1) + contractInPeriodList.size * contractInPeriodList.number}"></td>
+                            <td th:text="${customerService.findById(contract.customerId).id}"></td>
+                            <td th:text="${customerService.findById(contract.customerId).fullName}"></td>
+                            <td th:text="${customerService.findById(contract.customerId).identityNumber}"></td>
+                            <td th:text="${customerService.findById(contract.customerId).phoneNumber}"></td>
+                            <td th:text="${customerService.findById(contract.customerId).address}"></td>
+                            <td th:text="${contract.serviceId}"></td>
+                            <td th:text="${serviceService.findById(contract.serviceId).serviceName}"></td>
+                            <td th:text="${contract.contractDate}"></td>
+                            <td th:text="${contract.endDate}"></td>
+                        </tr>
+                    </th:block>
+                </table>
+            </fieldset>
+        </form>
+    </div>
+    <div class="column side" th:replace="/common/layout.html :: column-right"></div>
+</div>
+<div style="text-align: center">
+    <th:block th:if="${contractInPeriodList.totalPages != 0}">
+        <a th:href="@{'/current-customer'(page=${contractInPeriodList.number - 1})}"
+           th:if="${contractInPeriodList.hasPrevious()}">&lt;&lt;&nbsp;Previous</a>
+        <span th:text="${contractInPeriodList.number + 1}"></span> / <span
+            th:text="${contractInPeriodList.totalPages}"></span>
+        <a th:href="@{'/current-customer'(page=${contractInPeriodList.number + 1})}"
+           th:if="${contractInPeriodList.hasNext()}">Next&nbsp;&gt;&gt;</a>
+    </th:block>
+</div>
+</body>
+<div class="footer" th:replace="/common/layout.html :: footer"></div>
+</html>

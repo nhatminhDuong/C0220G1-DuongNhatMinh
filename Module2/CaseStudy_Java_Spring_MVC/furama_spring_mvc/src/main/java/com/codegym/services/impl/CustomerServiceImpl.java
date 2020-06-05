@@ -54,4 +54,9 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAllByCustomerTypeIdAndFullNameContainingAndIdentityNumberContainingAndPhoneNumberContainingAndEmailContainingAndAddressContaining(
                 customerTypeId, fullName, identityNumber, phoneNumber, email, address, pageable);
     }
+
+    @Override
+    public Page<Customer> findCustomersCurrentlyUsingService(Pageable pageable) {
+        return customerRepository.findCustomersCurrentlyUsingService(pageable);
+    }
 }

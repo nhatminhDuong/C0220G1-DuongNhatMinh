@@ -36,6 +36,6 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public void delete(Integer id) {
-        serviceRepository.deleteById(id);
+        serviceRepository.deleteById(id)    ;
     }
 }
